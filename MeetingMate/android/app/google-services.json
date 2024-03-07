@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "32606047497",
+    "project_id": "meeting-mate-b2f20",
+    "storage_bucket": "meeting-mate-b2f20.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:32606047497:android:b02f5b3d77d2663b5dd7d8",
+        "android_client_info": {
+          "package_name": "com.meetingmate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDC7WbA74En4P8i4xzh0p419IvOPLRSz9o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

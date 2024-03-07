@@ -1,0 +1,7 @@
+{
+  "name": "MeetingMate",
+  "displayName": "MeetingMate",
+  "plugins": [
+    "@notifee/react-native"
+  ]
+}
