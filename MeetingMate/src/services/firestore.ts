@@ -129,7 +129,8 @@ export const readAllRoomsByBranch = async (branch: string): Promise<Rooms[]> => 
         branch: doc.data().branch,
         location: doc.data().location,
         availability: doc.data().availability,
-        roomImg: doc.data().roomImg
+        roomImg: doc.data().roomImg,
+        wifiName:doc.data().wifiName
       });
     });
 

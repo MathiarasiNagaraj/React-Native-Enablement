@@ -23,13 +23,13 @@ import { COLLECTIONS, editDataById } from '../services/firestore';
 import ImagePicker from 'react-native-image-crop-picker';
 import { useRecoilState } from 'recoil';
 import storage from '@react-native-firebase/storage';
-
+import {firebase} from '@react-native-firebase/storage';
 import { User } from '../store/atom/userAtom';
 import { AccountEditForm } from '../interfaces/formInterface';
+import { StackNavigationProp } from '@react-navigation/stack';
 export const MyAccountScreen = () => {
-  const reference = storage().ref('black-t-shirt-sm.png');
   const [user, setUser] = useState({});
-  const navigate = useNavigation();
+  const navigate = useNavigation<StackNavigationProp<any>>();
   const [userDetail, setUserDetail] = useRecoilState(User);
 
   const toast = useToast();
@@ -55,7 +55,9 @@ export const MyAccountScreen = () => {
     const user = await getLocalDataByKey(ASYNC_STORE_KEY.USER);
     editDataById(COLLECTIONS.Users, user.id, { ...data, name: user.name })
     const modifiedUser = { ...user, ...data };
-    await storeLocalData('user', modifiedUser);
+    await storeLocalData(ASYNC_STORE_KEY.USER, modifiedUser);
+ 
+  
     setUser(modifiedUser)
   
     setUserDetail((prevAuthState) => ({
@@ -79,7 +81,11 @@ export const MyAccountScreen = () => {
           await storage().ref(user.id).putFile(image.path);
           setImgUrl(image.path);
           const modifiedUser = { ...user, imgUrl:image.path }
-          await storeLocalData('user', modifiedUser);
+          await storeLocalData(ASYNC_STORE_KEY.USER, modifiedUser);
+          setUserDetail((prevAuthState) => ({
+            ...prevAuthState,
+            user: modifiedUser,
+          }))
          } catch (err) {
           console.log(err)
         }

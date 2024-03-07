@@ -6806,6 +6806,11 @@ react-native-calendar-timetable@^1.0.6:
   resolved "https://registry.npmjs.org/react-native-calendar-timetable/-/react-native-calendar-timetable-1.0.6.tgz"
   integrity sha512-gSdOLPfOAc0xSAHti29vC7z+HTX0U/3jFMhQ6TYXXsbAtBAJ1ye+20KxIDwyraASWuNHUt+pJ9y8lac0vctnJA==
 
+react-native-clean-project@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.npmjs.org/react-native-clean-project/-/react-native-clean-project-4.0.3.tgz"
+  integrity sha512-tWNhac5R4BetY7sZSRgaWUDSMpT207nJRuUwMZInmYJR3HucMZGIIUaiDH/pbFxXSDq4GMj4P7FnHxGLDobJ8w==
+
 react-native-curved-bottom-bar@^3.2.6:
   version "3.2.6"
   resolved "https://registry.npmjs.org/react-native-curved-bottom-bar/-/react-native-curved-bottom-bar-3.2.6.tgz"

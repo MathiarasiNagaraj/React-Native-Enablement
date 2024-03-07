@@ -28,13 +28,13 @@ export const filterByOptions = (array, option) => {
       results = array.filter(obj => obj.availability == true);
       break;
     case 'boardAvailability':
-      results = array.filter(obj => obj.boardAvailablity == true);
+      results = array.filter(obj => obj.boardAvailability == true);
       break;
     case 'maxLimits':
       results = array.filter(obj => obj.maxLimit > 20);
       break;
     case 'monitorAvailability':
-      results = array.filter(obj => obj.monitorAvailablity == true);
+      results = array.filter(obj => obj.monitorAvailability == true);
       break;
   }
   return results;

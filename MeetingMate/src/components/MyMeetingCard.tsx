@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {COLORS} from '../utils/colors';
 import {Meetings, User} from '../interfaces/commonInterface';
 import {getNameById} from '../utils/commonUtils';
 import {readAllUsers} from '../services/firestore';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { scheduleNotification } from '../utils/pushNotification';
 
 interface MyMeetingCardProps {
   data: Meetings;
@@ -32,7 +30,6 @@ const MyMeetingCard: React.FC<MyMeetingCardProps> = ({
   onDeleteClickHandler,
   onShareHandler,
   style,
-  isChangeable,
 }) => {
   const [users, setUsers] = useState<User[]>([]);
   useEffect(() => {
@@ -42,7 +39,9 @@ const MyMeetingCard: React.FC<MyMeetingCardProps> = ({
     };
     getAllUsers();
   }, []);
-
+  const now = new Date();
+  const isChangeable = now < data.end
+  
   const members = data?.membersIdList?.map(memberId => (
     <View key={memberId}>
       <Text style={styles.member} key={memberId}>
@@ -55,6 +54,7 @@ const MyMeetingCard: React.FC<MyMeetingCardProps> = ({
     <View style={styles[style]}>
       <View style={styles.titleWrapper}>
         <Text style={styles.title}>{data.title}</Text>
+     
         {isChangeable && (
           <View style={styles.iconWrapper}>
             <MaterialCommunityIcons
@@ -110,9 +110,11 @@ const MyMeetingCard: React.FC<MyMeetingCardProps> = ({
           {data.end.getHours() + ':' + data.end.getMinutes()}
           </Text>
         </Text>
-       
-        </Text>
+   
+      </Text>
+    
       <View style={styles.memberwrapper}>{members}</View>
+      
     </View>
   );
 };
@@ -136,6 +138,17 @@ const styles = StyleSheet.create({
     fontSize: 21,
     color: COLORS.primaryDark,
     fontWeight: '600',
+  },
+  tag: {
+    fontSize: 15,
+
+    alignSelf:'flex-start',
+    paddingVertical: 5,
+    paddingHorizontal:15,
+    color: COLORS.black,
+    backgroundColor: COLORS.transparent,
+    borderRadius: 50,
+    
   },
   text: {
     fontSize: 19,

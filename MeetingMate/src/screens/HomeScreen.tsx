@@ -42,10 +42,7 @@ export const HomeScreen = () => {
   const user = useRecoilValue(User);
   const [currentUser, setCurrentUser] = useState();
   const navigation = useNavigation<StackNavigationProp<any>>();
-  const [isLoading, setIsLoading] = useState(false);
-  // useEffect(() => {
-
-  // }, []);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     meetings.length > 0 &&
       meetings?.forEach(meeting => {
@@ -78,12 +75,16 @@ export const HomeScreen = () => {
   const initData = async () => {
     getRoomData();
     getMeetingData();
-    if (meetings.length > 0 && rooms.length > 0)
-    {
-      setIsLoading(false)
-      }
     getAllUserDetails();
   };
+
+  useEffect(() => {
+    if (meetings.length > 0 && rooms.length > 0) {
+      console.log("Loaded")
+      setIsLoading(false);
+    }
+    console.log("meetings or rooms changed")
+  }, [meetings, rooms]);
 
   const updateLocalData = async () => {
     const userLocalData = await getLocalData();
@@ -99,7 +100,7 @@ export const HomeScreen = () => {
     }
   }, [currentUser]);
 
-  console.log(meetings.length,'len');
+  console.log(meetings.length, 'len');
   const onFloatingBtnPressHandler = () => {
     navigation.navigate(SCREEN_NAMES.ROOM_BOOKING, {});
   };
@@ -109,7 +110,7 @@ export const HomeScreen = () => {
   const onViewAllRoomHandler = () => {
     navigation.navigate(SCREEN_NAMES.MEETING_ROOMS, {});
   };
-  return  isLoading ? (
+  return isLoading ? (
     <Loader />
   ) : (
     <View

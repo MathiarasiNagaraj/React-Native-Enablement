@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {FlatList, Share, StyleSheet, View} from 'react-native';
+import {Alert, FlatList, Share, StyleSheet, View} from 'react-native';
 import MyMeetingCard from '../components/MyMeetingCard';
 import {COLORS} from '../utils/colors';
 import ModalComponent from '../components/Modal';
@@ -95,17 +95,9 @@ console.log(rooms,'uiyiu')
            
           
         });
-        if (result.action === Share.sharedAction) {
-          if (result.activityType) {
-            // shared with activity type of result.activityType
-          } else {
-            // shared
-          }
-        } else if (result.action === Share.dismissedAction) {
-          // dismissed
-        }
+       
       } catch (error) {
-        alert(error.message);
+Alert.alert(error)
       }
      
   }
@@ -119,7 +111,7 @@ console.log(rooms,'uiyiu')
           data.start,
           data.end,
           data.id,
-          data.membersId,
+          data.membersIdList,
         )}
         onSubmit={onEditHandler}
       />
@@ -175,7 +167,6 @@ console.log(updatedData,'updated data')
         <MyMeetingCard
           style={style}
           data={item.item}
-          isChangeable={true}
           onShareHandler={onShareHandler}
           onDeleteClickHandler={onDeleteClickHandler}
           onEditClickHandler={onEditClickHandler}

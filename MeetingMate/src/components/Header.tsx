@@ -23,15 +23,19 @@ export const Header = () => {
   const user = useRecoilValue(User);
   const [imgUrl, setImgUrl] = useState();
   const [userName, setUserName] = useState();
-  useEffect(() => {
-    const getUserData = async () => {
-      const userData = await getLocalDataByKey(ASYNC_STORE_KEY.USER);
+  const getUserData = async () => {
+    const userData = await getLocalDataByKey(ASYNC_STORE_KEY.USER);
 
-      setImgUrl(userData?.imgUrl);
-      setUserName(userData.name);
-    };
+    setImgUrl(userData?.imgUrl);
+    setUserName(userData.name);
+  };
+  useEffect(() => {
+    
     getUserData();
   }, []);
+  useEffect(() => {
+    getUserData();
+  },[user])
   const onAccountClickHandler = () => {
   
     navigation.navigate(SCREEN_NAMES.MY_ACCOUNT, {});
@@ -74,7 +78,7 @@ const styles = StyleSheet.create({
   },
   profileImg:{height: 50, width: 50, borderRadius: 50},
   logo: {
-    height: 80,
+    height: 70,
     width: 180,
   },
 });

@@ -8,6 +8,7 @@ export interface Rooms {
   location: string;
   availability: boolean;
   roomImg: string;
+  wifiName:string
 }
 
 
