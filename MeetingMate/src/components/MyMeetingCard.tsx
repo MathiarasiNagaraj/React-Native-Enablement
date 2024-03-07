@@ -42,7 +42,7 @@ const MyMeetingCard: React.FC<MyMeetingCardProps> = ({
     };
     getAllUsers();
   }, []);
-  console.log(data,'in card')
+
   const members = data?.membersIdList?.map(memberId => (
     <View key={memberId}>
       <Text style={styles.member} key={memberId}>
