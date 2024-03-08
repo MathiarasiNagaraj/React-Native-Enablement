@@ -8,9 +8,9 @@ import { useRecoilState } from 'recoil';
 import { Room } from '../store/atom/roomAtom';
 import { Meeting } from '../store/atom/meetingAtom';
 import { getNameById } from '../utils/commonUtils';
-import { SCREEN_NAMES } from '../constants/appConstant';
+import { ASYNC_STORE_KEY, SCREEN_NAMES } from '../constants/appConstant';
 import { TITLE } from '../messages/appMessage';
-import { getData } from '../services/asyncStorage';
+import { getLocalDataByKey } from '../services/asyncStorage';
 import { readAllPreviousMeetingByUser, readAllUsers } from '../services/firestore';
 import { MyMeetingsContainer } from '../containers/MyMeetingsContainer';
 import { COLORS } from '../utils/colors';
@@ -24,7 +24,7 @@ export const MyBookingScreen = () => {
   const [users, setUsers] = useState([]);
   useEffect(() => {
     const getPreviousData = async () => {
-      const user = await getData('user')
+      const user = await getLocalDataByKey(ASYNC_STORE_KEY.USER)
   
       const data = await readAllPreviousMeetingByUser(user.id);
       setPreviousMeeting(data)

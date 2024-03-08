@@ -123,7 +123,7 @@ export default MyMeetingCard;
 const styles = StyleSheet.create({
   wrapper: {
     width: 300,
-    height:230,
+    height:210,
     alignSelf: 'center',
     alignContent: 'center',
     backgroundColor: COLORS.white,
@@ -207,5 +207,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: 3,
     marginVertical: 4,
+    overflow: 'scroll',
+    height:'auto'
   },
 });
