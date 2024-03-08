@@ -63,13 +63,15 @@ export const SearchRoomsScreen = () => {
           placeholder={'Search Rooms'}
         />
       </View>
-      <ScrollView horizontal={true} style={styles.container} showsHorizontalScrollIndicator={false}>
+      <ScrollView horizontal={true} style={styles.container}    showsHorizontalScrollIndicator={false}
+      showsVerticalScrollIndicator={false}>
 {filters}
       </ScrollView>
      
 
       <FlatList
-        showsHorizontalScrollIndicator={false}
+   showsHorizontalScrollIndicator={false}
+   showsVerticalScrollIndicator={false}
         contentContainerStyle={{padding: 20}}
         ItemSeparatorComponent={() => <View style={{height: 15}} />}
         data={roomOptions}

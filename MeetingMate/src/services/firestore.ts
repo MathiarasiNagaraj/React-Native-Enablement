@@ -49,13 +49,13 @@ export const readUpcomingMeetingsByOrganizerId = async (
   userId: string,
 ): Promise<Meetings[]> => {
   try {
-    console.log('hitting',userId)
+
     const organizerSnapshot = await firestore()
     .collection(COLLECTIONS.Meetings)
     .where('organizerId', '==', userId)
     .get();
   
-    console.log(organizerSnapshot,'fdataa')
+
     const documents: Meetings[] = [];
     const today = new Date().getDate();
     organizerSnapshot.forEach(doc => {
@@ -73,7 +73,7 @@ if( today==data.start.toDate().getDate())
         });
     
     });
-   console.log(documents,'checkd')
+
     return documents;
   } catch (error) {
 

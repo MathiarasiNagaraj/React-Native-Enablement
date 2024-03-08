@@ -40,7 +40,7 @@ const MyMeetingCard: React.FC<MyMeetingCardProps> = ({
     getAllUsers();
   }, []);
   const now = new Date();
-  const isChangeable = now < data.end
+  const isChangeable = now <= data.end
   
   const members = data?.membersIdList?.map(memberId => (
     <View key={memberId}>
@@ -106,8 +106,8 @@ const MyMeetingCard: React.FC<MyMeetingCardProps> = ({
           />
 
             <Text style={styles.text}>
-                    {   data.start.getHours() + ':' + data.start.getMinutes()}-
-          {data.end.getHours() + ':' + data.end.getMinutes()}
+                    {   data.start.getHours().toString().padStart(2,'0') + ':' + data.start.getMinutes().toString().padStart(2,'0')}-
+          {data.end.getHours().toString().padStart(2,'0') + ':' + data.end.getMinutes().toString().padStart(2,'0')}
           </Text>
         </Text>
    
@@ -138,6 +138,7 @@ const styles = StyleSheet.create({
     fontSize: 21,
     color: COLORS.primaryDark,
     fontWeight: '600',
+    width:'70%'
   },
   tag: {
     fontSize: 15,

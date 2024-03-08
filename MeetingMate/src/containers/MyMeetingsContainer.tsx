@@ -13,7 +13,7 @@ import {
 } from '../services/firestore';
 import {getNameById} from '../utils/commonUtils';
 import {CONFIRM_DELETE, TOAST_MESSAGES} from '../messages/appMessage';
-import {BUTTONS} from '../constants/appConstant';
+import {BUTTONS, MEETING_INVITATION_MESSAGE} from '../constants/appConstant';
 import {useToast} from 'react-native-toast-notifications';
 import {commonStyle} from '../styles/commonStyle';
 import {useRecoilState} from 'recoil';
@@ -39,7 +39,6 @@ export const MyMeetingsContainer: React.FC<MyMeetingsContainerProps> = ({
   const [meetings, setMeetings] = useRecoilState<Meetings[]>(Meeting);
   const [rooms, setRooms] = useRecoilState<Rooms[]>(Room);
 const[members,setMembers]=useRecoilState<User[]>(Members)
-console.log(rooms,'uiyiu')
   const onEditHandler = async (data: MeetingEditForm) => {
     const response = await validateEditRoomBookingForm(data);
     if (!response.valid) {
@@ -87,11 +86,11 @@ console.log(rooms,'uiyiu')
   const onShareHandler = async(data: Meetings) => {
     const roomName = await getNameById(rooms, data.roomId);
 
-    const organizer = await getNameById(members, data.organizerId);
+
       try {
-        const result = await Share.share({
-          message:
-            `${data.title} is going to happen today on ${data.start.getHours()+":"+data.start.getMinutes()} in ${roomName} Meeting Both  organized by ${data.organizerId}`
+         await Share.share({
+          message:MEETING_INVITATION_MESSAGE(data.title,data.start.getHours().toString().padStart(2,'0'),data.start.getMinutes().toString().padStart(2,'0'),roomName,data.organizerId)
+
            
           
         });
@@ -155,11 +154,12 @@ Alert.alert(error)
       roomName: getNameById(rooms, meeting.roomId),
     };
   });
-console.log(updatedData,'updated data')
+
   const myBookings = (
     <FlatList
       horizontal={isHorizontal}
       showsHorizontalScrollIndicator={false}
+      showsVerticalScrollIndicator={false}
       data={updatedData}
       contentContainerStyle={{paddingHorizontal: 20}}
       ItemSeparatorComponent={() => <View style={{width: 15}} />}

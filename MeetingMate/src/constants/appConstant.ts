@@ -10,6 +10,8 @@ export const SCREEN_NAMES = {
     MY_BOOKING: 'MyBooking',
 }
 
+export const MEETING_INVITATION_MESSAGE=(title:string,startHour:string,startMinutes:string,roomName:string,organizerName:string)=>`${title} is going to happen today on ${startHour+":"+startMinutes} in ${roomName}  organized by ${organizerName}`
+
 export const ASYNC_STORE_KEY = {
   USER:'user'
 }

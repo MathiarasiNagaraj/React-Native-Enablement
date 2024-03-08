@@ -21,6 +21,8 @@ export const filterByName = (array:[], text:string) => {
   );
 };
 
+
+
 export const filterByOptions = (array, option) => {
   let results = [];
   switch (option) {

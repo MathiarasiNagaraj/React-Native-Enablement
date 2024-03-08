@@ -96,7 +96,10 @@ export const MyAccountScreen = () => {
   return (
     <LinearGradientContainer>
       <ScreenHeader title={SCREEN_NAMES.MY_ACCOUNT} />
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}
+         showsHorizontalScrollIndicator={false}
+         showsVerticalScrollIndicator={false}
+      >
         
         {isEditMode ? (
           <>

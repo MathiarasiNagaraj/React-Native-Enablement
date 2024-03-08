@@ -39,7 +39,10 @@ export const MeetingRoomDetailScreen = () => {
      
 
       <ScreenHeader title={'Meeting Room'} />
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}
+         showsHorizontalScrollIndicator={false}
+         showsVerticalScrollIndicator={false}
+      >
         <View style={styles.imgWrapper}>
 
         <Image source={{uri: details.roomImg}} style={styles.roomImg} />

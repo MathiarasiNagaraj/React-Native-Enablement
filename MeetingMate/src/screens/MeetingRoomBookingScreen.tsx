@@ -58,7 +58,8 @@ export const MeetingRoomBookingScreen = () => {
   return (
     <LinearGradientContainer>
       <ScreenHeader title={'Room Booking'} />
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}    showsHorizontalScrollIndicator={false}
+      showsVerticalScrollIndicator={false}>
         <Form formDetails={ROOM_BOOKING_FORM(id,user.id)} onSubmit={onSubmitHandler} />
       </ScrollView>
     </LinearGradientContainer>

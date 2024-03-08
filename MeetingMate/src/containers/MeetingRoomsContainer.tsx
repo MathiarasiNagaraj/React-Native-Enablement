@@ -66,12 +66,13 @@ export const MeetingRooms: React.FC<MeetingRoomsProps> = ({
 
   useEffect(() => {
     updateRoomStatus();
-  }, []);
+  }, [meetings]);
   useTimeInterval(updateRoomStatus, INTERVAL);
   return (
     <FlatList
       horizontal={isHorizontal}
       showsHorizontalScrollIndicator={false}
+      showsVerticalScrollIndicator={false}
       contentContainerStyle={
         isHorizontal
           ? {paddingHorizontal: 20, marginBottom: 40}

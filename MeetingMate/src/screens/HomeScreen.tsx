@@ -52,7 +52,7 @@ export const HomeScreen = () => {
       });
   }, [meetings]);
   const getLocalData = async () => {
-    console.log(ASYNC_STORE_KEY.USER);
+
     const data = await getLocalDataByKey(ASYNC_STORE_KEY.USER);
     return data;
   };
@@ -61,13 +61,13 @@ export const HomeScreen = () => {
     setRooms(data);
   };
   const getMeetingData = async () => {
-    console.log('Check::', currentUser);
+
     const data = await readUpcomingMeetingsByOrganizerId(currentUser?.id);
-    console.log(data.length, 'meeting data');
+
     setMeetings(data);
   };
   const getAllUserDetails = async () => {
-    console.log(currentUser, 'user in user function');
+
     const data = await readAllUsers();
     setMembers(data);
   };
@@ -79,11 +79,11 @@ export const HomeScreen = () => {
   };
 
   useEffect(() => {
-    if (meetings.length > 0 && rooms.length > 0) {
-      console.log("Loaded")
+    if (meetings.length > 0 || rooms.length > 0) {
+   
       setIsLoading(false);
     }
-    console.log("meetings or rooms changed")
+
   }, [meetings, rooms]);
 
   const updateLocalData = async () => {
@@ -100,7 +100,7 @@ export const HomeScreen = () => {
     }
   }, [currentUser]);
 
-  console.log(meetings.length, 'len');
+
   const onFloatingBtnPressHandler = () => {
     navigation.navigate(SCREEN_NAMES.ROOM_BOOKING, {});
   };
@@ -121,7 +121,10 @@ export const HomeScreen = () => {
       <Header />
       <View style={styles.fullContainer}>
         <SearchBar />
-        <ScrollView style={styles.container}>
+          <ScrollView style={styles.container}
+             showsHorizontalScrollIndicator={false}
+             showsVerticalScrollIndicator={false}
+          >
           <View>
             <View>
               <View style={styles.wrapper}>
