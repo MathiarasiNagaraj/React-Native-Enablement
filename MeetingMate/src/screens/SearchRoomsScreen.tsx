@@ -10,29 +10,24 @@ import {readAllRoomsByBranch} from '../services/firestore';
 import {filterByName, filterByOptions} from '../utils/commonUtils';
 import {getLocalDataByKey} from '../services/asyncStorage';
 import { ASYNC_STORE_KEY, FILTERS } from '../constants/appConstant';
+import { useRecoilState } from 'recoil';
+import { Room } from '../store/atom/roomAtom';
+import { Rooms } from '../interfaces/commonInterface';
 export const SearchRoomsScreen = () => {
   const navigation = useNavigation();
   const onGoBackHandler = () => {
     navigation.goBack();
   };
  
-  const [rooms, setRooms] = useState([]);
-  const [roomOptions, setRoomOptions] = useState([]);
+  const [rooms, setRooms] = useRecoilState<Rooms[]>(Room);
+  const [roomOptions, setRoomOptions] = useState(rooms);
 
-  useEffect(() => {
-    const getRooms = async () => {
-      const user = await getLocalDataByKey(ASYNC_STORE_KEY.USER);
-      const data = await readAllRoomsByBranch(user.location);
-      setRooms(data);
-      setRoomOptions(data);
-    };
-    getRooms();
-  }, []);
-  const onTextChangeHandler = text => {
+
+  const onTextChangeHandler = (text:string) => {
     const filteredData = filterByName(rooms, text);
     setRoomOptions(filteredData);
   };
-  const onOptionChangeHandler = (name, value) => {
+  const onOptionChangeHandler = (name:string, value:boolean) => {
     if (value) {
       const filteredData = filterByOptions(rooms, name);
       setRoomOptions(filteredData);

@@ -29,24 +29,12 @@ export   async function scheduleNotification(meeting:Meetings,members:User[]) {
       visibility: AndroidVisibility.PUBLIC,
     };
 
-    // await notifee.displayNotification({
-    //   title: meeting.title,
-    //   body: `Organized by  ${await getNameById( members,meeting.organizerId)}`,
-    //   android: {
-    //     channelId: 'default',
-    //     loopSound: true,
-    //     sound: 'Default',
-    //     pressAction: {
-    //       id: 'default',
-    //     },
-    //     vibrationPattern: [300, 500],
-    //   },
-    // });
+  
 
     await notifee.createTriggerNotification(
       {
         title: meeting.title,
-        body: `Organized by  ${await getNameById( members,meeting.organizerId)}`,
+        body: ` ${meeting.start.getHours().toString().padStart(2,'0')+":"+meeting.start.getMinutes().toString().padStart(2,'0')}`,
         android: {
           channelId: 'default',
           loopSound: true,
