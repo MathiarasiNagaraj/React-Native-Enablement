@@ -7,6 +7,8 @@ import {MeetingRoomsScreen} from "./MeetingRoomsScreen";
 import {MyAccountScreen} from "./MyAccountScreen";
 import {MyBookingScreen} from "./MyBookingScreen";
 import { SearchRoomsScreen } from "./SearchRoomsScreen";
+import { MeetingRoomListScreen } from "./MeetingRoomListScreen";
+import { RoomBookingScreen } from "./RoomBookingScreen";
 
  export const COMPONENTS = {
      LoginScreen,
@@ -17,5 +19,7 @@ import { SearchRoomsScreen } from "./SearchRoomsScreen";
      MeetingRoomBookingScreen,
      MeetingRoomsScreen,
      MyBookingScreen,
-     MyAccountScreen
+     MyAccountScreen,
+     MeetingRoomListScreen,
+     RoomBookingScreen
   };

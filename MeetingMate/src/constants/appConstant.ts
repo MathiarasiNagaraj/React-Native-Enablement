@@ -7,7 +7,9 @@ export const SCREEN_NAMES = {
     LOGIN: 'Login',
     MEETING_ROOM: 'Meeting Room',
     MEETING_ROOMS: 'Meeting Rooms',
-    MY_BOOKING: 'MyBooking',
+  MY_BOOKING: 'MyBooking',
+  MEETING_ROOM_LIST: 'MeetingRoomList',
+    ROOM_QR_BOOKING:'RoomBooking'
 }
 
 export const MEETING_INVITATION_MESSAGE=(title:string,startHour:string,startMinutes:string,roomName:string,organizerName:string)=>`${title} is going to happen today on ${startHour+":"+startMinutes} in ${roomName}  organized by ${organizerName}`

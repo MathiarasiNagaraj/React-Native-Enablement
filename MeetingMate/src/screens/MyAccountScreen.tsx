@@ -220,6 +220,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   text: {
+    width:300,
     color: COLORS.primaryDark,
     fontSize: 17,
     fontWeight: '400',
@@ -229,5 +230,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: COLORS.black,
     alignSelf: 'flex-start',
+
   },
 });

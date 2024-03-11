@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
 import {LinearGradientContainer} from '../containers/LinearGradientContainer';
@@ -6,10 +6,8 @@ import {COLORS} from '../utils/colors';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useNavigation} from '@react-navigation/native';
 import {RoomDetails} from '../components/RoomDetailCard';
-import {readAllRoomsByBranch} from '../services/firestore';
 import {filterByName, filterByOptions} from '../utils/commonUtils';
-import {getLocalDataByKey} from '../services/asyncStorage';
-import { ASYNC_STORE_KEY, FILTERS } from '../constants/appConstant';
+import { FILTERS } from '../constants/appConstant';
 import { useRecoilState } from 'recoil';
 import { Room } from '../store/atom/roomAtom';
 import { Rooms } from '../interfaces/commonInterface';
@@ -58,7 +56,9 @@ export const SearchRoomsScreen = () => {
           placeholder={'Search Rooms'}
         />
       </View>
-      <ScrollView horizontal={true} style={styles.container}    showsHorizontalScrollIndicator={false}
+      <ScrollView horizontal={true}
+      style={styles.optionContainer}
+        showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}>
 {filters}
       </ScrollView>
@@ -67,7 +67,7 @@ export const SearchRoomsScreen = () => {
       <FlatList
    showsHorizontalScrollIndicator={false}
    showsVerticalScrollIndicator={false}
-        contentContainerStyle={{padding: 20}}
+        contentContainerStyle={styles.container}
         ItemSeparatorComponent={() => <View style={{height: 15}} />}
         data={roomOptions}
         renderItem={({item}) => (
@@ -104,7 +104,8 @@ const styles = StyleSheet.create({
     elevation:10
   },
   container: {
-
+    padding: 20,
+    justifyContent:'flex-start'
   },
   filter: {
     backgroundColor: COLORS.primaryDark,
@@ -114,6 +115,11 @@ const styles = StyleSheet.create({
     maxHeight: 45,
 
   },
+  optionContainer: {
+    flexGrow:0,
+    height:50,
+  }
+  ,
   filterText: {
     fontSize: 15,
     alignItems:'center',

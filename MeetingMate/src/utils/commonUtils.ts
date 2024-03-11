@@ -8,8 +8,8 @@ export const getNameById = (collection: [], id: string) => {
   return data?.name;
 };
 
-export const getRoomByName = (rooms: Rooms[], name: string) => {
-  const room = rooms?.find(room => room.name === name);
+export const getRoomById = (rooms: Rooms[], roomId: string) => {
+  const room = rooms?.find(room => room.id === roomId);
   return room;
 };
 

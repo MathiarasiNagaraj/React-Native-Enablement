@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Image, KeyboardAvoidingView, Platform, StyleSheet, View} from 'react-native';
+import {Image, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {LinearGradientContainer} from '../containers/LinearGradientContainer';
 import {Form} from '../containers/FormContainer';
@@ -9,7 +9,7 @@ import {commonStyle} from '../styles/commonStyle';
 import {useToast} from 'react-native-toast-notifications';
 import {TOAST_MESSAGES} from '../messages/appMessage';
 import { getLocalDataByKey, storeLocalData} from '../services/asyncStorage';
-import {useSetRecoilState} from 'recoil';
+import {useRecoilState, useSetRecoilState} from 'recoil';
 import {User} from '../store/atom/userAtom';
 import GetLocation from 'react-native-get-location';
 import {getCurrentCity} from '../utils/commonUtils';
@@ -17,6 +17,10 @@ import {validateLoginForm} from '../utils/validations.utils';
 import {LoginForm} from '../interfaces/formInterface';
 import {firebase} from '@react-native-firebase/storage';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Rooms } from '../interfaces/commonInterface';
+import { readAllRoomsByBranch } from '../services/firestore';
+import { Room } from '../store/atom/roomAtom';
+import SplashScreen from 'react-native-splash-screen';
 
 export const LoginScreen = () => {
   const navigate = useNavigation<StackNavigationProp<any>>();
@@ -25,14 +29,25 @@ export const LoginScreen = () => {
   const [imgUrl, setImgUrl] = useState();
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [location, setLocation] = useState<String>();
-
+  const [rooms, setRooms] = useRecoilState<Rooms[]>(Room);
   getLocalDataByKey('user').then(data => {
     if ( data&&data.isLoggedIn) {
       setIsUserLoggedIn(true);
       navigate.navigate(SCREEN_NAMES.HOME, {});
+
     }
   });
+  
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+  
+  const getRoomData = async (location:string) => {
+    const data = await readAllRoomsByBranch(location);
 
+    setRooms(data);
+
+  };
   useEffect(() => {
     if (!isUserLoggedIn) {
       GetLocation.getCurrentPosition({
@@ -45,7 +60,9 @@ export const LoginScreen = () => {
             ...prevUser,
             location: city,
           }));
-          setLocation(city);
+          setLocation('Chennai');
+  
+        getRoomData('Chennai');
         })
         .catch(error => {
           const {code, message} = error;
@@ -54,6 +71,9 @@ export const LoginScreen = () => {
     }
   }, []);
 
+  const onViewRoomsClickHandler = () => {
+    navigate.navigate(SCREEN_NAMES.MEETING_ROOM_LIST,{})
+  }
   const onLoginHandler = async (data: LoginForm) => {
     const response = await validateLoginForm(data);
 
@@ -92,8 +112,13 @@ export const LoginScreen = () => {
         style={{flex: 1}}>
         <View style={commonStyle.container}>
           
-      <Image source={myImage} alt='logo' style={styles.logo} />
-          <Form formDetails={LOGIN_FORM} onSubmit={onLoginHandler} />
+          <Image source={myImage} alt='logo' style={styles.logo} />
+          <View style={styles.formContainer}>
+            <Form formDetails={LOGIN_FORM} onSubmit={onLoginHandler} />
+            <Pressable onPress={onViewRoomsClickHandler}>
+              <Text>View Room</Text>
+              </Pressable>
+            </View>
         </View>
       </KeyboardAvoidingView>
     </LinearGradientContainer>
@@ -104,6 +129,14 @@ const styles = StyleSheet.create({
   logo: {
     height: 80,
     width: 180,
-    margin:20
-},
+    margin: 20,
+    alignItems:'center',
+  },
+  formContainer: {
+    maxWidth: '90%',
+    width: 500,
+    alignSelf: 'center',
+    alignItems:'center',
+    justifyContent:'center'
+  }
 });

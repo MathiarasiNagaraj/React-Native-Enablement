@@ -37,4 +37,12 @@ export const SCREENS = [
     name: 'MyAccount',
     component: 'MyAccountScreen',
   },
+  {
+    name: 'MeetingRoomList',
+    component:'MeetingRoomListScreen'
+  },
+  {
+    name: 'RoomBooking',
+    component:'RoomBookingScreen'
+  }
 ];

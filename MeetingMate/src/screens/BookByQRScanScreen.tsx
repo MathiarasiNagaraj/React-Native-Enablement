@@ -11,7 +11,7 @@ import {useNavigation} from '@react-navigation/native';
 import ScreenHeader from '../components/ScreenHeader';
 import {ASYNC_STORE_KEY, SCREEN_NAMES} from '../constants/appConstant';
 import {readAllRoomsByBranch} from '../services/firestore';
-import {getRoomByName} from '../utils/commonUtils';
+import {getRoomById, getRoomByName} from '../utils/commonUtils';
 import {COLORS} from '../utils/colors';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { getLocalDataByKey } from '../services/asyncStorage';
@@ -43,10 +43,10 @@ export const BookByQRScanScreen = () => {
   const codeScanner = useCodeScanner({
     codeTypes: ['qr', 'ean-13'],
     onCodeScanned: async codes => {
-      const roomName = codes[0].value;
+      const roomId = codes[0].value;
       const user = await getLocalDataByKey(ASYNC_STORE_KEY.USER);
       const rooms = await readAllRoomsByBranch(user.location);
-      const details = getRoomByName(rooms, roomName);
+      const details = getRoomById(rooms, roomId);
       navigation.navigate(SCREEN_NAMES.MEETING_ROOM, {details});
     },
   });
