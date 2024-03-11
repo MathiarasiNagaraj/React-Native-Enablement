@@ -27,6 +27,7 @@ import {firebase} from '@react-native-firebase/storage';
 import { User } from '../store/atom/userAtom';
 import { AccountEditForm } from '../interfaces/formInterface';
 import { StackNavigationProp } from '@react-navigation/stack';
+
 export const MyAccountScreen = () => {
   const [user, setUser] = useState({});
   const navigate = useNavigation<StackNavigationProp<any>>();

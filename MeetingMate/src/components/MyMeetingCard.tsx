@@ -39,9 +39,10 @@ const MyMeetingCard: React.FC<MyMeetingCardProps> = ({
     };
     getAllUsers();
   }, []);
+
   const now = new Date();
-  const isChangeable = now <= data.end
-  
+  const isChangeable = now <= data.end;
+
   const members = data?.membersIdList?.map(memberId => (
     <View key={memberId}>
       <Text style={styles.member} key={memberId}>
@@ -54,7 +55,7 @@ const MyMeetingCard: React.FC<MyMeetingCardProps> = ({
     <View style={styles[style]}>
       <View style={styles.titleWrapper}>
         <Text style={styles.title}>{data.title}</Text>
-     
+
         {isChangeable && (
           <View style={styles.iconWrapper}>
             <MaterialCommunityIcons
@@ -62,21 +63,18 @@ const MyMeetingCard: React.FC<MyMeetingCardProps> = ({
               style={styles.icon}
               size={20}
               onPress={() => onEditClickHandler(data)}
-          
             />
             <MaterialCommunityIcons
               name={'delete'}
               style={styles.icon}
               size={20}
               onPress={() => onDeleteClickHandler(data.id)}
-              
             />
             <MaterialCommunityIcons
               name={'send-outline'}
               style={styles.icon}
               size={20}
               onPress={() => onShareHandler(data)}
-            
             />
           </View>
         )}
@@ -89,15 +87,15 @@ const MyMeetingCard: React.FC<MyMeetingCardProps> = ({
         />
         <Text style={styles.text}>{data.organizerId}</Text>
       </Text>
-<Text>
       <Text>
-        <MaterialCommunityIcons
-          name={'map-marker'}
-          size={22}
-          style={styles.icon}
-        />
-        <Text style={styles.text}>{data.roomName}   |   </Text>
-      </Text>
+        <Text>
+          <MaterialCommunityIcons
+            name={'map-marker'}
+            size={22}
+            style={styles.icon}
+          />
+          <Text style={styles.text}>{data.roomName} | </Text>
+        </Text>
         <Text>
           <MaterialCommunityIcons
             name={'clock-time-eight'}
@@ -105,25 +103,29 @@ const MyMeetingCard: React.FC<MyMeetingCardProps> = ({
             style={styles.icon}
           />
 
-            <Text style={styles.text}>
-                    {   data.start.getHours().toString().padStart(2,'0') + ':' + data.start.getMinutes().toString().padStart(2,'0')}-
-          {data.end.getHours().toString().padStart(2,'0') + ':' + data.end.getMinutes().toString().padStart(2,'0')}
+          <Text style={styles.text}>
+            {data.start.getHours().toString().padStart(2, '0') +
+              ':' +
+              data.start.getMinutes().toString().padStart(2, '0')}
+            -
+            {data.end.getHours().toString().padStart(2, '0') +
+              ':' +
+              data.end.getMinutes().toString().padStart(2, '0')}
           </Text>
         </Text>
-   
       </Text>
-    
+
       <View style={styles.memberwrapper}>{members}</View>
-      
     </View>
   );
 };
 
 export default MyMeetingCard;
+
 const styles = StyleSheet.create({
   wrapper: {
     width: 300,
-    height:210,
+    height: 210,
     alignSelf: 'center',
     alignContent: 'center',
     backgroundColor: COLORS.white,
@@ -138,18 +140,16 @@ const styles = StyleSheet.create({
     fontSize: 21,
     color: COLORS.primaryDark,
     fontWeight: '600',
-    width:'70%'
+    width: '70%',
   },
   tag: {
     fontSize: 15,
-
-    alignSelf:'flex-start',
+    alignSelf: 'flex-start',
     paddingVertical: 5,
-    paddingHorizontal:15,
+    paddingHorizontal: 15,
     color: COLORS.black,
     backgroundColor: COLORS.transparent,
     borderRadius: 50,
-    
   },
   text: {
     fontSize: 19,
@@ -208,6 +208,6 @@ const styles = StyleSheet.create({
     gap: 3,
     marginVertical: 4,
     overflow: 'scroll',
-    height:'auto'
+    height: 'auto',
   },
 });

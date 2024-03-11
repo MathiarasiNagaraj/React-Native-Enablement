@@ -17,6 +17,7 @@ import {validateLoginForm} from '../utils/validations.utils';
 import {LoginForm} from '../interfaces/formInterface';
 import {firebase} from '@react-native-firebase/storage';
 import { StackNavigationProp } from '@react-navigation/stack';
+
 export const LoginScreen = () => {
   const navigate = useNavigation<StackNavigationProp<any>>();
   const toast = useToast();
@@ -24,6 +25,7 @@ export const LoginScreen = () => {
   const [imgUrl, setImgUrl] = useState();
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [location, setLocation] = useState<String>();
+
   getLocalDataByKey('user').then(data => {
     if ( data&&data.isLoggedIn) {
       setIsUserLoggedIn(true);
@@ -82,7 +84,7 @@ export const LoginScreen = () => {
       });
     }
   };
-  const myImage = require('../assets/images/logo2.png')
+  const myImage = require('../assets/images/logo2.png');
   return (
     <LinearGradientContainer>
       <KeyboardAvoidingView

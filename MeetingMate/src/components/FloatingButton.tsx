@@ -34,6 +34,6 @@ const styles = StyleSheet.create({
     right: 20,
     height: 60,
     borderRadius:100,
-    backgroundColor: COLORS.primaryDark,
+    backgroundColor: COLORS.primaryLight,
   },
 });

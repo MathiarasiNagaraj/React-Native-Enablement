@@ -66,7 +66,7 @@ export const MeetingRooms: React.FC<MeetingRoomsProps> = ({
 
   useEffect(() => {
     updateRoomStatus();
-  },[])
+  }, []);
   useEffect(() => {
     updateRoomStatus();
   }, [meetings]);

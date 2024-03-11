@@ -30,16 +30,15 @@ export const Header = () => {
     setUserName(userData.name);
   };
   useEffect(() => {
-    
     getUserData();
   }, []);
   useEffect(() => {
     getUserData();
-  },[user])
+  }, [user]);
   const onAccountClickHandler = () => {
-  
     navigation.navigate(SCREEN_NAMES.MY_ACCOUNT, {});
   };
+
   const myImage = require('../assets/images/logo1.png');
 
   return (
@@ -47,12 +46,7 @@ export const Header = () => {
       <StatusBar backgroundColor={COLORS.white} barStyle="dark-content" />
       <Image source={myImage} alt="logo" style={styles.logo} />
       <TouchableOpacity onPress={onAccountClickHandler}>
-        {imgUrl && (
-          <Image
-            style={styles.profileImg}
-            source={{uri: imgUrl}}
-          />
-        )}
+        {imgUrl && <Image style={styles.profileImg} source={{uri: imgUrl}} />}
       </TouchableOpacity>
     </View>
   );
@@ -76,7 +70,11 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: '700',
   },
-  profileImg:{height: 50, width: 50, borderRadius: 50},
+  profileImg: {
+    height: 50,
+    width: 50,
+    borderRadius: 50,
+  },
   logo: {
     height: 70,
     width: 180,

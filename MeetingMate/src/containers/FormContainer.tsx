@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Alert, StyleSheet, View} from 'react-native';
+import {Alert, KeyboardAvoidingView, Platform, StyleSheet, View} from 'react-native';
 import Button from '../components/Button';
 import {Input} from '../components/Input';
 import {COLORS} from '../utils/colors';
@@ -123,12 +123,16 @@ export const Form: React.FC<FormProps> = ({formDetails, onSubmit}) => {
   });
 
   return (
+//     <KeyboardAvoidingView
+//     behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+//  >
     <View style={styles[formDetails.style]}>
       {fields}
 
       <View style={styles.wrapper}>{shortfields}</View>
       <Button buttonDetails={formDetails.buttons} onPress={onSubmitHandler} />
-    </View>
+      </View>
+      // </KeyboardAvoidingView>
   );
 };
 const styles = StyleSheet.create({
