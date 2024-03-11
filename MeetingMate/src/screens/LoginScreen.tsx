@@ -41,7 +41,7 @@ export const LoginScreen = () => {
   useEffect(() => {
     SplashScreen.hide();
   }, []);
-  
+
   const getRoomData = async (location:string) => {
     const data = await readAllRoomsByBranch(location);
 
@@ -104,7 +104,7 @@ export const LoginScreen = () => {
       });
     }
   };
-  const myImage = require('../assets/images/logo2.png');
+  const myImage = require('../assets/images/logo.png');
   return (
     <LinearGradientContainer>
       <KeyboardAvoidingView
