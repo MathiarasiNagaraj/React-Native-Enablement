@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Image, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {LinearGradientContainer} from '../containers/LinearGradientContainer';
 import {useRoute, useNavigation} from '@react-navigation/native';
 import Button from '../components/Button';
@@ -8,9 +15,9 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import ScreenHeader from '../components/ScreenHeader';
 import {Calendar} from 'react-native-big-calendar';
 import {readMeetingbyRoomId} from '../services/firestore';
-import { MEETING_ROOM, NO_MEETING } from '../messages/appMessage';
-import { BUTTONS, SCREEN_NAMES } from '../constants/appConstant';
-import { StackNavigationProp } from '@react-navigation/stack';
+import {MEETING_ROOM, NO_MEETING} from '../messages/appMessage';
+import {BUTTONS, SCREEN_NAMES} from '../constants/appConstant';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 export const MeetingRoomDetailScreen = () => {
   const route = useRoute();
@@ -21,7 +28,6 @@ export const MeetingRoomDetailScreen = () => {
   const [events, setEvents] = useState([]);
   useEffect(() => {
     const getData = async () => {
-
       const data = await readMeetingbyRoomId(details.id);
       setEvents(data);
     };
@@ -30,42 +36,38 @@ export const MeetingRoomDetailScreen = () => {
   }, [details]);
 
   const onBookHandler = () => {
-   const id=details.id
-    navigation.navigate(SCREEN_NAMES.ROOM_BOOKING,{id});
+    const id = details.id;
+    navigation.navigate(SCREEN_NAMES.ROOM_BOOKING, {id});
   };
 
   return (
     <LinearGradientContainer>
-     
-
       <ScreenHeader title={'Meeting Room'} />
-      <ScrollView contentContainerStyle={styles.container}
-         showsHorizontalScrollIndicator={false}
-         showsVerticalScrollIndicator={false}
-      >
+      <ScrollView
+        contentContainerStyle={styles.container}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}>
         <View style={styles.imgWrapper}>
-
-        <Image source={{uri: details.roomImg}} style={styles.roomImg} />
-        <View style={[styles.cardBox]}>
-          <View
-            style={[
-              styles.round,
-              {
-                backgroundColor: details.availability
-                  ? COLORS.green
-                  : COLORS.red,
-              },
-            ]}
-          />
-          <Text
-            style={[
-              styles.cardBoldText,
-              {color: details.availability ? COLORS.green : COLORS.red},
-            ]}>
-            {details.availability ? '  Available' : '  Busy'}
-          </Text>
-        </View>
-
+          <Image source={{uri: details.roomImg}} style={styles.roomImg} />
+          <View style={[styles.cardBox]}>
+            <View
+              style={[
+                styles.round,
+                {
+                  backgroundColor: details.availability
+                    ? COLORS.green
+                    : COLORS.red,
+                },
+              ]}
+            />
+            <Text
+              style={[
+                styles.cardBoldText,
+                {color: details.availability ? COLORS.green : COLORS.red},
+              ]}>
+              {details.availability ? '  Available' : '  Busy'}
+            </Text>
+          </View>
         </View>
 
         <Text style={styles.title}>{details.name}</Text>
@@ -81,7 +83,7 @@ export const MeetingRoomDetailScreen = () => {
         </View>
 
         <Text style={[styles.mediumTitle, {alignSelf: 'flex-start'}]}>
-  {MEETING_ROOM.FACILITES}
+          {MEETING_ROOM.FACILITES}
         </Text>
         <View style={styles.innerWrapper}>
           <View style={{alignItems: 'center'}}>
@@ -101,7 +103,7 @@ export const MeetingRoomDetailScreen = () => {
                 style={styles.box}
                 color={COLORS.primaryDark}
               />
-              <Text style={styles.iconText}>{MEETING_ROOM.MONITOR }</Text>
+              <Text style={styles.iconText}>{MEETING_ROOM.MONITOR}</Text>
             </View>
           )}
           {details.boardAvailablity && (
@@ -112,7 +114,7 @@ export const MeetingRoomDetailScreen = () => {
                 style={styles.box}
                 color={COLORS.primaryDark}
               />
-              <Text style={styles.iconText}>{MEETING_ROOM.BOARD }</Text>
+              <Text style={styles.iconText}>{MEETING_ROOM.BOARD}</Text>
             </View>
           )}
 
@@ -127,43 +129,40 @@ export const MeetingRoomDetailScreen = () => {
           </View>
         </View>
 
-    
-        {
-          events.length > 0 ?
-            <>
-              <Text style={styles.mediumTitle}>{ MEETING_ROOM.TODAY_MEETING}</Text>
-         
-          <Calendar
-            swipeEnabled={false}
-                ampm={true}
-                
-            showVerticalScrollIndicator={false}
-            bodyContainerStyle={{ paddingHorizontal: 5, marginBottom: 100,backgroundColor:COLORS.whiteSmoke }}
-            events={events}
-            headerContainerStyle={{ display: 'none' }}
-            height={800}
-            scrollOffsetMinutes={1200}
-            mode="day"
-            hourStyle={{ color: COLORS.primaryDark}}
-                dayHeaderStyle={{ display: 'none' }}
-                eventCellStyle={{ backgroundColor: COLORS.primaryLight }}
-            
-                calendarCellTextStyle={{color:COLORS.primaryDark}}
-            weekDayHeaderHighlightColor={COLORS.primaryDark}
-            /> 
-               </>:
-            <View style={styles.wrapper}>
-            <Text style={styles.fallBacktext}>{ NO_MEETING}</Text>
-            </View>
-        }
+        {events.length > 0 ? (
+          <>
+            <Text style={styles.mediumTitle}>{MEETING_ROOM.TODAY_MEETING}</Text>
 
+            <Calendar
+              swipeEnabled={false}
+              ampm={true}
+              showVerticalScrollIndicator={false}
+              bodyContainerStyle={{
+                paddingHorizontal: 5,
+                marginBottom: 100,
+                backgroundColor: COLORS.whiteSmoke,
+              }}
+              events={events}
+              headerContainerStyle={{display: 'none'}}
+              height={800}
+              scrollOffsetMinutes={1200}
+              mode="day"
+              hourStyle={{color: COLORS.primaryDark}}
+              dayHeaderStyle={{display: 'none'}}
+              eventCellStyle={{backgroundColor: COLORS.primaryLight}}
+              calendarCellTextStyle={{color: COLORS.primaryDark}}
+              weekDayHeaderHighlightColor={COLORS.primaryDark}
+            />
+          </>
+        ) : (
+          <View style={styles.wrapper}>
+            <Text style={styles.fallBacktext}>{NO_MEETING}</Text>
+          </View>
+        )}
       </ScrollView>
 
       <View style={styles.btnContainer}>
-        <Button
-          buttonDetails={BUTTONS.bookRoomBtn}
-          onPress={onBookHandler}
-        />
+        <Button buttonDetails={BUTTONS.bookRoomBtn} onPress={onBookHandler} />
       </View>
     </LinearGradientContainer>
   );
@@ -182,24 +181,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: 100,
-    marginVertical:20,
-    borderRadius:10
+    marginVertical: 20,
+    borderRadius: 10,
   },
   fallBacktext: {
-    width:'50%',
+    width: '50%',
     color: COLORS.primaryDark,
     fontSize: 18,
     fontWeight: '500',
     textAlign: 'center',
-    justifyContent:'center'
-    
+    justifyContent: 'center',
   },
   cardBoldText: {
     fontSize: 16,
     fontWeight: '800',
   },
   imgWrapper: {
-    position:'relative'
+    position: 'relative',
   },
   round: {
     height: 10,
@@ -211,7 +209,7 @@ const styles = StyleSheet.create({
     bottom: 15,
     left: 15,
     flexDirection: 'row',
-    backgroundColor:COLORS.white,
+    backgroundColor: COLORS.white,
     padding: 5,
     paddingLeft: 10,
     borderRadius: 5,
@@ -219,7 +217,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     alignItems: 'center',
   },
- 
+
   header: {
     height: 70,
     backgroundColor: COLORS.transparent,
@@ -237,7 +235,6 @@ const styles = StyleSheet.create({
   iconText: {
     color: COLORS.primaryDark,
     fontSize: 13,
-
   },
   innerWrapper: {
     height: 80,

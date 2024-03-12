@@ -12,12 +12,16 @@ interface RoomDetailsProps {
   details: Rooms;
   style: 'wrapper' | 'cardFullContainer';
 }
-export const RoomDetails: React.FC<RoomDetailsProps> = ({details, style}) => {
+
+export const RoomDetails: React.FC<RoomDetailsProps> = ({ details, style }) => {
+  
   const navigation = useNavigation<StackNavigationProp<any>>();
+
   //on View Schedule Click Handler
   const onViewScheduleHandler = () => {
     navigation.navigate(SCREEN_NAMES.MEETING_ROOM, {details});
   };
+  
   return (
     <View style={styles[style]}>
       <Image source={{uri: details.roomImg}} style={styles.cardImg} />

@@ -2,21 +2,27 @@ import React from 'react';
 import {StatusBar, StyleSheet, Text, View} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {COLORS} from '../utils/colors';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
-interface ScreenHeaderProps{
-    title:string
+interface ScreenHeaderProps {
+  title: string;
 }
-const ScreenHeader :React.FC<ScreenHeaderProps>= ({title}) => {
+
+/**
+ * @description ScreenHeader component
+ * @param title Screen header title
+ * @returns Screen header 
+ */
+const ScreenHeader: React.FC<ScreenHeaderProps> = ({title}) => {
   const navigation = useNavigation();
   const onGoBackHandler = () => {
     navigation.goBack();
   };
   return (
     <View style={styles.wrapper}>
-       <StatusBar
-           backgroundColor={COLORS.primaryDark}
-           barStyle="light-content"
+      <StatusBar
+        backgroundColor={COLORS.primaryDark}
+        barStyle="light-content"
       />
 
       <MaterialCommunityIcons

@@ -1,6 +1,5 @@
 import React, {useEffect, useRef} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {LinearGradientContainer} from '../containers/LinearGradientContainer';
 import {
   Camera,
   useCameraDevice,
@@ -11,10 +10,11 @@ import {useNavigation} from '@react-navigation/native';
 import ScreenHeader from '../components/ScreenHeader';
 import {ASYNC_STORE_KEY, SCREEN_NAMES} from '../constants/appConstant';
 import {readAllRoomsByBranch} from '../services/firestore';
-import {getRoomById, getRoomByName} from '../utils/commonUtils';
+import {getRoomById} from '../utils/commonUtils';
 import {COLORS} from '../utils/colors';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { getLocalDataByKey } from '../services/asyncStorage';
+import { NO_CAMERA } from '../messages/appMessage';
 
 /**
  * @description Booky by QR Scan app
@@ -30,7 +30,7 @@ export const BookByQRScanScreen = () => {
 
 
   if (device == null) {
-    return <Text>Camera not available</Text>;
+    return <Text>{ NO_CAMERA}</Text>;
   }
   useEffect(() => {
     async function getPermission() {

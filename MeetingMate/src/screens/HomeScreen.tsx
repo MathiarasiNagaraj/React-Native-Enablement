@@ -1,11 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  ActivityIndicator,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import FloatingButton from '../components/FloatingButton';
 import {Header} from '../components/Header';
 import {SearchBar} from '../components/SearchBar';
@@ -36,6 +30,7 @@ import {Loader} from '../components/Loader';
  * @returns HomeScreen component
  */
 export const HomeScreen = () => {
+  
   const [meetings, setMeetings] = useRecoilState<Meetings[]>(Meeting);
   const [rooms, setRooms] = useRecoilState<Rooms[]>(Room);
   const [members, setMembers] = useRecoilState(Members);
@@ -52,7 +47,6 @@ export const HomeScreen = () => {
       });
   }, [meetings]);
   const getLocalData = async () => {
-
     const data = await getLocalDataByKey(ASYNC_STORE_KEY.USER);
     return data;
   };
@@ -61,13 +55,11 @@ export const HomeScreen = () => {
     setRooms(data);
   };
   const getMeetingData = async () => {
-
     const data = await readUpcomingMeetingsByOrganizerId(currentUser?.id);
 
     setMeetings(data);
   };
   const getAllUserDetails = async () => {
-
     const data = await readAllUsers();
     setMembers(data);
   };
@@ -80,10 +72,8 @@ export const HomeScreen = () => {
 
   useEffect(() => {
     if (meetings.length > 0 || rooms.length > 0) {
-   
       setIsLoading(false);
     }
-
   }, [meetings, rooms]);
 
   const updateLocalData = async () => {
@@ -99,7 +89,6 @@ export const HomeScreen = () => {
       initData();
     }
   }, [currentUser]);
-
 
   const onFloatingBtnPressHandler = () => {
     navigation.navigate(SCREEN_NAMES.ROOM_BOOKING, {});
@@ -119,14 +108,13 @@ export const HomeScreen = () => {
         backgroundColor: COLORS.white,
       }}>
       <Header />
-      
-    
-          <ScrollView style={styles.container}
-             showsHorizontalScrollIndicator={false}
-             showsVerticalScrollIndicator={false}
-          >
-          <View style={styles.fullContainer}>
-                <SearchBar />
+
+      <ScrollView
+        style={styles.container}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}>
+        <View style={styles.fullContainer}>
+          <SearchBar />
           <View>
             <View>
               <View style={styles.wrapper}>
@@ -155,10 +143,10 @@ export const HomeScreen = () => {
             </View>
 
             <MeetingRooms isHorizontal={true} style="wrapper" />
-            </View>
-            </View>
-        </ScrollView>
-    
+          </View>
+        </View>
+      </ScrollView>
+
       <FloatingButton onPress={onFloatingBtnPressHandler} />
     </View>
   );
@@ -207,7 +195,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   underLineText: {
-   
     textDecorationLine: 'underline',
     color: COLORS.primaryDark,
     fontWeight: '500',

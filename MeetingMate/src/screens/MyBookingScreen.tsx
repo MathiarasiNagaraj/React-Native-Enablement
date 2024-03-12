@@ -6,7 +6,6 @@ import ScreenHeader from '../components/ScreenHeader';
 import MyMeetingCard from '../components/MyMeetingCard';
 import { useRecoilState } from 'recoil';
 import { Room } from '../store/atom/roomAtom';
-import { Meeting } from '../store/atom/meetingAtom';
 import { getNameById } from '../utils/commonUtils';
 import { ASYNC_STORE_KEY, SCREEN_NAMES } from '../constants/appConstant';
 import { TITLE } from '../messages/appMessage';
@@ -17,24 +16,21 @@ import { COLORS } from '../utils/colors';
 
 export const MyBookingScreen = () => {
 
-
-
   const [rooms, setRooms] = useRecoilState(Room);
   const[previousMeeting,setPreviousMeeting]=useState([])
   const [users, setUsers] = useState([]);
-  useEffect(() => {
-    const getPreviousData = async () => {
-      const user = await getLocalDataByKey(ASYNC_STORE_KEY.USER)
   
-      const data = await readAllPreviousMeetingByUser(user.id);
-      setPreviousMeeting(data)
+  const getPreviousData = async () => {
+    const user = await getLocalDataByKey(ASYNC_STORE_KEY.USER)
+    const data = await readAllPreviousMeetingByUser(user.id);
+    setPreviousMeeting(data)
+  }
+  const getAllUsers = async () => {
+    const data = await readAllUsers();
+    setUsers(data)
+  }
 
-    }
-    const getAllUsers = async () => {
-      const data = await readAllUsers();
-      setUsers(data)
-
-    }
+  useEffect(() => {
     getAllUsers()
     getPreviousData()
   }, [])
@@ -64,16 +60,9 @@ export const MyBookingScreen = () => {
   );
   return (
     <LinearGradientContainer>
-
       <ScreenHeader title={SCREEN_NAMES.MY_BOOKING} />
-      
       <Text style={styles.title}>{ TITLE.MY_UPCOMING_MEETING}</Text>
-
-
       <MyMeetingsContainer style="wrapper" isHorizontal={true} />
-
-
-
       <Text style={styles.title}>{TITLE.PREVIOUS_MEETING}</Text>
       {myPreviousBookings}
     </LinearGradientContainer>

@@ -29,6 +29,7 @@ const CheckBoxInput: React.FC<CheckBoxInputProps> = ({
   name,
   value,
 }) => {
+  
   const [toggleCheckBox, setToggleCheckBox] = useState(value);
 
   return (

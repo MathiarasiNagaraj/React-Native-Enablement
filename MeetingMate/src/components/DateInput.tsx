@@ -3,23 +3,23 @@ import {StyleSheet, TextInput, View} from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import {COLORS} from '../utils/colors';
 
-interface Type{
-  name: string,
-  value:Date
+interface Type {
+  name: string;
+  value: Date;
 }
 interface DateInputProps {
   name: string;
   placeholder: string;
-  onChange: ({name,value}:Type) => void;
+  onChange: ({name, value}: Type) => void;
   value: string;
-  style:'whiteTimeBox'|'darkTimeBox';
+  style: 'whiteTimeBox' | 'darkTimeBox';
 }
 /**
  * @description DateInput component for Date
  * @param name   name of the Dateinput
- * @param placeholder  placeholder 
+ * @param placeholder  placeholder
  * @param onChange onchange function pointer
- * @param value value for function 
+ * @param value value for function
  * @param style style for input
  * @returns DateInput
  */
@@ -30,6 +30,7 @@ const DateInput: React.FC<DateInputProps> = ({
   value,
   style,
 }) => {
+  
   const inputValue = new Date(value);
   const hourFormat = inputValue.getHours() + ':' + inputValue.getMinutes();
   const [inputTime, setInputTime] = useState(hourFormat);
@@ -41,9 +42,8 @@ const DateInput: React.FC<DateInputProps> = ({
       <TextInput
         placeholder={placeholder}
         style={styles[style]}
-        
         placeholderTextColor={COLORS.primaryDark}
-        value={  inputTime!=='NaN:NaN'?inputTime:placeholder}
+        value={inputTime !== 'NaN:NaN' ? inputTime : placeholder}
         onFocus={() => setOpen(true)}
       />
 
@@ -70,7 +70,6 @@ const DateInput: React.FC<DateInputProps> = ({
         onCancel={() => {
           setOpen(false);
         }}
-  
       />
     </View>
   );
@@ -85,9 +84,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: COLORS.primaryDark,
     fontSize: 16,
-    alignSelf:'center',
+    alignSelf: 'center',
     borderBottomWidth: 1,
     borderColor: COLORS.primaryDark,
   },
- 
 });

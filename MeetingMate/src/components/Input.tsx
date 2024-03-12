@@ -19,6 +19,7 @@ interface InputProps {
   value: string;
   name: string;
 }
+
 export const Input: React.FC<InputProps> = ({
   type,
   placeholder,
@@ -28,6 +29,7 @@ export const Input: React.FC<InputProps> = ({
   value,
   name,
 }) => {
+
   const [text, setText] = useState(value);
 
   return (

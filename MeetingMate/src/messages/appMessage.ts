@@ -32,6 +32,7 @@ export const CONFIRM_DELETE = {
     TITLE: 'Confirm Delete',
     MESSAGE: 'Are you Sure to Delete the Meeting ?',
 }
+export const NO_CAMERA='Camera not available'
 export const AVAILABLITY = {
     AVAILABLE: 'Available',
     BUSY:'Busy'

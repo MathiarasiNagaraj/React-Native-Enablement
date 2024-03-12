@@ -29,6 +29,7 @@ interface DropDownInputProps {
  * @param value default value for drop down input
  * @returns  dropdown component
  */
+
 const DropDownInput: React.FC<DropDownInputProps> = ({
   style,
   onChange,
@@ -38,6 +39,7 @@ const DropDownInput: React.FC<DropDownInputProps> = ({
   value,
   isMultiSelect,
 }) => {
+  
   const [values, setValues] = useState(value);
   const [optionList, setOptionList] = useState([]);
 

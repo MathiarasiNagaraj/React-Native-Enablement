@@ -23,6 +23,7 @@ export const MeetingRooms: React.FC<MeetingRoomsProps> = ({
   isHorizontal,
   style,
 }) => {
+  
   const [rooms, setRooms] = useRecoilState<Rooms[]>(Room);
   const [meetings, setMeetings] = useRecoilState<Meetings[]>(Meeting);
 

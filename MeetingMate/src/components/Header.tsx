@@ -19,6 +19,7 @@ import {COLORS} from '../utils/colors';
  */
 
 export const Header = () => {
+
   const navigation = useNavigation<StackNavigationProp<any>>();
   const user = useRecoilValue(User);
   const [imgUrl, setImgUrl] = useState();
@@ -35,6 +36,7 @@ export const Header = () => {
   useEffect(() => {
     getUserData();
   }, [user]);
+//account click handler
   const onAccountClickHandler = () => {
     navigation.navigate(SCREEN_NAMES.MY_ACCOUNT, {});
   };

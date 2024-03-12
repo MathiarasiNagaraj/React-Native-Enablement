@@ -37,6 +37,12 @@ interface FormProps {
   ) => void;
   formDetails:FormType
 }
+
+/**
+ * @description Custumizable form component
+ * @param formdetails form details component
+ * @returns form component
+ */
 export const Form: React.FC<FormProps> = ({formDetails, onSubmit}) => {
   const reduceddata = formDetails.fields.reduce((acc, curr) => {
     acc[curr.name] = curr.value;
@@ -45,10 +51,12 @@ export const Form: React.FC<FormProps> = ({formDetails, onSubmit}) => {
 
   const [formData, setFormData] = useState(reduceddata);
 
+  //on input change handler
   const onChangeHandler = data => {
     setFormData({...formData, [data.name]: data.value});
   };
 
+  //on submit handler for form
   const onSubmitHandler = () => {
     if (formDetails.meetingId) {
       onSubmit({...formData, id: formDetails.meetingId});

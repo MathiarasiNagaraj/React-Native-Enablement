@@ -1,5 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {Image, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {LinearGradientContainer} from '../containers/LinearGradientContainer';
 import {Form} from '../containers/FormContainer';
@@ -8,7 +16,7 @@ import {SCREEN_NAMES} from '../constants/appConstant';
 import {commonStyle} from '../styles/commonStyle';
 import {useToast} from 'react-native-toast-notifications';
 import {TOAST_MESSAGES, VIEW_ROOMS} from '../messages/appMessage';
-import { getLocalDataByKey, storeLocalData} from '../services/asyncStorage';
+import {getLocalDataByKey, storeLocalData} from '../services/asyncStorage';
 import {useRecoilState, useSetRecoilState} from 'recoil';
 import {User} from '../store/atom/userAtom';
 import GetLocation from 'react-native-get-location';
@@ -16,13 +24,13 @@ import {getCurrentCity} from '../utils/commonUtils';
 import {validateLoginForm} from '../utils/validations.utils';
 import {LoginForm} from '../interfaces/formInterface';
 import {firebase} from '@react-native-firebase/storage';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { Rooms } from '../interfaces/commonInterface';
-import { readAllRoomsByBranch, readAllUsers } from '../services/firestore';
-import { Room } from '../store/atom/roomAtom';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {Rooms} from '../interfaces/commonInterface';
+import {readAllRoomsByBranch, readAllUsers} from '../services/firestore';
+import {Room} from '../store/atom/roomAtom';
 import SplashScreen from 'react-native-splash-screen';
-import { COLORS } from '../utils/colors';
-import { Members } from '../store/atom/membersAtom';
+import {COLORS} from '../utils/colors';
+import {Members} from '../store/atom/membersAtom';
 
 export const LoginScreen = () => {
   const navigate = useNavigation<StackNavigationProp<any>>();
@@ -34,34 +42,28 @@ export const LoginScreen = () => {
   const [rooms, setRooms] = useRecoilState<Rooms[]>(Room);
   const [members, setMembers] = useRecoilState(Members);
   getLocalDataByKey('user').then(data => {
-    if ( data&&data.isLoggedIn) {
+    if (data && data.isLoggedIn) {
       setIsUserLoggedIn(true);
       navigate.navigate(SCREEN_NAMES.HOME, {});
-
     }
   });
-  
 
-
-
-
-  const getRoomData = async (location:string) => {
+  const getRoomData = async (location: string) => {
     const data = await readAllRoomsByBranch(location);
-
     setRooms(data);
-
   };
-  const getAllUserDetails = async () => {
 
+  const getAllUserDetails = async () => {
     const data = await readAllUsers();
     setMembers(data);
   };
+
   const initData = async () => {
     getAllUserDetails();
   };
 
   useEffect(() => {
-    initData()
+    initData();
     SplashScreen.hide();
   }, []);
   useEffect(() => {
@@ -77,8 +79,8 @@ export const LoginScreen = () => {
             location: city,
           }));
           setLocation('Chennai');
-  
-        getRoomData('Chennai');
+
+          getRoomData('Chennai');
         })
         .catch(error => {
           const {code, message} = error;
@@ -88,8 +90,8 @@ export const LoginScreen = () => {
   }, []);
 
   const onViewRoomsClickHandler = () => {
-    navigate.navigate(SCREEN_NAMES.MEETING_ROOM_LIST,{})
-  }
+    navigate.navigate(SCREEN_NAMES.MEETING_ROOM_LIST, {});
+  };
   const onLoginHandler = async (data: LoginForm) => {
     const response = await validateLoginForm(data);
 
@@ -99,14 +101,10 @@ export const LoginScreen = () => {
         user: response.data,
       }));
 
-      const user = {...response.data, isLoggedIn:true,location: location};
+      const user = {...response.data, isLoggedIn: true, location: location};
       let imageRef = firebase.storage().ref('/' + user.id);
-
       const url = await imageRef.getDownloadURL();
-        
-    
-
-      const modifiedUser = { ...user, imgUrl:url }
+      const modifiedUser = {...user, imgUrl: url};
       await storeLocalData('user', modifiedUser);
 
       navigate.navigate(SCREEN_NAMES.HOME, {});
@@ -127,14 +125,13 @@ export const LoginScreen = () => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{flex: 1}}>
         <View style={commonStyle.container}>
-          
-          <Image source={myImage} alt='logo' style={styles.logo} />
+          <Image source={myImage} alt="logo" style={styles.logo} />
           <View style={styles.formContainer}>
             <Form formDetails={LOGIN_FORM} onSubmit={onLoginHandler} />
             <Pressable onPress={onViewRoomsClickHandler}>
               <Text style={styles.text}>{VIEW_ROOMS}</Text>
-              </Pressable>
-            </View>
+            </Pressable>
+          </View>
         </View>
       </KeyboardAvoidingView>
     </LinearGradientContainer>
@@ -146,23 +143,21 @@ const styles = StyleSheet.create({
     height: 100,
     width: 200,
     margin: 20,
-    objectFit:'contain',
-    alignSelf:'center',
+    objectFit: 'contain',
+    alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-
-    
   },
   formContainer: {
     maxWidth: '90%',
     width: 500,
     alignSelf: 'center',
-    alignItems:'center',
-    justifyContent:'center'
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   text: {
     color: COLORS.primaryDark,
     fontSize: 20,
-    margin:10
-  }
+    margin: 10,
+  },
 });

@@ -15,6 +15,7 @@ interface FloatingButtonProps{
  * @param Component child component for button Icon
  * @return floating button component
  */
+
 const FloatingButton :React.FC<FloatingButtonProps>= ({onPress}) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.button}>

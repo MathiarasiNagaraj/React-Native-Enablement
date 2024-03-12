@@ -9,6 +9,7 @@ interface ModalComponentProps {
   component: React.ReactNode;
   closeModal: () => void;
 }
+
 /**
  * @description Modal Component 
  * @param closeModal event handler  for close 
@@ -16,6 +17,7 @@ interface ModalComponentProps {
  * @param  isVisible  flag for displayig modal
  * @returns Modal component 
  */
+
 const ModalComponent: React.FC<ModalComponentProps> = ({
   isVisible,
   component,

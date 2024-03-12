@@ -7,7 +7,11 @@ interface RoomListItemProps {
   room: Rooms;
   onPressHandler: (room: Rooms) => void;
 }
-
+/**
+ * @description Room List Item 
+ * @param rooms Room details 
+ * @returns room card
+ */
 const RoomListItem: React.FC<RoomListItemProps> = ({ room, onPressHandler }) => {
     
   return (

@@ -10,23 +10,27 @@ import {
 import Button from '../components/Button';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ScreenHeader from '../components/ScreenHeader';
-import { ASYNC_STORE_KEY, BUTTONS, SCREEN_NAMES} from '../constants/appConstant';
+import {ASYNC_STORE_KEY, BUTTONS, SCREEN_NAMES} from '../constants/appConstant';
 import {LinearGradientContainer} from '../containers/LinearGradientContainer';
 import {ACCOUNT} from '../messages/appMessage';
-import {getLocalDataByKey, removeLocalDataByKey, storeLocalData} from '../services/asyncStorage';
+import {
+  getLocalDataByKey,
+  removeLocalDataByKey,
+  storeLocalData,
+} from '../services/asyncStorage';
 import {COLORS} from '../utils/colors';
 import {useNavigation} from '@react-navigation/native';
 import {useToast} from 'react-native-toast-notifications';
 import {Form} from '../containers/FormContainer';
 import {PROFILE_EDIT_FORM} from '../form/formConfig';
-import { COLLECTIONS, editDataById } from '../services/firestore';
+import {COLLECTIONS, editDataById} from '../services/firestore';
 import ImagePicker from 'react-native-image-crop-picker';
-import { useRecoilState } from 'recoil';
+import {useRecoilState} from 'recoil';
 import storage from '@react-native-firebase/storage';
 import {firebase} from '@react-native-firebase/storage';
-import { User } from '../store/atom/userAtom';
-import { AccountEditForm } from '../interfaces/formInterface';
-import { StackNavigationProp } from '@react-navigation/stack';
+import {User} from '../store/atom/userAtom';
+import {AccountEditForm} from '../interfaces/formInterface';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 export const MyAccountScreen = () => {
   const [user, setUser] = useState({});
@@ -34,7 +38,9 @@ export const MyAccountScreen = () => {
   const [userDetail, setUserDetail] = useRecoilState(User);
 
   const toast = useToast();
- const [image, setImage] = useState('https://api.adorable.io/avatars/80/abott@adorable.png');
+  const [image, setImage] = useState(
+    'https://api.adorable.io/avatars/80/abott@adorable.png',
+  );
   const [isEditMode, setIsEditMode] = useState(false);
   const [imgUrl, setImgUrl] = useState();
   useEffect(() => {
@@ -52,20 +58,19 @@ export const MyAccountScreen = () => {
     await removeLocalDataByKey('user');
     navigate.navigate(SCREEN_NAMES.LOGIN, {});
   };
-  const onUpdateProfileHandler = async(data:AccountEditForm) => {
+  const onUpdateProfileHandler = async (data: AccountEditForm) => {
     const user = await getLocalDataByKey(ASYNC_STORE_KEY.USER);
-    editDataById(COLLECTIONS.Users, user.id, { ...data, name: user.name })
-    const modifiedUser = { ...user, ...data };
+    editDataById(COLLECTIONS.Users, user.id, {...data, name: user.name});
+    const modifiedUser = {...user, ...data};
     await storeLocalData(ASYNC_STORE_KEY.USER, modifiedUser);
- 
-  
-    setUser(modifiedUser)
-  
-    setUserDetail((prevAuthState) => ({
+
+    setUser(modifiedUser);
+
+    setUserDetail(prevAuthState => ({
       ...prevAuthState,
-      location:modifiedUser.location,
+      location: modifiedUser.location,
       user: modifiedUser,
-    }))
+    }));
     setIsEditMode(false);
   };
 
@@ -73,44 +78,42 @@ export const MyAccountScreen = () => {
     ImagePicker.openPicker({
       width: 300,
       height: 400,
-      cropping: true
+      cropping: true,
     }).then(async image => {
-   
-      if (image.path) {      
-        setImage(image.path)
+      if (image.path) {
+        setImage(image.path);
         try {
           await storage().ref(user.id).putFile(image.path);
           setImgUrl(image.path);
-          const modifiedUser = { ...user, imgUrl:image.path }
+          const modifiedUser = {...user, imgUrl: image.path};
           await storeLocalData(ASYNC_STORE_KEY.USER, modifiedUser);
-          setUserDetail((prevAuthState) => ({
+          setUserDetail(prevAuthState => ({
             ...prevAuthState,
             user: modifiedUser,
-          }))
-         } catch (err) {
-          console.log(err)
+          }));
+        } catch (err) {
+          console.log(err);
         }
       }
     });
-  }
+  };
 
   return (
     <LinearGradientContainer>
       <ScreenHeader title={SCREEN_NAMES.MY_ACCOUNT} />
-      <ScrollView contentContainerStyle={styles.container}
-         showsHorizontalScrollIndicator={false}
-         showsVerticalScrollIndicator={false}
-      >
-        
+      <ScrollView
+        contentContainerStyle={styles.container}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}>
         {isEditMode ? (
           <>
-            {imgUrl &&
+            {imgUrl && (
               <ImageBackground
                 source={{
                   uri: imgUrl,
                 }}
-                style={{ height: 150, width: 150 }}
-                imageStyle={{ borderRadius: 100 }}>
+                style={{height: 150, width: 150}}
+                imageStyle={{borderRadius: 100}}>
                 <View
                   style={{
                     flex: 1,
@@ -133,7 +136,7 @@ export const MyAccountScreen = () => {
                   />
                 </View>
               </ImageBackground>
-            }
+            )}
             <Text style={styles.name}>{user.name}</Text>
             <Form
               formDetails={PROFILE_EDIT_FORM(
@@ -145,14 +148,10 @@ export const MyAccountScreen = () => {
             />
           </>
         ) : (
-            <>
-              {imgUrl &&
-                <Image
-                  style={styles.imageContainer}
-                  source={{ uri: imgUrl }}
-                       
-                />
-              }
+          <>
+            {imgUrl && (
+              <Image style={styles.imageContainer} source={{uri: imgUrl}} />
+            )}
             <Text style={styles.name}>{user.name}</Text>
             <View style={styles.buttonContainer}>
               <Button
@@ -220,7 +219,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   text: {
-    width:300,
+    width: 300,
     color: COLORS.primaryDark,
     fontSize: 17,
     fontWeight: '400',
@@ -230,6 +229,5 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: COLORS.black,
     alignSelf: 'flex-start',
-
   },
 });

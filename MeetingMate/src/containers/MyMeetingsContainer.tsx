@@ -6,11 +6,7 @@ import ModalComponent from '../components/Modal';
 import {Form} from './FormContainer';
 import {MEETING_ROOM_EDIT_FORM} from '../form/formConfig';
 import ConfirmBox from '../components/ConfirmBox';
-import {
-  COLLECTIONS,
-  deleteDataById,
-  editDataById,
-} from '../services/firestore';
+import {COLLECTIONS, deleteDataById, editDataById} from '../services/firestore';
 import {getNameById} from '../utils/commonUtils';
 import {CONFIRM_DELETE, TOAST_MESSAGES} from '../messages/appMessage';
 import {BUTTONS, MEETING_INVITATION_MESSAGE} from '../constants/appConstant';
@@ -21,8 +17,8 @@ import {Room} from '../store/atom/roomAtom';
 import {Meeting} from '../store/atom/meetingAtom';
 import {Meetings, Rooms, User} from '../interfaces/commonInterface';
 import {MeetingEditForm} from '../interfaces/formInterface';
-import { Members } from '../store/atom/membersAtom';
-import { validateEditRoomBookingForm } from '../utils/validations.utils';
+import {Members} from '../store/atom/membersAtom';
+import {validateEditRoomBookingForm} from '../utils/validations.utils';
 
 interface MyMeetingsContainerProps {
   style: string;
@@ -38,7 +34,7 @@ export const MyMeetingsContainer: React.FC<MyMeetingsContainerProps> = ({
 
   const [meetings, setMeetings] = useRecoilState<Meetings[]>(Meeting);
   const [rooms, setRooms] = useRecoilState<Rooms[]>(Room);
-const[members,setMembers]=useRecoilState<User[]>(Members)
+  const [members, setMembers] = useRecoilState<User[]>(Members);
   const onEditHandler = async (data: MeetingEditForm) => {
     const response = await validateEditRoomBookingForm(data);
     if (!response.valid) {
@@ -83,23 +79,23 @@ const[members,setMembers]=useRecoilState<User[]>(Members)
     }
     // getRooms();
   };
-  const onShareHandler = async(data: Meetings) => {
+  const onShareHandler = async (data: Meetings) => {
     const roomName = await getNameById(rooms, data.roomId);
 
-
-      try {
-         await Share.share({
-          message:MEETING_INVITATION_MESSAGE(data.title,data.start.getHours().toString().padStart(2,'0'),data.start.getMinutes().toString().padStart(2,'0'),roomName,data.organizerId)
-
-           
-          
-        });
-       
-      } catch (error) {
-Alert.alert(error)
-      }
-     
-  }
+    try {
+      await Share.share({
+        message: MEETING_INVITATION_MESSAGE(
+          data.title,
+          data.start.getHours().toString().padStart(2, '0'),
+          data.start.getMinutes().toString().padStart(2, '0'),
+          roomName,
+          data.organizerId,
+        ),
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
   //on Edit Click Handler
   const onEditClickHandler = (data: Meetings) => {
     const formComponent = (
@@ -209,4 +205,4 @@ const styles = StyleSheet.create({
     color: COLORS.primaryDark,
     fontWeight: '500',
   },
-})
+});

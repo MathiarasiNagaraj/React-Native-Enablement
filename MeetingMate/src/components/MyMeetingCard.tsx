@@ -17,7 +17,7 @@ interface MyMeetingCardProps {
 /**
  * @description MyMeeting card component
  * @param data Meeting card detail
- *  @param onEditClickHandler function handler for edit  event
+ * @param onEditClickHandler function handler for edit  event
  * @param onDeleteClickHandler function handler for delete event
  * @param onShareHandler function handler for share event
  * @param  style style name for card
@@ -104,9 +104,7 @@ const MyMeetingCard: React.FC<MyMeetingCardProps> = ({
           />
 
           <Text style={styles.text}>
-            {getTimeInFormat(data.start)}
-            -
-            {getTimeInFormat(data.end)}
+            {getTimeInFormat(data.start)}-{getTimeInFormat(data.end)}
           </Text>
         </Text>
       </Text>

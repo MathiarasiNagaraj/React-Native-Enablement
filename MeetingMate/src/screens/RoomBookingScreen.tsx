@@ -8,17 +8,20 @@ import {readMeetingbyRoomId} from '../services/firestore';
 import {Members} from '../store/atom/membersAtom';
 import {COLORS} from '../utils/colors';
 import {getNameById} from '../utils/commonUtils';
+import QRCode from 'react-native-qrcode-svg';
 import {Dimensions} from 'react-native';
 export const RoomBookingScreen = () => {
   const route = useRoute();
   const {room} = route.params;
   const [members, setMembers] = useRecoilState(Members);
   const [meetings, setMeetings] = useState([]);
+  const [currentMeeting, setCurrentMeeting] = useState({});
   const windowWidth = Dimensions.get('window').width;
   const updatedMeetings = meetings.map(meeting => {
     meeting.organizer = getNameById(members, meeting.organizerId);
     return meeting;
   });
+
   const roomMeetings = (
     <FlatList
       data={updatedMeetings}
@@ -26,10 +29,14 @@ export const RoomBookingScreen = () => {
     />
   );
   const getMeetingsByRoomId = async () => {
+    const currentTime = new Date();
     const data = await readMeetingbyRoomId(room.id);
     setMeetings(data);
+    data.map(meeting => {
+      if (currentTime >= meeting.start && currentTime <= meeting.end)
+        setCurrentMeeting(meeting);
+    });
   };
-  // console.log(room.roomImg)
   useEffect(() => {
     getMeetingsByRoomId();
   }, []);
@@ -43,20 +50,27 @@ export const RoomBookingScreen = () => {
       </View>
     </View>
   ) : (
-      <View style={styles.fullContainer}>
-        <View style={[styles.sideBox,{backgroundColor:room.availability?COLORS.green:COLORS.red}]}>
-          {room.availability ? <Text style={styles.availableText}>
-            {AVAILABLE}
-          </Text> : <View>
-          </View>}
-
-        </View>
-         <View style={styles.wrapper}>
+    <View style={styles.fullContainer}>
+      <View
+        style={[
+          styles.sideBox,
+          {backgroundColor: room.availability ? COLORS.green : COLORS.red},
+        ]}>
+        {room.availability ? (
+          <Text style={styles.availableText}>{AVAILABLE}</Text>
+        ) : (
+          <View>
+            <Text>{currentMeeting.title}</Text>
+          </View>
+        )}
+      </View>
+      <View style={styles.wrapper}>
+        <QRCode size={240} value={room.id} />
         <Text style={styles.title}>{room.name}</Text>
         <Text style={styles.text}>{TODAY_MEETING}</Text>
         {roomMeetings}
       </View>
-  </View>
+    </View>
   );
 };
 const styles = StyleSheet.create({
@@ -66,14 +80,14 @@ const styles = StyleSheet.create({
   },
   fullContainer: {
     flex: 1,
-    flexDirection:'row'
+    flexDirection: 'row',
   },
   availableText: {
     color: COLORS.white,
     fontSize: 50,
-    fontWeight:'700',
+    fontWeight: '700',
     width: '50%',
-    textAlign:'center'
+    textAlign: 'center',
   },
   box: {
     width: '100%',
@@ -85,9 +99,12 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '60%',
     justifyContent: 'center',
-    alignItems:'center'
+    alignItems: 'center',
   },
-  wrapper: {},
+  wrapper: {
+    justifyContent: 'center',
+    padding: 20,
+  },
   img: {
     width: '100%',
     height: '20%',

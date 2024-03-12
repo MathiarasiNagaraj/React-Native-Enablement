@@ -13,21 +13,25 @@ import { StackNavigationProp } from '@react-navigation/stack';
  */
 export const SearchBar = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
+  // on qr click handler
   const onQRHandler = () => {
     navigation.navigate(SCREEN_NAMES.QR_SCAN, {});
   };
-  const onFocusHandler = () => {
+  //on focus of input handler
+  const onNavigateHandler = () => {
     navigation.navigate(SCREEN_NAMES.SEARCH, {});
   };
   return (
     <View style={styles.searchBar}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <MaterialCommunityIcons name="magnify" size={23} style={{fontWeight:'900'}} color={COLORS.primaryDark} />
+        <MaterialCommunityIcons name="magnify" size={23} style={{ fontWeight: '900' }} color={COLORS.primaryDark}
+               onPress={onNavigateHandler}
+        />
         <TextInput
           placeholderTextColor={COLORS.primaryDark}
           style={styles.input}
           placeholder={'Search Rooms'}
-          onFocus={onFocusHandler}
+          onFocus={onNavigateHandler}
         />
       </View>
       <MaterialCommunityIcons
