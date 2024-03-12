@@ -15,7 +15,6 @@ export const RoomBookingScreen = () => {
   const [members, setMembers] = useRecoilState(Members);
   const [meetings, setMeetings] = useState([]);
   const windowWidth = Dimensions.get('window').width;
-  console.log(windowWidth, 'width');
   const updatedMeetings = meetings.map(meeting => {
     meeting.organizer = getNameById(members, meeting.organizerId);
     return meeting;
