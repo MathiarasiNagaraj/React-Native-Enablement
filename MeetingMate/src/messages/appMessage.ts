@@ -1,6 +1,6 @@
 export const TITLE = {
     APP: 'Meeting Mate',
-    MY_UPCOMING_MEETING: 'My Meeting',
+    MY_UPCOMING_MEETING: 'My Upcoming Meeting',
     MY_PREVIOUS_MEETING:'My Previous Meetings',
     MEETING_ROOMS: 'Meeting Rooms',
     MY_ACCOUNT: 'My Account',
@@ -36,13 +36,18 @@ export const AVAILABLITY = {
     AVAILABLE: 'Available',
     BUSY:'Busy'
 }
+export const AVAILABLE='Room Available Now'
+export const TODAY_MEETING='Today Meetings'
+export const CURRENT_DAY_MEETINGS_OF_ROOM=(room:string)=>`Today Meetings of ${room}`
 
 export const MEETING_STATUS= {
     COMPLETED: 'Completed',
     UPCOMMING: 'Upcomming',
     ONGOING:'OnGoing'
 }
+export const VIEW_ROOMS='View Rooms'
 
+export const ORGANIZED_BY=(organizer:string)=>`Meeting Organized by ${organizer}`
 export const NO_MEETING = 'No meetings booked today yet'
 
 export const NO_UPCOMMING_MEETING='No upcoming meeting'

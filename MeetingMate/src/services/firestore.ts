@@ -21,7 +21,7 @@ export const addNewMeeting = async (collection: string, data: Meetings) => {
       .set(data)
       .catch(err => console.log(err));
   } catch (error) {
-    return error;
+   throw(error);
   }
 };
 
@@ -36,8 +36,8 @@ export const updateRoomStatus = async (id: string, status:boolean) => {
       .collection(COLLECTIONS.Rooms)
       .doc(id)
       .set({availablity: status});
-  } catch (err) {
-    return err;
+  } catch (error) {
+throw(error)
   }
 };
 /**
@@ -188,7 +188,7 @@ export const readAllUsers = async (): Promise<User[]> => {
 
     return documents;
   } catch (error) {
-    return [];
+   throw(error)
   }
 };
 
@@ -242,7 +242,7 @@ export const editDataById = async (
     const snapshot = firestore().collection(collection).doc(id);
     await snapshot.update(updatedData);
   } catch (error) {
-    return error;
+    throw( error);
   }
 };
 /**
@@ -255,44 +255,7 @@ export const deleteDataById = async (collection: string, id: string) => {
     const snapshot = firestore().collection(collection).doc(id);
     await snapshot.delete();
   } catch (error) {
-    return error;
+    throw(error);
   }
 };
 
-// export const readMeetingbyUserId = async (userId: string) => {
-//   try {
-//     const querySnapshot = await firestore()
-//       .collection(COLLECTIONS.Meetings)
-//       .where('organizerId', '==', userId)
-//       .get();
-//     const documents: {id: string}[] = [];
-
-//     querySnapshot.forEach(doc => {
-//       documents.push({id: doc.id, ...doc.data()});
-//     });
-
-//     return documents;
-//   } catch (error) {
-//     return error;
-//   }
-// };
-
-// export const readDataById = async (collection: string, id: string) => {
-//   try {
-//     const snapshot = firestore().collection(collection).doc(id);
-//     const documents = await snapshot.get();
-
-//     const docId = documents.id;
-//     const data = documents.data();
-//     if (documents.exists)
-//       return {
-//         docId,
-//         ...data,
-//       };
-//     return null;
-//   } catch (error) {
-//     return error;
-//   }
-// };
-
-//read meetings for particular room id

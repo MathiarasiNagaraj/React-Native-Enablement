@@ -41,6 +41,7 @@ const DateInput: React.FC<DateInputProps> = ({
       <TextInput
         placeholder={placeholder}
         style={styles[style]}
+        
         placeholderTextColor={COLORS.primaryDark}
         value={  inputTime!=='NaN:NaN'?inputTime:placeholder}
         onFocus={() => setOpen(true)}

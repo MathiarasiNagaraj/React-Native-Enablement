@@ -119,12 +119,14 @@ export const HomeScreen = () => {
         backgroundColor: COLORS.white,
       }}>
       <Header />
-      <View style={styles.fullContainer}>
-        <SearchBar />
+      
+    
           <ScrollView style={styles.container}
              showsHorizontalScrollIndicator={false}
              showsVerticalScrollIndicator={false}
           >
+          <View style={styles.fullContainer}>
+                <SearchBar />
           <View>
             <View>
               <View style={styles.wrapper}>
@@ -153,9 +155,10 @@ export const HomeScreen = () => {
             </View>
 
             <MeetingRooms isHorizontal={true} style="wrapper" />
-          </View>
+            </View>
+            </View>
         </ScrollView>
-      </View>
+    
       <FloatingButton onPress={onFloatingBtnPressHandler} />
     </View>
   );
@@ -182,7 +185,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: 23,
+    fontSize: 18,
     color: COLORS.primaryDark,
     fontWeight: '600',
   },
@@ -192,7 +195,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   fallback: {
-    height: 100,
+    height: 200,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: COLORS.transparent,
@@ -204,6 +207,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   underLineText: {
+   
     textDecorationLine: 'underline',
     color: COLORS.primaryDark,
     fontWeight: '500',

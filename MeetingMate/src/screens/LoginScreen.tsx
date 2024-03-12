@@ -7,7 +7,7 @@ import {LOGIN_FORM} from '../form/formConfig';
 import {SCREEN_NAMES} from '../constants/appConstant';
 import {commonStyle} from '../styles/commonStyle';
 import {useToast} from 'react-native-toast-notifications';
-import {TOAST_MESSAGES} from '../messages/appMessage';
+import {TOAST_MESSAGES, VIEW_ROOMS} from '../messages/appMessage';
 import { getLocalDataByKey, storeLocalData} from '../services/asyncStorage';
 import {useRecoilState, useSetRecoilState} from 'recoil';
 import {User} from '../store/atom/userAtom';
@@ -18,9 +18,11 @@ import {LoginForm} from '../interfaces/formInterface';
 import {firebase} from '@react-native-firebase/storage';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Rooms } from '../interfaces/commonInterface';
-import { readAllRoomsByBranch } from '../services/firestore';
+import { readAllRoomsByBranch, readAllUsers } from '../services/firestore';
 import { Room } from '../store/atom/roomAtom';
 import SplashScreen from 'react-native-splash-screen';
+import { COLORS } from '../utils/colors';
+import { Members } from '../store/atom/membersAtom';
 
 export const LoginScreen = () => {
   const navigate = useNavigation<StackNavigationProp<any>>();
@@ -30,6 +32,7 @@ export const LoginScreen = () => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [location, setLocation] = useState<String>();
   const [rooms, setRooms] = useRecoilState<Rooms[]>(Room);
+  const [members, setMembers] = useRecoilState(Members);
   getLocalDataByKey('user').then(data => {
     if ( data&&data.isLoggedIn) {
       setIsUserLoggedIn(true);
@@ -38,9 +41,9 @@ export const LoginScreen = () => {
     }
   });
   
-  useEffect(() => {
-    SplashScreen.hide();
-  }, []);
+
+
+
 
   const getRoomData = async (location:string) => {
     const data = await readAllRoomsByBranch(location);
@@ -48,6 +51,19 @@ export const LoginScreen = () => {
     setRooms(data);
 
   };
+  const getAllUserDetails = async () => {
+
+    const data = await readAllUsers();
+    setMembers(data);
+  };
+  const initData = async () => {
+    getAllUserDetails();
+  };
+
+  useEffect(() => {
+    initData()
+    SplashScreen.hide();
+  }, []);
   useEffect(() => {
     if (!isUserLoggedIn) {
       GetLocation.getCurrentPosition({
@@ -116,7 +132,7 @@ export const LoginScreen = () => {
           <View style={styles.formContainer}>
             <Form formDetails={LOGIN_FORM} onSubmit={onLoginHandler} />
             <Pressable onPress={onViewRoomsClickHandler}>
-              <Text>View Room</Text>
+              <Text style={styles.text}>{VIEW_ROOMS}</Text>
               </Pressable>
             </View>
         </View>
@@ -127,10 +143,15 @@ export const LoginScreen = () => {
 
 const styles = StyleSheet.create({
   logo: {
-    height: 80,
-    width: 180,
+    height: 100,
+    width: 200,
     margin: 20,
-    alignItems:'center',
+    objectFit:'contain',
+    alignSelf:'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    
   },
   formContainer: {
     maxWidth: '90%',
@@ -138,5 +159,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems:'center',
     justifyContent:'center'
+  },
+  text: {
+    color: COLORS.primaryDark,
+    fontSize: 20,
+    margin:10
   }
 });

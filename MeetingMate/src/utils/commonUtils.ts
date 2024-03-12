@@ -3,6 +3,10 @@ import {Rooms} from '../interfaces/commonInterface';
 import {getLocalDataByKey} from '../services/asyncStorage';
 import {readAllUsers, readAllRoomsByBranch} from '../services/firestore';
 
+export const getTimeInFormat = (date:Date) => {
+  return date.getHours().toString().padStart(2, '0')+":"+date.getMinutes().toString().padStart(2, '0')
+}
+
 export const getNameById = (collection: [], id: string) => {
   const data = collection?.find(doc => doc.id === id);
   return data?.name;

@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {COLORS} from '../utils/colors';
 import {Meetings, User} from '../interfaces/commonInterface';
-import {getNameById} from '../utils/commonUtils';
+import {getNameById, getTimeInFormat} from '../utils/commonUtils';
 import {readAllUsers} from '../services/firestore';
 
 interface MyMeetingCardProps {
@@ -104,13 +104,9 @@ const MyMeetingCard: React.FC<MyMeetingCardProps> = ({
           />
 
           <Text style={styles.text}>
-            {data.start.getHours().toString().padStart(2, '0') +
-              ':' +
-              data.start.getMinutes().toString().padStart(2, '0')}
+            {getTimeInFormat(data.start)}
             -
-            {data.end.getHours().toString().padStart(2, '0') +
-              ':' +
-              data.end.getMinutes().toString().padStart(2, '0')}
+            {getTimeInFormat(data.end)}
           </Text>
         </Text>
       </Text>

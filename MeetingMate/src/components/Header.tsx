@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   wrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
     alignItems: 'center',
     backgroundColor: COLORS.white,
   },
@@ -71,12 +71,15 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   profileImg: {
-    height: 50,
-    width: 50,
+    height: 60,
+    width: 60,
     borderRadius: 50,
+    borderWidth: 5,
+    borderColor:COLORS.transparent
   },
   logo: {
-    height: 70,
-    width: 180,
+    height: 90,
+    width: 150,
+    objectFit:'contain'
   },
 });
