@@ -14,10 +14,11 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {useNavigation} from '@react-navigation/native';
 import {RoomDetails} from '../components/RoomDetailCard';
 import {filterByName, filterByOptions} from '../utils/commonUtils';
-import {FILTERS} from '../constants/appConstant';
+import {FILTERS, SCREEN_NAMES} from '../constants/appConstant';
 import {useRecoilState} from 'recoil';
 import {Room} from '../store/atom/roomAtom';
 import {Rooms} from '../interfaces/commonInterface';
+import ScreenHeader from '../components/ScreenHeader';
 export const SearchRoomsScreen = () => {
   const navigation = useNavigation();
   const onGoBackHandler = () => {
@@ -49,20 +50,7 @@ export const SearchRoomsScreen = () => {
   ));
   return (
     <LinearGradientContainer>
-      <View style={styles.header}>
-        <MaterialCommunityIcons
-          name="arrow-left"
-          color={COLORS.primaryDark}
-          size={25}
-          onPress={onGoBackHandler}
-        />
-        <TextInput
-          placeholderTextColor={COLORS.primaryDark}
-          style={styles.txtInput}
-          onChangeText={onTextChangeHandler}
-          placeholder={'Search Rooms'}
-        />
-      </View>
+      <ScreenHeader title={ SCREEN_NAMES.SEARCH} />
       <ScrollView
         horizontal={true}
         style={styles.optionContainer}

@@ -8,6 +8,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {BUTTONS, SCREEN_NAMES} from '../constants/appConstant';
 import {AVAILABLITY} from '../messages/appMessage';
 import {StackNavigationProp} from '@react-navigation/stack';
+import IconText from './IconText';
 interface RoomDetailsProps {
   details: Rooms;
   style: 'wrapper' | 'cardFullContainer';
@@ -21,22 +22,21 @@ export const RoomDetails: React.FC<RoomDetailsProps> = ({ details, style }) => {
   const onViewScheduleHandler = () => {
     navigation.navigate(SCREEN_NAMES.MEETING_ROOM, {details});
   };
-  
+  console.log(details)
   return (
     <View style={styles[style]}>
       <Image source={{uri: details.roomImg}} style={styles.cardImg} />
       <View style={styles.cardContentWrapper}>
         <Text style={styles.cardTitle}>{details.name}</Text>
-        <View style={styles.iconBox}>
-          <MaterialCommunityIcons
-            name="map-marker"
-            size={22}
-            style={styles.icon}
-          />
-          <Text style={styles.cardText}>
-            {details.location} ,{details.branch}
-          </Text>
-        </View>
+        <IconText
+        containerStyle={'rowContainer'}
+        textStyle={'text'}
+        text={`${details.location } , ${details.branch}`}
+        iconName={'map-marker'}
+        iconColor={COLORS.primaryDark}
+        iconSize={24}
+      />
+      
 
         <View style={[styles.statusBox]}>
           <View

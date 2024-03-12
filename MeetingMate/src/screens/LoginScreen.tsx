@@ -16,7 +16,10 @@ import {SCREEN_NAMES} from '../constants/appConstant';
 import {commonStyle} from '../styles/commonStyle';
 import {useToast} from 'react-native-toast-notifications';
 import {TOAST_MESSAGES, VIEW_ROOMS} from '../messages/appMessage';
-import {getLocalDataByKey, storeLocalData} from '../services/asyncStorage';
+import {
+  getLocalDataByKey,
+  storeLocalData,
+} from '../services/LocalStorageServices';
 import {useRecoilState, useSetRecoilState} from 'recoil';
 import {User} from '../store/atom/userAtom';
 import GetLocation from 'react-native-get-location';
@@ -26,7 +29,7 @@ import {LoginForm} from '../interfaces/formInterface';
 import {firebase} from '@react-native-firebase/storage';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {Rooms} from '../interfaces/commonInterface';
-import {readAllRoomsByBranch, readAllUsers} from '../services/firestore';
+import {readAllRoomsByBranch, readAllUsers} from '../services/MeetingServices';
 import {Room} from '../store/atom/roomAtom';
 import SplashScreen from 'react-native-splash-screen';
 import {COLORS} from '../utils/colors';

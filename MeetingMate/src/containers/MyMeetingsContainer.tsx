@@ -6,10 +6,13 @@ import ModalComponent from '../components/Modal';
 import {Form} from './FormContainer';
 import {MEETING_ROOM_EDIT_FORM} from '../form/formConfig';
 import ConfirmBox from '../components/ConfirmBox';
-import {COLLECTIONS, deleteDataById, editDataById} from '../services/firestore';
+import {
+  deleteDataById,
+  editDataById,
+} from '../services/MeetingServices';
 import {getNameById} from '../utils/commonUtils';
 import {CONFIRM_DELETE, TOAST_MESSAGES} from '../messages/appMessage';
-import {BUTTONS, MEETING_INVITATION_MESSAGE} from '../constants/appConstant';
+import {BUTTONS, COLLECTIONS, MEETING_INVITATION_MESSAGE} from '../constants/appConstant';
 import {useToast} from 'react-native-toast-notifications';
 import {commonStyle} from '../styles/commonStyle';
 import {useRecoilState} from 'recoil';

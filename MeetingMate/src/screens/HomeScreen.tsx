@@ -9,7 +9,7 @@ import {
   readAllRoomsByBranch,
   readAllUsers,
   readUpcomingMeetingsByOrganizerId,
-} from '../services/firestore';
+} from '../services/MeetingServices';
 import {useNavigation} from '@react-navigation/native';
 import {ASYNC_STORE_KEY, SCREEN_NAMES} from '../constants/appConstant';
 import {useRecoilState, useRecoilValue} from 'recoil';
@@ -22,7 +22,7 @@ import {Members} from '../store/atom/membersAtom';
 import {Meetings, Rooms} from '../interfaces/commonInterface';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {scheduleNotification} from '../utils/pushNotification';
-import {getLocalDataByKey} from '../services/asyncStorage';
+import {getLocalDataByKey} from '../services/LocalStorageServices';
 import {Loader} from '../components/Loader';
 
 /**
@@ -30,7 +30,6 @@ import {Loader} from '../components/Loader';
  * @returns HomeScreen component
  */
 export const HomeScreen = () => {
-  
   const [meetings, setMeetings] = useRecoilState<Meetings[]>(Meeting);
   const [rooms, setRooms] = useRecoilState<Rooms[]>(Room);
   const [members, setMembers] = useRecoilState(Members);

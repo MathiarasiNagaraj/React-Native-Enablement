@@ -1,12 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
+import { COLLECTIONS } from '../constants/appConstant';
 import {Meetings, Rooms, User} from '../interfaces/commonInterface';
 
-export const COLLECTIONS = {
-  Meetings: 'Meetings',
-  Users: 'Users',
-  Rooms: 'Rooms',
-  location: 'Locations',
-};
 
 /**
  * @description Function for adding new meeting

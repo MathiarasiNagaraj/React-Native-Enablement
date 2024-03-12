@@ -1,11 +1,19 @@
-import {ASYNC_STORE_KEY, BRANCHES, GEO_LOCATION} from '../constants/appConstant';
+import {
+  ASYNC_STORE_KEY,
+  BRANCHES,
+  GEO_LOCATION,
+} from '../constants/appConstant';
 import {Rooms} from '../interfaces/commonInterface';
-import {getLocalDataByKey} from '../services/asyncStorage';
-import {readAllUsers, readAllRoomsByBranch} from '../services/firestore';
+import {getLocalDataByKey} from '../services/LocalStorageServices';
+import {readAllUsers, readAllRoomsByBranch} from '../services/MeetingServices';
 
-export const getTimeInFormat = (date:Date) => {
-  return date.getHours().toString().padStart(2, '0')+":"+date.getMinutes().toString().padStart(2, '0')
-}
+export const getTimeInFormat = (date: Date) => {
+  return (
+    date.getHours().toString().padStart(2, '0') +
+    ':' +
+    date.getMinutes().toString().padStart(2, '0')
+  );
+};
 
 export const getNameById = (collection: [], id: string) => {
   const data = collection?.find(doc => doc.id === id);
@@ -17,15 +25,13 @@ export const getRoomById = (rooms: Rooms[], roomId: string) => {
   return room;
 };
 
-export const filterByName = (array:[], text:string) => {
+export const filterByName = (array: [], text: string) => {
   if (text.length === 0) return array;
 
   return array.filter(obj =>
     obj.name.toLowerCase().startsWith(text.toLowerCase()),
   );
 };
-
-
 
 export const filterByOptions = (array, option) => {
   let results = [];
@@ -114,7 +120,7 @@ export const getCurrentCity = (latitude, longitude) => {
 // }
 
 export const getOptions = async (option: string) => {
-  let options: { label: string; value: string; }[] = [];
+  let options: {label: string; value: string}[] = [];
 
   const user = await getLocalDataByKey(ASYNC_STORE_KEY.USER);
   switch (option) {

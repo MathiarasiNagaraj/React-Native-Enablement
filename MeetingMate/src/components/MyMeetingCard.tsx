@@ -4,7 +4,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {COLORS} from '../utils/colors';
 import {Meetings, User} from '../interfaces/commonInterface';
 import {getNameById, getTimeInFormat} from '../utils/commonUtils';
-import {readAllUsers} from '../services/firestore';
+import {readAllUsers} from '../services/MeetingServices';
+import IconText from './IconText';
 
 interface MyMeetingCardProps {
   data: Meetings;
@@ -79,35 +80,32 @@ const MyMeetingCard: React.FC<MyMeetingCardProps> = ({
           </View>
         )}
       </View>
-      <Text>
-        <MaterialCommunityIcons
-          name={'account'}
-          size={25}
-          style={styles.icon}
-        />
-        <Text style={styles.text}>{data.organizerId}</Text>
-      </Text>
-      <Text>
-        <Text>
-          <MaterialCommunityIcons
-            name={'map-marker'}
-            size={22}
-            style={styles.icon}
-          />
-          <Text style={styles.text}>{data.roomName} | </Text>
-        </Text>
-        <Text>
-          <MaterialCommunityIcons
-            name={'clock-time-eight'}
-            size={20}
-            style={styles.icon}
-          />
 
-          <Text style={styles.text}>
-            {getTimeInFormat(data.start)}-{getTimeInFormat(data.end)}
-          </Text>
-        </Text>
-      </Text>
+      <IconText
+        containerStyle={'rowContainer'}
+        textStyle={'text'}
+        text={data.organizerId}
+        iconName={'account'}
+        iconColor={COLORS.primaryDark}
+        iconSize={24}
+      />
+      <IconText
+        containerStyle={'rowContainer'}
+        textStyle={'text'}
+        text={data.roomName}
+        iconName={'map-marker'}
+        iconColor={COLORS.primaryDark}
+        iconSize={24}
+      />
+      <IconText
+        containerStyle={'rowContainer'}
+        textStyle={'text'}
+        text={`${getTimeInFormat(data.start)}-${getTimeInFormat(data.end)}`}
+        iconName={'clock-time-eight'}
+        iconColor={COLORS.primaryDark}
+        iconSize={24}
+      />
+      <Text></Text>
 
       <View style={styles.memberwrapper}>{members}</View>
     </View>

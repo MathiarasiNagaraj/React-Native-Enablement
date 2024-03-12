@@ -12,6 +12,12 @@ export const SCREEN_NAMES = {
   ROOM_QR_BOOKING: 'RoomBooking',
 };
 
+export const COLLECTIONS = {
+  Meetings: 'Meetings',
+  Users: 'Users',
+  Rooms: 'Rooms',
+  location: 'Locations',
+};
 
 
 export const MEETING_INVITATION_MESSAGE = (

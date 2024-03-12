@@ -14,7 +14,7 @@ export const MEETING_ROOM = {
     TODAY_MEETING: 'Today Meeting',
     MAX_SEAT: 'Max Seats :',
     MONITOR: 'Monitor',
-    BOARD: 'BOARD',
+    BOARD: 'White Board',
     
 }
 

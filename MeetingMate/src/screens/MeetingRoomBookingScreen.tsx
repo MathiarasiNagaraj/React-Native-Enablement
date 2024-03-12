@@ -5,7 +5,7 @@ import {Form} from '../containers/FormContainer';
 import {addToAndroidCal} from '../utils/calender';
 import {LinearGradientContainer} from '../containers/LinearGradientContainer';
 import {useRoute} from '@react-navigation/native';
-import {addNewMeeting, COLLECTIONS} from '../services/firestore';
+import {addNewMeeting, COLLECTIONS} from '../services/MeetingServices';
 import ScreenHeader from '../components/ScreenHeader';
 import {useToast} from 'react-native-toast-notifications';
 import {commonStyle} from '../styles/commonStyle';
@@ -46,7 +46,7 @@ export const MeetingRoomBookingScreen = () => {
         formdata.start,
         formdata.end,
         formdata.roomName,
-        ''
+        '',
       );
     }
   };

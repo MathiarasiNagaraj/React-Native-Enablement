@@ -4,7 +4,7 @@ import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
 import {useRecoilState} from 'recoil';
 import {MeetingCard} from '../components/MeetingCard';
 import {AVAILABLE, TODAY_MEETING} from '../messages/appMessage';
-import {readMeetingbyRoomId} from '../services/firestore';
+import {readMeetingbyRoomId} from '../services/MeetingServices';
 import {Members} from '../store/atom/membersAtom';
 import {COLORS} from '../utils/colors';
 import {getNameById} from '../utils/commonUtils';

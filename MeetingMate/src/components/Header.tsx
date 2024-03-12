@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {ASYNC_STORE_KEY, SCREEN_NAMES} from '../constants/appConstant';
-import {getLocalDataByKey} from '../services/asyncStorage';
+import {getLocalDataByKey} from '../services/LocalStorageServices';
 import {useRecoilValue} from 'recoil';
 import {User} from '../store/atom/userAtom';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -19,7 +19,6 @@ import {COLORS} from '../utils/colors';
  */
 
 export const Header = () => {
-
   const navigation = useNavigation<StackNavigationProp<any>>();
   const user = useRecoilValue(User);
   const [imgUrl, setImgUrl] = useState();
@@ -36,7 +35,7 @@ export const Header = () => {
   useEffect(() => {
     getUserData();
   }, [user]);
-//account click handler
+  //account click handler
   const onAccountClickHandler = () => {
     navigation.navigate(SCREEN_NAMES.MY_ACCOUNT, {});
   };
@@ -77,11 +76,11 @@ const styles = StyleSheet.create({
     width: 60,
     borderRadius: 50,
     borderWidth: 5,
-    borderColor:COLORS.transparent
+    borderColor: COLORS.transparent,
   },
   logo: {
     height: 90,
     width: 150,
-    objectFit:'contain'
+    objectFit: 'contain',
   },
 });

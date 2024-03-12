@@ -17,13 +17,13 @@ import {
   getLocalDataByKey,
   removeLocalDataByKey,
   storeLocalData,
-} from '../services/asyncStorage';
+} from '../services/LocalStorageServices';
 import {COLORS} from '../utils/colors';
 import {useNavigation} from '@react-navigation/native';
 import {useToast} from 'react-native-toast-notifications';
 import {Form} from '../containers/FormContainer';
 import {PROFILE_EDIT_FORM} from '../form/formConfig';
-import {COLLECTIONS, editDataById} from '../services/firestore';
+import {COLLECTIONS, editDataById} from '../services/MeetingServices';
 import ImagePicker from 'react-native-image-crop-picker';
 import {useRecoilState} from 'recoil';
 import storage from '@react-native-firebase/storage';

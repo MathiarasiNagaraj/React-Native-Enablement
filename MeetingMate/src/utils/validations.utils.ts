@@ -1,4 +1,4 @@
-import { Meetings } from '../interfaces/commonInterface';
+import {Meetings} from '../interfaces/commonInterface';
 import {
   AccountEditForm,
   LoginForm,
@@ -10,7 +10,7 @@ import {
   LOGIN_FORM,
   ROOM_BOOKING_FORM,
 } from '../messages/validationMessage';
-import {readAllMeetings, readAllUsers} from '../services/firestore';
+import {readAllMeetings, readAllUsers} from '../services/MeetingServices';
 
 /**
  * @description Validation function for validating Login form,
@@ -38,27 +38,22 @@ export const validateLoginForm = async (formData: LoginForm) => {
 
 const slotValidation = async (start: Date, end: Date, roomId: string) => {
   try {
-      const allMeetings:Meetings[] = await readAllMeetings();
+    const allMeetings: Meetings[] = await readAllMeetings();
 
-      let count = 0;
+    let count = 0;
 
-      allMeetings.forEach((meeting,index) => {
-
-          if (meeting.start === start)
-              count = 1;
-          if (meeting.start < start && meeting.end > start)
-              count = 1
-          if (meeting.start > start && meeting.end < end)
-              count = 1;           
-      })
+    allMeetings.forEach((meeting, index) => {
+      if (meeting.start === start) count = 1;
+      if (meeting.start < start && meeting.end > start) count = 1;
+      if (meeting.start > start && meeting.end < end) count = 1;
+    });
 
     const conflictingMeetings = allMeetings.filter(
       meeting =>
         meeting.roomId === roomId &&
         ((start >= meeting.start && start < meeting.end) ||
           (end > meeting.start && end <= meeting.end) ||
-                (start <= meeting.start && end >= meeting.end)),
-      
+          (start <= meeting.start && end >= meeting.end)),
     );
 
     return conflictingMeetings;
@@ -77,8 +72,8 @@ const slotValidation = async (start: Date, end: Date, roomId: string) => {
  *  @returns boolean value of validity and error message
  */
 export const validateRoomBookingForm = async (formData: RoomBookingForm) => {
-    const now = new Date();
-    // Check for null or empty values
+  const now = new Date();
+  // Check for null or empty values
   if (
     !formData.roomId ||
     !formData.title ||
@@ -95,10 +90,9 @@ export const validateRoomBookingForm = async (formData: RoomBookingForm) => {
     return {valid: false, error: ROOM_BOOKING_FORM.emptyMembers};
   }
 
-    if (formData.start < now)  
-    {
-        return {valid: false, error: ROOM_BOOKING_FORM.invalidStartTime};
-      }
+  if (formData.start < now) {
+    return {valid: false, error: ROOM_BOOKING_FORM.invalidStartTime};
+  }
   // Check if start time is before end time
   if (formData.start >= formData.end) {
     return {valid: false, error: ROOM_BOOKING_FORM.invalidTime};
