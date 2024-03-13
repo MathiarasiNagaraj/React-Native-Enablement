@@ -12,7 +12,7 @@ import {useNavigation} from '@react-navigation/native';
 import {LinearGradientContainer} from '../containers/LinearGradientContainer';
 import {Form} from '../containers/FormContainer';
 import {LOGIN_FORM} from '../form/formConfig';
-import {ASYNC_STORE_KEY, GEO_LOCATION, SCREEN_NAMES} from '../constants/appConstant';
+import {ASYNC_STORE_KEY, SCREEN_NAMES} from '../constants/appConstant';
 import {commonStyle} from '../styles/commonStyle';
 import {useToast} from 'react-native-toast-notifications';
 import {TOAST_MESSAGES, VIEW_ROOMS} from '../messages/appMessage';
@@ -62,7 +62,10 @@ export const LoginScreen = () => {
       ...prevUser,
       location: city,
     }));
-    setLocation(city);
+    if(city)
+      setLocation(city);
+    else
+      setLocation('Chennai')
   }
   useEffect(() => {
     initData();

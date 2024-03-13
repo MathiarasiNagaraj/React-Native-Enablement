@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    // padding: 20,
+    padding: 20,
     rowGap: 8,
     width: '100%',
   },
