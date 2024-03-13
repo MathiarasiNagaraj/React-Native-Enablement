@@ -1,8 +1,9 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import React from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {COLORS} from '../utils/colors';
 
+const windowWidth = Dimensions.get('window').width;
 export default function IconText({
   containerStyle,
   textStyle,
@@ -12,7 +13,6 @@ export default function IconText({
   iconSize,
   iconStyle,
 }) {
-
   return (
     <View style={styles[containerStyle]}>
       <MaterialCommunityIcons
@@ -25,11 +25,14 @@ export default function IconText({
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   rowContainer: {
     flexDirection: 'row',
     rowGap: 10,
-    columnGap: 10,
+    columnGap: 5,
+
+    alignItems: 'center',
   },
   columnContainer: {
     flexDirection: 'column',
@@ -38,7 +41,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: COLORS.primaryDark,
-    fontSize: 15,
+    fontSize: windowWidth > 768 ? 19 : 16,
   },
   roundIcon: {
     justifyContent: 'center',

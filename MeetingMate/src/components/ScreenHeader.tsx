@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 20,
     height: 70,
-   
     width:'100%'
   },
   transparentWrapper: {
@@ -59,9 +58,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-   
     zIndex: 1000,
-  
   },
   icon: {
     margin: 10,

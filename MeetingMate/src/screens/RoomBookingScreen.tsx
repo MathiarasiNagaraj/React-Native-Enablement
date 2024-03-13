@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 20,
     margin: 20,
-    backgroundColor: COLORS.transparent,
+  
   },
   innerWrapper: {},
   meetingWrapper: {

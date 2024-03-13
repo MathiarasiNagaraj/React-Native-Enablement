@@ -7,10 +7,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {TextInput} from 'react-native-gesture-handler';
 import {LinearGradientContainer} from '../containers/LinearGradientContainer';
 import {COLORS} from '../utils/colors';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useNavigation} from '@react-navigation/native';
 import {RoomDetails} from '../components/RoomDetailCard';
 import {filterByName, filterByOptions} from '../utils/commonUtils';
@@ -21,9 +19,6 @@ import {Rooms} from '../interfaces/commonInterface';
 import ScreenHeader from '../components/ScreenHeader';
 export const SearchRoomsScreen = () => {
   const navigation = useNavigation();
-  const onGoBackHandler = () => {
-    navigation.goBack();
-  };
 
   const [rooms, setRooms] = useRecoilState<Rooms[]>(Room);
   const [roomOptions, setRoomOptions] = useState(rooms);
@@ -110,7 +105,8 @@ const styles = StyleSheet.create({
     padding: 10,
     marginHorizontal: 10,
     borderRadius: 10,
-    maxHeight: 45,
+    maxHeight: 35,
+    margin: 100,
   },
   optionContainer: {
     flexGrow: 0,
