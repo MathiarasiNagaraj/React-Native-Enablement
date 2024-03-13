@@ -153,10 +153,7 @@ export const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   fullContainer: {
-
     marginTop: 10,
-
-  
   },
   container: {
     paddingBottom: 40,

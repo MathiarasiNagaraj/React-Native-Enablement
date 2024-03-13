@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ScreenHeader from '../components/ScreenHeader';
 import {ASYNC_STORE_KEY, BUTTONS, SCREEN_NAMES} from '../constants/appConstant';
 import {LinearGradientContainer} from '../containers/LinearGradientContainer';
-import {ACCOUNT} from '../messages/appMessage';
+import {ACCOUNT, HIDE_PASSWORD} from '../messages/appMessage';
 import {
   getLocalDataByKey,
   removeLocalDataByKey,
@@ -32,16 +32,12 @@ import {firebase} from '@react-native-firebase/storage';
 import {User} from '../store/atom/userAtom';
 import {AccountEditForm} from '../interfaces/formInterface';
 import {StackNavigationProp} from '@react-navigation/stack';
+import AccountDetailsContainer from '../containers/AccountDetailsContainer';
 
 export const MyAccountScreen = () => {
   const [user, setUser] = useState({});
   const navigate = useNavigation<StackNavigationProp<any>>();
   const [userDetail, setUserDetail] = useRecoilState(User);
-
-  const toast = useToast();
-  const [image, setImage] = useState(
-    'https://api.adorable.io/avatars/80/abott@adorable.png',
-  );
   const [isEditMode, setIsEditMode] = useState(false);
   const [imgUrl, setImgUrl] = useState();
   useEffect(() => {
@@ -168,16 +164,7 @@ export const MyAccountScreen = () => {
               />
             </View>
 
-            <View style={styles.wrapper}>
-              <Text style={styles.title}>{ACCOUNT.EMAIL}</Text>
-              <Text style={styles.text}>{user.email}</Text>
-
-              <Text style={styles.title}>{ACCOUNT.PASSWORD}</Text>
-              <Text style={styles.text}>{'***********'}</Text>
-
-              <Text style={styles.title}>{ACCOUNT.LOCATION}</Text>
-              <Text style={styles.text}>{user.location}</Text>
-            </View>
+         <AccountDetailsContainer user={user}/>
           </>
         )}
       </ScrollView>
@@ -205,33 +192,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  wrapper: {
-    width: '80%',
-    alignSelf: 'center',
-  },
+
   name: {
     color: COLORS.primaryDark,
     fontSize: 23,
     fontWeight: '700',
   },
-  title: {
-    color: COLORS.greyShadeTertiary,
-    fontSize: 13,
-    fontWeight: '600',
-    textAlign: 'left',
-    alignSelf: 'flex-start',
-    marginTop: 30,
-  },
-  text: {
-    width: 300,
-    color: COLORS.primaryDark,
-    fontSize: 17,
-    fontWeight: '400',
-    textAlign: 'left',
-    marginTop: 10,
-    paddingBottom: 12,
-    borderBottomWidth: 1,
-    borderColor: COLORS.black,
-    alignSelf: 'flex-start',
-  },
+
 });

@@ -1,5 +1,10 @@
 import React, {useState} from 'react';
-import {Alert, KeyboardAvoidingView, Platform, StyleSheet, View} from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  View,
+} from 'react-native';
 import Button from '../components/Button';
 import {Input} from '../components/Input';
 import {COLORS} from '../utils/colors';
@@ -13,29 +18,29 @@ import {
   RoomBookingForm,
 } from '../interfaces/formInterface';
 
-interface Field{
-  name: string,
-  placeholder: string,
-  type: string,
-  style: string,
-  width: string,
-  isPassword: boolean,
-  value: string|boolean ,
-  isMultiSelect: boolean,
-  options:string
+interface Field {
+  name: string;
+  placeholder: string;
+  type: string;
+  style: string;
+  width: string;
+  isPassword: boolean;
+  value: string | boolean;
+  isMultiSelect: boolean;
+  options: string;
 }
-interface FormType{
-  style: string
-  isHavingShortFields: boolean
-  fields: Field[],
-  button:{}
+interface FormType {
+  style: string;
+  isHavingShortFields: boolean;
+  fields: Field[];
+  button: {};
 }
 
 interface FormProps {
   onSubmit: (
     formData: LoginForm | RoomBookingForm | AccountEditForm | MeetingEditForm,
   ) => void;
-  formDetails:FormType
+  formDetails: FormType;
 }
 
 /**
@@ -133,15 +138,14 @@ export const Form: React.FC<FormProps> = ({formDetails, onSubmit}) => {
   return (
     <KeyboardAvoidingView
       style={styles.viewContainer}
-    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
- >
-    <View style={styles[formDetails.style]}>
-      {fields}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <View style={styles[formDetails.style]}>
+        {fields}
 
-      <View style={styles.wrapper}>{shortfields}</View>
-      <Button buttonDetails={formDetails.buttons} onPress={onSubmitHandler} />
+        <View style={styles.wrapper}>{shortfields}</View>
+        <Button buttonDetails={formDetails.buttons} onPress={onSubmitHandler} />
       </View>
-     </KeyboardAvoidingView>
+    </KeyboardAvoidingView>
   );
 };
 const styles = StyleSheet.create({
@@ -149,7 +153,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignSelf: 'center',
     justifyContent: 'center',
-    alignItems:'center'
+    alignItems: 'center',
   },
   loginForm: {
     width: '90%',
@@ -184,8 +188,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 23,
     paddingVertical: 35,
     gap: 20,
-    marginVertical:20,
-    elevation:20
+    marginVertical: 20,
+    elevation: 20,
   },
   bookingFormEditStyle: {
     width: '90%',
@@ -195,7 +199,6 @@ const styles = StyleSheet.create({
     paddingVertical: 45,
     gap: 20,
     paddingTop: 40,
-
   },
   container: {
     backgroundColor: 'white',

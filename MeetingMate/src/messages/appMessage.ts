@@ -46,6 +46,7 @@ export const MEETING_STATUS= {
     UPCOMMING: 'Upcomming',
     ONGOING:'OnGoing'
 }
+export const HIDE_PASSWORD='***********'
 export const VIEW_ROOMS='View Rooms'
 
 export const ORGANIZED_BY=(organizer:string)=>`Meeting Organized by ${organizer}`

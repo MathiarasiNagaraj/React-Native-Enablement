@@ -32,7 +32,7 @@ import {Room} from '../store/atom/roomAtom';
 import SplashScreen from 'react-native-splash-screen';
 import {COLORS} from '../utils/colors';
 import {Members} from '../store/atom/membersAtom';
-import { getCurrentCityName } from '../utils/geoLocation';
+import {getCurrentCityName} from '../utils/geoLocation';
 
 export const LoginScreen = () => {
   const navigate = useNavigation<StackNavigationProp<any>>();
@@ -49,33 +49,30 @@ export const LoginScreen = () => {
     return data;
   };
 
-  const getUserData=async() => {
+  const getUserData = async () => {
     const user = await getLocalData();
     if (user && user.isLoggedIn) {
-      setIsUserLoggedIn(true)
+      setIsUserLoggedIn(true);
       navigate.navigate(SCREEN_NAMES.HOME, {});
     }
-  }
+  };
   const getLocation = async () => {
-    const city = await getCurrentCityName()
+    const city = await getCurrentCityName();
     setUser(prevUser => ({
       ...prevUser,
       location: city,
     }));
-    if(city)
-      setLocation(city);
-    else
-      setLocation('Chennai')
-  }
+    if (city) setLocation(city);
+    else setLocation('Chennai');
+  };
   useEffect(() => {
     initData();
 
-  
-    getLocation()
-    getUserData()
+    getLocation();
+    getUserData();
 
     SplashScreen.hide();
-  },[])
+  }, []);
   const getRoomData = async (location: string) => {
     const data = await readAllRoomsByBranch(location);
     setRooms(data);
@@ -90,12 +87,9 @@ export const LoginScreen = () => {
     getAllUserDetails();
   };
 
-
- 
-  const onViewRoomsClickHandler = async() => {
+  const onViewRoomsClickHandler = async () => {
     await getRoomData('Chennai');
-if(rooms.length>0)
-    navigate.navigate(SCREEN_NAMES.MEETING_ROOM_LIST, {});
+    if (rooms.length > 0) navigate.navigate(SCREEN_NAMES.MEETING_ROOM_LIST, {});
   };
   const onLoginHandler = async (data: LoginForm) => {
     const response = await validateLoginForm(data);
@@ -109,7 +103,7 @@ if(rooms.length>0)
       const user = {...response.data, isLoggedIn: true, location: location};
       let imageRef = firebase.storage().ref('/' + user.id);
       const url = await imageRef.getDownloadURL();
-      const modifiedUser = {...user, imgUrl: url};
+      const modifiedUser = {...user, imgUrl: url,location:'Chennai'};
       await storeLocalData('user', modifiedUser);
 
       navigate.navigate(SCREEN_NAMES.HOME, {});
@@ -126,9 +120,7 @@ if(rooms.length>0)
   const myImage = require('../assets/images/logo.png');
   return (
     <LinearGradientContainer>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{flex: 1}}>
+   
         <View style={commonStyle.container}>
           <Image source={myImage} alt="logo" style={styles.logo} />
           <View style={styles.formContainer}>
@@ -138,7 +130,7 @@ if(rooms.length>0)
             </Pressable>
           </View>
         </View>
-      </KeyboardAvoidingView>
+
     </LinearGradientContainer>
   );
 };
@@ -168,6 +160,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 5,
     borderRadius: 10,
-    textAlign:'center'
+    textAlign: 'center',
   },
 });

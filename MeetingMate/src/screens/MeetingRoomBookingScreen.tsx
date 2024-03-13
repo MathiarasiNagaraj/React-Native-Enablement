@@ -1,5 +1,5 @@
 import React from 'react';
-import {KeyboardAvoidingView, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {ROOM_BOOKING_FORM} from '../form/formConfig';
 import {Form} from '../containers/FormContainer';
 import {addToAndroidCal} from '../utils/calender';
