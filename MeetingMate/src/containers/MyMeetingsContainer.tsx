@@ -160,7 +160,7 @@ export const MyMeetingsContainer: React.FC<MyMeetingsContainerProps> = ({
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}
       data={updatedData}
-      contentContainerStyle={{paddingHorizontal: 20}}
+      contentContainerStyle={{paddingHorizontal: 30}}
       ItemSeparatorComponent={() => <View style={{width: 15}} />}
       renderItem={item => (
         <MyMeetingCard

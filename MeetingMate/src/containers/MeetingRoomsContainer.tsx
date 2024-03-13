@@ -79,7 +79,7 @@ export const MeetingRooms: React.FC<MeetingRoomsProps> = ({
       showsVerticalScrollIndicator={false}
       contentContainerStyle={
         isHorizontal
-          ? {paddingHorizontal: 20, marginBottom: 40}
+          ? {paddingHorizontal: 30, marginBottom: 20}
           : {paddingVertical: 20, marginBottom: 40}
       }
       ItemSeparatorComponent={() => (
