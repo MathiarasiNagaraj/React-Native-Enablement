@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.transparent,
   },
   logo: {
-    height: 90,
+    height: 80,
     width: 150,
     objectFit: 'contain',
   },

@@ -23,7 +23,8 @@ import {useNavigation} from '@react-navigation/native';
 import {useToast} from 'react-native-toast-notifications';
 import {Form} from '../containers/FormContainer';
 import {PROFILE_EDIT_FORM} from '../form/formConfig';
-import {COLLECTIONS, editDataById} from '../services/MeetingServices';
+import { editDataById } from '../services/MeetingServices';
+import { COLLECTIONS } from '../constants/appConstant';
 import ImagePicker from 'react-native-image-crop-picker';
 import {useRecoilState} from 'recoil';
 import storage from '@react-native-firebase/storage';
@@ -100,7 +101,10 @@ export const MyAccountScreen = () => {
 
   return (
     <LinearGradientContainer>
-      <ScreenHeader title={SCREEN_NAMES.MY_ACCOUNT} />
+      <ScreenHeader title={SCREEN_NAMES.MY_ACCOUNT}
+          style={'wrapper'}
+          iconStyle={'icon'}    
+      />
       <ScrollView
         contentContainerStyle={styles.container}
         showsHorizontalScrollIndicator={false}
@@ -185,7 +189,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    // padding: 20,
     rowGap: 8,
     width: '100%',
   },

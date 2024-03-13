@@ -62,7 +62,10 @@ export const MyBookingScreen = () => {
   );
   return (
     <LinearGradientContainer>
-      <ScreenHeader title={SCREEN_NAMES.MY_BOOKING} />
+      <ScreenHeader title={SCREEN_NAMES.MY_BOOKING}
+          style={'wrapper'}
+          iconStyle={'icon'}    
+      />
       <Text style={styles.title}>{TITLE.MY_UPCOMING_MEETING}</Text>
       <MyMeetingsContainer style="wrapper" isHorizontal={true} />
       <Text style={styles.title}>{TITLE.PREVIOUS_MEETING}</Text>

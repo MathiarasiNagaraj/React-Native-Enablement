@@ -58,8 +58,10 @@ const DropDownInput: React.FC<DropDownInputProps> = ({
         <Dropdown
           style={styles[style]}
           itemContainerStyle={{backgroundColor: COLORS.transparent}}
-          itemTextStyle={{color: COLORS.black}}
+          itemTextStyle={{ color: COLORS.black }}
+          containerStyle={styles.listStyle}
           placeholderStyle={styles.placeholderStyle}
+          selectedStyle={styles.selectedView}
           selectedTextStyle={styles.selectedTextStyle}
           inputSearchStyle={styles.inputSearchStyle}
           iconStyle={styles.iconStyle}
@@ -80,8 +82,10 @@ const DropDownInput: React.FC<DropDownInputProps> = ({
         <View>
           <MultiSelect
             style={styles[style]}
-            placeholderStyle={styles.placeholderStyle}
-            selectedTextStyle={styles.selectedTextStyle}
+              placeholderStyle={styles.placeholderStyle}
+              containerStyle={styles.listStyle}
+              selectedTextStyle={styles.selectedTextStyle}
+              selectedStyle={styles.selectedView}
             inputSearchStyle={styles.inputSearchStyle}
             iconStyle={styles.iconStyle}
             data={optionList}
@@ -162,13 +166,19 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
   },
+  listStyle: {
+    backgroundColor:COLORS.white
+  },
   placeholderStyle: {
     fontSize: 17,
     color: COLORS.primaryDark,
   },
+  selectedView: {
+    backgroundColor:COLORS.primaryDark
+  },
   selectedTextStyle: {
     fontSize: 16,
-    color: COLORS.black,
+    color: COLORS.primaryDark,
   },
   iconStyle: {
     width: 20,
@@ -179,6 +189,7 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize: 16,
   },
+ 
   selectedStyle: {
     flexDirection: 'row',
     justifyContent: 'center',

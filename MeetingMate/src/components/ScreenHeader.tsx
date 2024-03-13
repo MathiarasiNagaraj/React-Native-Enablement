@@ -5,7 +5,9 @@ import {COLORS} from '../utils/colors';
 import {useNavigation} from '@react-navigation/native';
 
 interface ScreenHeaderProps {
-  title: string;
+  title?: string;
+  style: string,
+  iconStyle:string
 }
 
 /**
@@ -13,13 +15,13 @@ interface ScreenHeaderProps {
  * @param title Screen header title
  * @returns Screen header 
  */
-const ScreenHeader: React.FC<ScreenHeaderProps> = ({title}) => {
+const ScreenHeader: React.FC<ScreenHeaderProps> = ({title,iconStyle,style}) => {
   const navigation = useNavigation();
   const onGoBackHandler = () => {
     navigation.goBack();
   };
   return (
-    <View style={styles.wrapper}>
+    <View style={styles[style]}>
       <StatusBar
         backgroundColor={COLORS.primaryDark}
         barStyle="light-content"
@@ -28,7 +30,7 @@ const ScreenHeader: React.FC<ScreenHeaderProps> = ({title}) => {
       <MaterialCommunityIcons
         name="arrow-left"
         size={26}
-        style={styles.icon}
+        style={styles[iconStyle]}
         color={COLORS.white}
         onPress={onGoBackHandler}
       />
@@ -45,9 +47,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 20,
     height: 70,
+   
+    width:'100%'
+  },
+  transparentWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 20,
+    height: 70,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+   
+    zIndex: 1000,
+  
   },
   icon: {
     margin: 10,
+  },
+  darkIcon: {
+    margin: 10,
+    color:COLORS.primaryDark
   },
   title: {
     color: COLORS.white,

@@ -36,7 +36,10 @@ export const MeetingRoomDetailScreen = () => {
 
   return (
     <LinearGradientContainer>
-      <ScreenHeader title={'Meeting Room'} />
+      <ScreenHeader title={SCREEN_NAMES.MEETING_ROOM}
+          style={'wrapper'}
+          iconStyle={'icon'}    
+      />
       <ScrollView
         contentContainerStyle={styles.container}
         showsHorizontalScrollIndicator={false}

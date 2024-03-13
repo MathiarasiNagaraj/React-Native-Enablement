@@ -3,13 +3,16 @@ import React, {useEffect, useState} from 'react';
 import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
 import {useRecoilState} from 'recoil';
 import {MeetingCard} from '../components/MeetingCard';
-import {AVAILABLE, TODAY_MEETING} from '../messages/appMessage';
+import {AVAILABLE, ORGANIZED_BY, TODAY_MEETING} from '../messages/appMessage';
 import {readMeetingbyRoomId} from '../services/MeetingServices';
 import {Members} from '../store/atom/membersAtom';
 import {COLORS} from '../utils/colors';
 import {getNameById} from '../utils/commonUtils';
 import QRCode from 'react-native-qrcode-svg';
 import {Dimensions} from 'react-native';
+import RoomFacilityContainer from '../containers/RoomFacilityContainer';
+import ScreenHeader from '../components/ScreenHeader';
+import MeetingsContainer from '../containers/MeetingsContainer';
 export const RoomBookingScreen = () => {
   const route = useRoute();
   const {room} = route.params;
@@ -40,53 +43,55 @@ export const RoomBookingScreen = () => {
   useEffect(() => {
     getMeetingsByRoomId();
   }, []);
-  return windowWidth < 768 ? (
-    <View style={styles.container}>
-      <Image source={{uri: room.roomImg}} style={styles.img} />
-      <View style={styles.wrapper}>
-        <Text style={styles.title}>{room.name}</Text>
-        <Text style={styles.text}>{TODAY_MEETING}</Text>
-        {roomMeetings}
-      </View>
-    </View>
-  ) : (
+  return (
+    <>
+      {(windowWidth >= 768 && windowWidth <1024)? (
     <View style={styles.fullContainer}>
-      <View
-        style={[
-          styles.sideBox,
-          {backgroundColor: room.availability ? COLORS.green : COLORS.red},
-        ]}>
-        {room.availability ? (
-          <Text style={styles.availableText}>{AVAILABLE}</Text>
-        ) : (
-          <View>
-            <Text>{currentMeeting.title}</Text>
-          </View>
-        )}
-      </View>
-      <View style={styles.wrapper}>
-        <QRCode size={240} value={room.id} />
-        <Text style={styles.title}>{room.name}</Text>
-        <Text style={styles.text}>{TODAY_MEETING}</Text>
-        {roomMeetings}
-      </View>
+    <ScreenHeader style={'transparentWrapper'} iconStyle={'icon'} />
+    <View
+      style={[
+        styles.sideBox,
+        {backgroundColor: room.availability ? COLORS.green : COLORS.red},
+      ]}>
+      <QRCode size={200} value={room.id} />
+      {room.availability ? (
+        <Text style={styles.availableText}>{AVAILABLE}</Text>
+      ) : (
+        <View style={styles['meetingWrapper']}>
+          <Text style={styles.meetingTitle}>{currentMeeting.title}</Text>
+          <Text style={styles.meetingText}>
+            {ORGANIZED_BY(currentMeeting.organizer)}
+          </Text>
+        </View>
+      )}
     </View>
+    <View style={styles.wrapper}>
+      <Text style={styles.title}>{room.name}</Text>
+      <RoomFacilityContainer details={room} />
+      <Text style={styles.text}>{TODAY_MEETING}</Text>
+      {roomMeetings}
+    </View>
+  </View>
+        
+         
+     
+      ) : (
+        <MeetingsContainer room={room} roomMeetings={ roomMeetings} />
+      )}
+    </>
   );
 };
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    margin: 20,
-  },
+ 
   fullContainer: {
     flex: 1,
-    flexDirection: 'row',
   },
   availableText: {
     color: COLORS.white,
-    fontSize: 50,
-    fontWeight: '700',
+    fontSize: 45,
+    fontWeight: '300',
     width: '50%',
+    margin: 20,
     textAlign: 'center',
   },
   box: {
@@ -96,14 +101,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   sideBox: {
-    height: '100%',
-    width: '60%',
+    height: '50%',
+    width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
   wrapper: {
+    flex: 1,
     justifyContent: 'center',
     padding: 20,
+    margin: 20,
+    backgroundColor: COLORS.transparent,
+  },
+  innerWrapper: {},
+  meetingWrapper: {
+    margin: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 20,
   },
   img: {
     width: '100%',
@@ -113,9 +128,20 @@ const styles = StyleSheet.create({
   },
   title: {
     color: COLORS.primaryDark,
-    fontSize: 20,
+    fontSize: 30,
     margin: 10,
-    fontWeight: '800',
+    fontWeight: '600',
+  },
+ 
+  meetingTitle: {
+    color: COLORS.white,
+    fontSize: 31,
+    fontWeight: '600',
+  },
+  meetingText: {
+    color: COLORS.white,
+    fontSize: 18,
+    fontWeight: '600',
   },
   text: {
     color: COLORS.primaryDark,

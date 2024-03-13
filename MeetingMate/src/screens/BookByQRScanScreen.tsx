@@ -51,7 +51,11 @@ export const BookByQRScanScreen = () => {
 
   return (
     <View>
-      <ScreenHeader title={SCREEN_NAMES.QR_SCAN} />
+      <ScreenHeader title={SCREEN_NAMES.QR_SCAN}
+        style={'wrapper'}
+        iconStyle={'icon'}      
+      
+      />
       <View style={styles.wrapper}>
         <View style={styles.container}>
           <Camera

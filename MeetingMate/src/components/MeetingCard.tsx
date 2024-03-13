@@ -4,6 +4,7 @@ import {Meetings} from '../interfaces/commonInterface';
 import {ORGANIZED_BY} from '../messages/appMessage';
 import {COLORS} from '../utils/colors';
 import {getTimeInFormat} from '../utils/commonUtils';
+import IconText from './IconText';
 
 interface MeetingCardProps {
   meetingDetails: Meetings;
@@ -19,11 +20,23 @@ export const MeetingCard: React.FC<MeetingCardProps> = ({meetingDetails}) => {
       {meetingDetails.showMeetingTitle && (
         <Text style={styles.title}>{meetingDetails.title}</Text>
       )}
-      <Text style={styles.text}>{ORGANIZED_BY(meetingDetails.organizer)}</Text>
-      <Text style={styles.text}>
-        {getTimeInFormat(meetingDetails.start)}-
-        {getTimeInFormat(meetingDetails.end)}{' '}
-      </Text>
+
+      <IconText
+        containerStyle={'rowContainer'}
+        textStyle={'text'}
+        text={meetingDetails.organizer}
+        iconName={'account'}
+        iconColor={COLORS.primaryDark}
+        iconSize={24}
+      />
+    <IconText
+        containerStyle={'rowContainer'}
+        textStyle={'text'}
+        text={`${getTimeInFormat(meetingDetails.start)}-${getTimeInFormat(meetingDetails.end)}`}
+        iconName={'clock-time-eight'}
+        iconColor={COLORS.primaryDark}
+        iconSize={24}
+      />
     </View>
   );
 };
@@ -36,8 +49,9 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
-    fontSize: 20,
+    fontSize: 22,
     color: COLORS.primaryDark,
+    fontWeight:'800'
   },
   text: {
     fontSize: 18,

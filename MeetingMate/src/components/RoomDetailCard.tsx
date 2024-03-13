@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {Rooms} from '../interfaces/commonInterface';
 import {COLORS} from '../utils/colors';
 import Button from './Button';
@@ -22,9 +22,11 @@ export const RoomDetails: React.FC<RoomDetailsProps> = ({ details, style }) => {
   const onViewScheduleHandler = () => {
     navigation.navigate(SCREEN_NAMES.MEETING_ROOM, {details});
   };
-  console.log(details)
+
   return (
+   
     <View style={styles[style]}>
+       <Pressable onPress={()=>onViewScheduleHandler()}>
       <Image source={{uri: details.roomImg}} style={styles.cardImg} />
       <View style={styles.cardContentWrapper}>
         <Text style={styles.cardTitle}>{details.name}</Text>
@@ -62,7 +64,8 @@ export const RoomDetails: React.FC<RoomDetailsProps> = ({ details, style }) => {
           buttonDetails={BUTTONS.moreInfo}
           onPress={onViewScheduleHandler}
         />
-      </View>
+        </View>
+        </Pressable>
     </View>
   );
 };
@@ -84,7 +87,7 @@ const styles = StyleSheet.create({
     height: 360,
   },
   cardTitle: {
-    width: '90%',
+    width: '95%',
     fontSize: 20,
     fontWeight: '700',
     color: COLORS.primaryDark,

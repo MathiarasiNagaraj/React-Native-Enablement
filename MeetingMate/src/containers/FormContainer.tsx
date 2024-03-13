@@ -131,19 +131,26 @@ export const Form: React.FC<FormProps> = ({formDetails, onSubmit}) => {
   });
 
   return (
-//     <KeyboardAvoidingView
-//     behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-//  >
+    <KeyboardAvoidingView
+      style={styles.viewContainer}
+    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+ >
     <View style={styles[formDetails.style]}>
       {fields}
 
       <View style={styles.wrapper}>{shortfields}</View>
       <Button buttonDetails={formDetails.buttons} onPress={onSubmitHandler} />
       </View>
-      // </KeyboardAvoidingView>
+     </KeyboardAvoidingView>
   );
 };
 const styles = StyleSheet.create({
+  viewContainer: {
+    width: '100%',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems:'center'
+  },
   loginForm: {
     width: '90%',
     height: 400,

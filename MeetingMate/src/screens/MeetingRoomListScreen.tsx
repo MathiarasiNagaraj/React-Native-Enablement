@@ -4,6 +4,7 @@ import React from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 import {useRecoilState} from 'recoil';
 import RoomListItem from '../components/RoomListItem';
+import ScreenHeader from '../components/ScreenHeader';
 import {SCREEN_NAMES} from '../constants/appConstant';
 import {LinearGradientContainer} from '../containers/LinearGradientContainer';
 import {Rooms} from '../interfaces/commonInterface';
@@ -29,7 +30,9 @@ export const MeetingRoomListScreen = () => {
     />
   );
 
-  return <LinearGradientContainer>{roomList}</LinearGradientContainer>;
+  return <LinearGradientContainer>
+    <ScreenHeader style='transparentWrapper' iconStyle='darkIcon'/>
+    {roomList}</LinearGradientContainer>;
 };
 const styles = StyleSheet.create({
   container: {

@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: COLORS.primaryDark,
-    fontSize: 17,
+    fontSize: 15,
   },
   roundIcon: {
     justifyContent: 'center',

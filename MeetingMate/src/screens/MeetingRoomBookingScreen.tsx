@@ -1,11 +1,11 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {KeyboardAvoidingView, StyleSheet} from 'react-native';
 import {ROOM_BOOKING_FORM} from '../form/formConfig';
 import {Form} from '../containers/FormContainer';
 import {addToAndroidCal} from '../utils/calender';
 import {LinearGradientContainer} from '../containers/LinearGradientContainer';
 import {useRoute} from '@react-navigation/native';
-import {addNewMeeting, COLLECTIONS} from '../services/MeetingServices';
+import {addNewMeeting} from '../services/MeetingServices';
 import ScreenHeader from '../components/ScreenHeader';
 import {useToast} from 'react-native-toast-notifications';
 import {commonStyle} from '../styles/commonStyle';
@@ -14,7 +14,8 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {validateRoomBookingForm} from '../utils/validations.utils';
 import {RoomBookingForm} from '../interfaces/formInterface';
 import {useRecoilValue} from 'recoil';
-import {User} from '../store/atom/userAtom';
+import { User } from '../store/atom/userAtom';
+import { COLLECTIONS, SCREEN_NAMES } from '../constants/appConstant';
 export const MeetingRoomBookingScreen = () => {
   const toast = useToast();
   const route = useRoute();
@@ -46,22 +47,27 @@ export const MeetingRoomBookingScreen = () => {
         formdata.start,
         formdata.end,
         formdata.roomName,
-        '',
+        ''
       );
     }
   };
 
   return (
     <LinearGradientContainer>
-      <ScreenHeader title={'Room Booking'} />
+      <ScreenHeader title={SCREEN_NAMES.ROOM_BOOKING}
+          style={'wrapper'}
+          iconStyle={'icon'}    
+      />
       <ScrollView
         contentContainerStyle={styles.container}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}>
+      
         <Form
           formDetails={ROOM_BOOKING_FORM(id, user.id)}
           onSubmit={onSubmitHandler}
-        />
+          />
+ 
       </ScrollView>
     </LinearGradientContainer>
   );

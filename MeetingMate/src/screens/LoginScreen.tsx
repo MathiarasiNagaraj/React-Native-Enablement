@@ -12,7 +12,7 @@ import {useNavigation} from '@react-navigation/native';
 import {LinearGradientContainer} from '../containers/LinearGradientContainer';
 import {Form} from '../containers/FormContainer';
 import {LOGIN_FORM} from '../form/formConfig';
-import {SCREEN_NAMES} from '../constants/appConstant';
+import {ASYNC_STORE_KEY, GEO_LOCATION, SCREEN_NAMES} from '../constants/appConstant';
 import {commonStyle} from '../styles/commonStyle';
 import {useToast} from 'react-native-toast-notifications';
 import {TOAST_MESSAGES, VIEW_ROOMS} from '../messages/appMessage';
@@ -22,8 +22,6 @@ import {
 } from '../services/LocalStorageServices';
 import {useRecoilState, useSetRecoilState} from 'recoil';
 import {User} from '../store/atom/userAtom';
-import GetLocation from 'react-native-get-location';
-import {getCurrentCity} from '../utils/commonUtils';
 import {validateLoginForm} from '../utils/validations.utils';
 import {LoginForm} from '../interfaces/formInterface';
 import {firebase} from '@react-native-firebase/storage';
@@ -34,6 +32,7 @@ import {Room} from '../store/atom/roomAtom';
 import SplashScreen from 'react-native-splash-screen';
 import {COLORS} from '../utils/colors';
 import {Members} from '../store/atom/membersAtom';
+import { getCurrentCityName } from '../utils/geoLocation';
 
 export const LoginScreen = () => {
   const navigate = useNavigation<StackNavigationProp<any>>();
@@ -44,13 +43,36 @@ export const LoginScreen = () => {
   const [location, setLocation] = useState<String>();
   const [rooms, setRooms] = useRecoilState<Rooms[]>(Room);
   const [members, setMembers] = useRecoilState(Members);
-  getLocalDataByKey('user').then(data => {
-    if (data && data.isLoggedIn) {
-      setIsUserLoggedIn(true);
+
+  const getLocalData = async () => {
+    const data = await getLocalDataByKey(ASYNC_STORE_KEY.USER);
+    return data;
+  };
+
+  const getUserData=async() => {
+    const user = await getLocalData();
+    if (user && user.isLoggedIn) {
+      setIsUserLoggedIn(true)
       navigate.navigate(SCREEN_NAMES.HOME, {});
     }
-  });
+  }
+  const getLocation = async () => {
+    const city = await getCurrentCityName()
+    setUser(prevUser => ({
+      ...prevUser,
+      location: city,
+    }));
+    setLocation(city);
+  }
+  useEffect(() => {
+    initData();
 
+  
+    getLocation()
+    getUserData()
+
+    SplashScreen.hide();
+  },[])
   const getRoomData = async (location: string) => {
     const data = await readAllRoomsByBranch(location);
     setRooms(data);
@@ -65,34 +87,11 @@ export const LoginScreen = () => {
     getAllUserDetails();
   };
 
-  useEffect(() => {
-    initData();
-    SplashScreen.hide();
-  }, []);
-  useEffect(() => {
-    if (!isUserLoggedIn) {
-      GetLocation.getCurrentPosition({
-        enableHighAccuracy: true,
-        timeout: 60000,
-      })
-        .then(async location => {
-          const city = getCurrentCity(location.latitude, location.longitude);
-          setUser(prevUser => ({
-            ...prevUser,
-            location: city,
-          }));
-          setLocation('Chennai');
 
-          getRoomData('Chennai');
-        })
-        .catch(error => {
-          const {code, message} = error;
-          console.warn(code, message);
-        });
-    }
-  }, []);
-
-  const onViewRoomsClickHandler = () => {
+ 
+  const onViewRoomsClickHandler = async() => {
+    await getRoomData('Chennai');
+if(rooms.length>0)
     navigate.navigate(SCREEN_NAMES.MEETING_ROOM_LIST, {});
   };
   const onLoginHandler = async (data: LoginForm) => {
@@ -159,8 +158,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    color: COLORS.primaryDark,
+    color: COLORS.white,
     fontSize: 20,
-    margin: 10,
+    margin: 25,
+    backgroundColor: COLORS.primaryDark,
+    paddingHorizontal: 20,
+    paddingVertical: 5,
+    borderRadius: 10,
+    textAlign:'center'
   },
 });

@@ -8,7 +8,10 @@ export const MeetingRoomsScreen = () => {
   
   return (
     <LinearGradientContainer>
-      <ScreenHeader title={SCREEN_NAMES.MEETING_ROOMS} />
+      <ScreenHeader title={SCREEN_NAMES.MEETING_ROOMS}
+          style={'wrapper'}
+          iconStyle={'icon'}    
+      />
       <MeetingRooms isHorizontal={false} style={'cardFullContainer'} />
     </LinearGradientContainer>
   );

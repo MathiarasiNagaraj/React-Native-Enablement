@@ -50,7 +50,10 @@ export const SearchRoomsScreen = () => {
   ));
   return (
     <LinearGradientContainer>
-      <ScreenHeader title={ SCREEN_NAMES.SEARCH} />
+      <ScreenHeader title={SCREEN_NAMES.SEARCH}
+          style={'wrapper'}
+          iconStyle={'icon'}    
+      />
       <ScrollView
         horizontal={true}
         style={styles.optionContainer}

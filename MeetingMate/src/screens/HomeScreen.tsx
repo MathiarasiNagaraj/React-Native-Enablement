@@ -153,26 +153,29 @@ export const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   fullContainer: {
+
     marginTop: 10,
+
+  
+  },
+  container: {
+    paddingBottom: 40,
     backgroundColor: '#f7f1f1',
-    borderWidth: 2,
     flex: 1,
+    borderWidth: 2,
     borderColor: '#f7f1f1',
     borderTopEndRadius: 40,
     borderTopStartRadius: 40,
   },
-  container: {
-    paddingBottom: 40,
-  },
   wrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingHorizontal: 35,
+    paddingVertical: 20,
     alignItems: 'center',
   },
   title: {
-    fontSize: 18,
+    fontSize: 20,
     color: COLORS.primaryDark,
     fontWeight: '600',
   },
