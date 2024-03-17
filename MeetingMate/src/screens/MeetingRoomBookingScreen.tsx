@@ -14,8 +14,8 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {validateRoomBookingForm} from '../utils/validations.utils';
 import {RoomBookingForm} from '../interfaces/formInterface';
 import {useRecoilValue} from 'recoil';
-import { User } from '../store/atom/userAtom';
-import { COLLECTIONS, SCREEN_NAMES } from '../constants/appConstant';
+import {User} from '../store/atom/userAtom';
+import {COLLECTIONS, SCREEN_NAMES} from '../constants/appConstant';
 export const MeetingRoomBookingScreen = () => {
   const toast = useToast();
   const route = useRoute();
@@ -47,27 +47,26 @@ export const MeetingRoomBookingScreen = () => {
         formdata.start,
         formdata.end,
         formdata.roomName,
-        ''
+        '',
       );
     }
   };
 
   return (
     <LinearGradientContainer>
-      <ScreenHeader title={SCREEN_NAMES.ROOM_BOOKING}
-          style={'wrapper'}
-          iconStyle={'icon'}    
+      <ScreenHeader
+        title={SCREEN_NAMES.ROOM_BOOKING}
+        style={'wrapper'}
+        iconStyle={'icon'}
       />
       <ScrollView
         contentContainerStyle={styles.container}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}>
-      
         <Form
           formDetails={ROOM_BOOKING_FORM(id, user.id)}
           onSubmit={onSubmitHandler}
-          />
- 
+        />
       </ScrollView>
     </LinearGradientContainer>
   );
@@ -75,7 +74,8 @@ export const MeetingRoomBookingScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 50,
+    height: '100%',
+    justifyContent: 'center',
     alignItems: 'center',
   },
 });

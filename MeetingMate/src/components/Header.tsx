@@ -72,8 +72,8 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   profileImg: {
-    height: 60,
-    width: 60,
+    height: 50,
+    width: 50,
     borderRadius: 50,
     borderWidth: 5,
     borderColor: COLORS.transparent,

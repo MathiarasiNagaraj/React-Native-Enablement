@@ -1,9 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {COLORS} from '../utils/colors';
 import {Meetings, User} from '../interfaces/commonInterface';
-import {getNameById, getTimeInFormat} from '../utils/commonUtils';
+import {
+  getNameById,
+  getPropertyByIDFromCollection,
+  getTimeInFormat,
+} from '../utils/commonUtils';
 import {readAllUsers} from '../services/MeetingServices';
 import IconText from './IconText';
 
@@ -12,6 +16,7 @@ interface MyMeetingCardProps {
   onEditClickHandler: (data: Meetings) => void;
   onDeleteClickHandler: (id: string) => void;
   onShareHandler: (data: Meetings) => void;
+  onMemberPressHandler: (data: Meetings) => void;
   style: 'wrapper' | 'fullwrapper';
   isChangeable: boolean;
 }
@@ -30,9 +35,11 @@ const MyMeetingCard: React.FC<MyMeetingCardProps> = ({
   onEditClickHandler,
   onDeleteClickHandler,
   onShareHandler,
+  onMemberPressHandler,
   style,
 }) => {
   const [users, setUsers] = useState<User[]>([]);
+
   useEffect(() => {
     const getAllUsers = async () => {
       const data = await readAllUsers();
@@ -44,11 +51,15 @@ const MyMeetingCard: React.FC<MyMeetingCardProps> = ({
   const now = new Date();
   const isChangeable = now <= data.end;
 
-  const members = data?.membersIdList?.map(memberId => (
-    <View key={memberId}>
-      <Text style={styles.member} key={memberId}>
-        {getNameById(users, memberId)}
-      </Text>
+  const members = data?.membersIdList?.slice(0, 3).map((memberId, index) => (
+    <View key={memberId} style={styles.member}>
+      <Image
+        style={[styles.memberImg, {marginLeft: index === 0 ? 0 : -8}]}
+        key={memberId}
+        source={{
+          uri: getPropertyByIDFromCollection(users, memberId, 'imgUrl'),
+        }}
+      />
     </View>
   ));
 
@@ -105,9 +116,28 @@ const MyMeetingCard: React.FC<MyMeetingCardProps> = ({
         iconColor={COLORS.primaryDark}
         iconSize={24}
       />
-      <Text></Text>
-
-      <View style={styles.memberwrapper}>{members}</View>
+    
+      <View style={styles.row}>
+        <MaterialCommunityIcons
+          name='account-group'
+          size={23}
+          style={{paddingLeft:2}}
+          color={COLORS.primaryDark}
+        />
+         <View style={styles.memberwrapper}>
+        {members}
+        {data?.membersIdList.length - 3 > 1 &&
+          <Pressable
+            style={styles.memberText}
+            onPress={() => onMemberPressHandler(data)}>
+            <Text style={{ color: COLORS.black }}>
+              {' '}
+              {'+' + (data?.membersIdList.length - 3)}
+            </Text>
+          </Pressable>}
+      </View>
+      </View>
+     
     </View>
   );
 };
@@ -117,7 +147,7 @@ export default MyMeetingCard;
 const styles = StyleSheet.create({
   wrapper: {
     width: 300,
-    height: 210,
+    maxHeight: 'auto',
     alignSelf: 'center',
     alignContent: 'center',
     backgroundColor: COLORS.white,
@@ -126,7 +156,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: COLORS.white,
     elevation: 10,
-    marginBottom: 20,
+    marginBottom: 10,
   },
   title: {
     fontSize: 21,
@@ -142,6 +172,13 @@ const styles = StyleSheet.create({
     color: COLORS.black,
     backgroundColor: COLORS.transparent,
     borderRadius: 50,
+  },
+  row: {
+    flexDirection: 'row',
+    rowGap: 10,
+    columnGap: 5,
+
+    alignItems: 'center',
   },
   text: {
     fontSize: 19,
@@ -183,16 +220,14 @@ const styles = StyleSheet.create({
     columnGap: 30,
     rowGap: 20,
   },
-  member: {
-    fontSize: 16,
-    color: COLORS.white,
-    fontWeight: '400',
-    backgroundColor: COLORS.primaryDark,
-    borderRadius: 50,
-    borderColor: COLORS.white,
+
+  memberImg: {
+    height: 28,
+    width: 28,
     borderWidth: 2,
-    paddingHorizontal: 20,
-    paddingVertical: 5,
+    borderColor:COLORS.primaryDark,
+    borderRadius: 100,
+    // marginLeft: -10,
   },
   memberwrapper: {
     flexDirection: 'row',
@@ -201,5 +236,20 @@ const styles = StyleSheet.create({
     marginVertical: 4,
     overflow: 'scroll',
     height: 'auto',
+    position: 'relative',
+    alignItems: 'center',
+  },
+  memberText: {
+    fontSize: 13,
+    color: COLORS.black,
+    backgroundColor: '#d3d3d3',
+    justifyContent: 'center',
+    // alignItems: 'center',
+    paddingLeft: 2,
+    borderRadius: 100,
+    height: 30,
+    width: 30,
+    textDecorationLine: 'underline',
+    marginLeft: -5,
   },
 });

@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     paddingVertical: 35,
     gap: 20,
     marginVertical: 20,
-    elevation: 20,
+    elevation: 10,
   },
   bookingFormEditStyle: {
     width: '90%',

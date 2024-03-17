@@ -22,7 +22,10 @@ export default function AccountDetailsContainer({user}) {
 const styles = StyleSheet.create({
     wrapper: {
         width: '80%',
-        alignSelf: 'center',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+
     },
     title: {
         color: COLORS.greyShadeTertiary,
@@ -33,7 +36,7 @@ const styles = StyleSheet.create({
         marginTop: 30,
       },
       text: {
-        width: 300,
+        width: '100%',
         color: COLORS.primaryDark,
         fontSize: 17,
         fontWeight: '400',

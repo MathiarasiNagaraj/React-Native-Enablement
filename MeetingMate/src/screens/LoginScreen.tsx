@@ -103,7 +103,7 @@ export const LoginScreen = () => {
       const user = {...response.data, isLoggedIn: true, location: location};
       let imageRef = firebase.storage().ref('/' + user.id);
       const url = await imageRef.getDownloadURL();
-      const modifiedUser = {...user, imgUrl: url,location:'Chennai'};
+      const modifiedUser = {...user, imgUrl: url, location: 'Chennai'};
       await storeLocalData('user', modifiedUser);
 
       navigate.navigate(SCREEN_NAMES.HOME, {});
@@ -120,17 +120,15 @@ export const LoginScreen = () => {
   const myImage = require('../assets/images/logo.png');
   return (
     <LinearGradientContainer>
-   
-        <View style={commonStyle.container}>
-          <Image source={myImage} alt="logo" style={styles.logo} />
-          <View style={styles.formContainer}>
-            <Form formDetails={LOGIN_FORM} onSubmit={onLoginHandler} />
-            <Pressable onPress={onViewRoomsClickHandler}>
-              <Text style={styles.text}>{VIEW_ROOMS}</Text>
-            </Pressable>
-          </View>
+      <View style={commonStyle.container}>
+        <Image source={myImage} alt="logo" style={styles.logo} />
+        <View style={styles.formContainer}>
+          <Form formDetails={LOGIN_FORM} onSubmit={onLoginHandler} />
+          <Pressable onPress={onViewRoomsClickHandler}>
+            <Text style={styles.text}>{VIEW_ROOMS}</Text>
+          </Pressable>
         </View>
-
+      </View>
     </LinearGradientContainer>
   );
 };

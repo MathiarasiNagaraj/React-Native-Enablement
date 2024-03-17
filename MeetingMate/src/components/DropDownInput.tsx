@@ -39,7 +39,6 @@ const DropDownInput: React.FC<DropDownInputProps> = ({
   value,
   isMultiSelect,
 }) => {
-  
   const [values, setValues] = useState(value);
   const [optionList, setOptionList] = useState([]);
 
@@ -57,8 +56,14 @@ const DropDownInput: React.FC<DropDownInputProps> = ({
       {!isMultiSelect ? (
         <Dropdown
           style={styles[style]}
-          itemContainerStyle={{backgroundColor: COLORS.transparent}}
-          itemTextStyle={{ color: COLORS.black }}
+          // itemContainerStyle={{backgroundColor: COLORS.transparent}}
+          itemTextStyle={{color: COLORS.black}}
+          itemContainerStyle={{
+            backgroundColor: COLORS.white,
+            borderTopColor: COLORS.greyShadeSecondary,
+            borderTopWidth: 0.4,
+          }}
+          activeColor={COLORS.tertiaryLight}
           containerStyle={styles.listStyle}
           placeholderStyle={styles.placeholderStyle}
           selectedStyle={styles.selectedView}
@@ -79,45 +84,49 @@ const DropDownInput: React.FC<DropDownInputProps> = ({
           }}
         />
       ) : (
-        <View>
-          <MultiSelect
-            style={styles[style]}
-              placeholderStyle={styles.placeholderStyle}
-              containerStyle={styles.listStyle}
-              selectedTextStyle={styles.selectedTextStyle}
-              selectedStyle={styles.selectedView}
-            inputSearchStyle={styles.inputSearchStyle}
-            iconStyle={styles.iconStyle}
-            data={optionList}
-            labelField="label"
-            valueField="value"
-            placeholder={placeholder}
-            value={selected}
-            search
-            itemTextStyle={{color: COLORS.black}}
-            searchPlaceholder={placeholder}
-            onChange={item => {
-              setSelected(item);
-              onChange({name: name, value: item});
-            }}
-            renderSelectedItem={(item, unSelect) =>
-              value || selected ? (
-                <TouchableOpacity onPress={() => unSelect && unSelect(item)}>
-                  <View style={styles.selectedStyle}>
-                    <Text style={styles.textSelectedStyle}>{item.label}</Text>
-                    <MaterialCommunityIcons
-                      name="close"
-                      size={22}
-                      color={COLORS.primaryDark}
-                    />
-                  </View>
-                </TouchableOpacity>
-              ) : (
-                <></>
-              )
-            }
-          />
-        </View>
+        <MultiSelect
+          style={styles[style]}
+          placeholderStyle={styles.placeholderStyle}
+          containerStyle={styles.listStyle}
+          inputSearchStyle={styles.inputSearchStyle}
+          iconStyle={styles.iconStyle}
+          data={optionList}
+          labelField="label"
+          valueField="value"
+          placeholder={placeholder}
+          value={selected}
+          search
+          itemTextStyle={{color: COLORS.black}}
+          itemContainerStyle={{
+            backgroundColor: COLORS.white,
+            borderTopColor: COLORS.greyShadeSecondary,
+            borderTopWidth: 0.4,
+          }}
+          searchPlaceholder={placeholder}
+          onChange={item => {
+            setSelected(item);
+            onChange({name: name, value: item});
+          }}
+          activeColor={COLORS.tertiaryLight}
+          renderSelectedItem={(item, unSelect) =>
+            value || selected ? (
+              <TouchableOpacity
+                onPress={() => unSelect && unSelect(item)}
+                style={styles.selectedContainer}>
+                <View style={styles.selectedStyle}>
+                  <Text style={styles.textSelectedStyle}>{item.label}</Text>
+                  <MaterialCommunityIcons
+                    name="close"
+                    size={15}
+                    color={COLORS.primaryDark}
+                  />
+                </View>
+              </TouchableOpacity>
+            ) : (
+              <></>
+            )
+          }
+        />
       )}
     </>
   );
@@ -144,7 +153,7 @@ const styles = StyleSheet.create({
     shadowRadius: 1.41,
   },
   dropDownUnderLine: {
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
     height: 50,
     width: '100%',
     alignSelf: 'center',
@@ -167,14 +176,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   listStyle: {
-    backgroundColor:COLORS.white
+    backgroundColor: COLORS.white,
   },
   placeholderStyle: {
     fontSize: 17,
     color: COLORS.primaryDark,
   },
+  selectedContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
   selectedView: {
-    backgroundColor:COLORS.primaryDark
+    backgroundColor: COLORS.primaryDark,
   },
   selectedTextStyle: {
     fontSize: 16,
@@ -189,30 +204,24 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize: 16,
   },
- 
+
   selectedStyle: {
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
     borderColor: COLORS.primaryDark,
     borderWidth: 1,
     shadowColor: '#000',
-    marginTop: 8,
-    marginRight: 12,
+    gap: 10,
+    marginVertical:3,
     backgroundColor: COLORS.white,
     paddingHorizontal: 12,
-    paddingVertical: 8,
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
+    paddingVertical: 4,
+    marginRight: 5,
   },
   textSelectedStyle: {
-    marginRight: 5,
-    fontSize: 16,
+    fontSize: 15,
     color: COLORS.primaryDark,
+    textAlign: 'center',
   },
 });

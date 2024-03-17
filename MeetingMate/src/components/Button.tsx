@@ -40,14 +40,14 @@ const styles = StyleSheet.create({
 
   primaryBtn: {
     width: '100%',
-    height: 50,
+   padding:20,
     backgroundColor: COLORS.primaryDark,
     justifyContent: 'center',
     alignItems: 'center',
   },
   roundedPrimaryBtn: {
     width: '100%',
-    elevation: 20,
+    elevation: 5,
     height: 50,
     backgroundColor: COLORS.primaryDark,
     justifyContent: 'center',
@@ -59,17 +59,16 @@ const styles = StyleSheet.create({
   },
   secondaryBtn: {
     backgroundColor: COLORS.primaryDark,
-    padding: 10,
+    padding: 8,
     width: '100%',
     alignSelf: 'center',
     borderRadius: 10,
     alignItems: 'center',
-    marginTop: 10,
-    elevation: 10,
+    elevation:5,
   },
   tertiaryBtn: {
     backgroundColor: COLORS.primaryLight,
-    padding: 10,
+    padding: 8,
     paddingHorizontal: 13,
     borderRadius: 10,
     fontWeight: '500',

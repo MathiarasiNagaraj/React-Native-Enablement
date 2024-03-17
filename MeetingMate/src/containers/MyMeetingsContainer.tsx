@@ -10,7 +10,7 @@ import {
   deleteDataById,
   editDataById,
 } from '../services/MeetingServices';
-import {getNameById} from '../utils/commonUtils';
+import {getNameById, getPropertyByIDFromCollection} from '../utils/commonUtils';
 import {CONFIRM_DELETE, TOAST_MESSAGES} from '../messages/appMessage';
 import {BUTTONS, COLLECTIONS, MEETING_INVITATION_MESSAGE} from '../constants/appConstant';
 import {useToast} from 'react-native-toast-notifications';
@@ -22,6 +22,7 @@ import {Meetings, Rooms, User} from '../interfaces/commonInterface';
 import {MeetingEditForm} from '../interfaces/formInterface';
 import {Members} from '../store/atom/membersAtom';
 import {validateEditRoomBookingForm} from '../utils/validations.utils';
+import List from '../components/List';
 
 interface MyMeetingsContainerProps {
   style: string;
@@ -99,6 +100,18 @@ export const MyMeetingsContainer: React.FC<MyMeetingsContainerProps> = ({
       throw error;
     }
   };
+  const onMemberPressHandler = (data: Meetings) => {
+
+    const memberList = data.membersIdList.map((id) => {
+      const memberData = {
+        name: getPropertyByIDFromCollection(members,id,'name'),
+        imgUrl:  getPropertyByIDFromCollection(members,id,'imgUrl')
+    };
+    return memberData;
+  })
+setIsVisible(true)
+    setComponent(<List data={memberList}/>)
+  }
   //on Edit Click Handler
   const onEditClickHandler = (data: Meetings) => {
     const formComponent = (
@@ -169,6 +182,7 @@ export const MyMeetingsContainer: React.FC<MyMeetingsContainerProps> = ({
           onShareHandler={onShareHandler}
           onDeleteClickHandler={onDeleteClickHandler}
           onEditClickHandler={onEditClickHandler}
+          onMemberPressHandler={onMemberPressHandler}
         />
       )}
     />
@@ -186,7 +200,7 @@ export const MyMeetingsContainer: React.FC<MyMeetingsContainerProps> = ({
 };
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 15,
+
   },
   wrapper: {
     flexDirection: 'row',

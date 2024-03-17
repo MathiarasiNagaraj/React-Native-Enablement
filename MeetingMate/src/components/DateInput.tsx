@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import {COLORS} from '../utils/colors';
+import { Keyboard } from 'react-native';
 
 interface Type {
   name: string;
@@ -36,15 +37,18 @@ const DateInput: React.FC<DateInputProps> = ({
   const [inputTime, setInputTime] = useState(hourFormat);
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
-
+  const onFocusHandler = () => {
+    setOpen(true)
+}
   return (
     <View>
       <TextInput
+        showSoftInputOnFocus={false}
         placeholder={placeholder}
         style={styles[style]}
         placeholderTextColor={COLORS.primaryDark}
         value={inputTime !== 'NaN:NaN' ? inputTime : placeholder}
-        onFocus={() => setOpen(true)}
+        onPressIn={onFocusHandler}
       />
 
       <DatePicker

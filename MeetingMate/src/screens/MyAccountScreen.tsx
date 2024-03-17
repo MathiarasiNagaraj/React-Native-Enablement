@@ -23,8 +23,8 @@ import {useNavigation} from '@react-navigation/native';
 import {useToast} from 'react-native-toast-notifications';
 import {Form} from '../containers/FormContainer';
 import {PROFILE_EDIT_FORM} from '../form/formConfig';
-import { editDataById } from '../services/MeetingServices';
-import { COLLECTIONS } from '../constants/appConstant';
+import {editDataById} from '../services/MeetingServices';
+import {COLLECTIONS} from '../constants/appConstant';
 import ImagePicker from 'react-native-image-crop-picker';
 import {useRecoilState} from 'recoil';
 import storage from '@react-native-firebase/storage';
@@ -44,6 +44,7 @@ export const MyAccountScreen = () => {
     const getasyncData = async () => {
       const data = await getLocalDataByKey(ASYNC_STORE_KEY.USER);
       setUser(data);
+
       setImgUrl(data.imgUrl);
     };
     getasyncData();
@@ -78,7 +79,6 @@ export const MyAccountScreen = () => {
       cropping: true,
     }).then(async image => {
       if (image.path) {
-        setImage(image.path);
         try {
           await storage().ref(user.id).putFile(image.path);
           setImgUrl(image.path);
@@ -97,9 +97,10 @@ export const MyAccountScreen = () => {
 
   return (
     <LinearGradientContainer>
-      <ScreenHeader title={SCREEN_NAMES.MY_ACCOUNT}
-          style={'wrapper'}
-          iconStyle={'icon'}    
+      <ScreenHeader
+        title={SCREEN_NAMES.MY_ACCOUNT}
+        style={'wrapper'}
+        iconStyle={'icon'}
       />
       <ScrollView
         contentContainerStyle={styles.container}
@@ -164,7 +165,7 @@ export const MyAccountScreen = () => {
               />
             </View>
 
-         <AccountDetailsContainer user={user}/>
+            <AccountDetailsContainer user={user} />
           </>
         )}
       </ScrollView>
@@ -198,5 +199,4 @@ const styles = StyleSheet.create({
     fontSize: 23,
     fontWeight: '700',
   },
-
 });

@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: COLORS.white,
     width: 300,
-    height: 360,
+    height: 280,
     borderRadius: 10,
     elevation: 10,
     marginBottom: 20,

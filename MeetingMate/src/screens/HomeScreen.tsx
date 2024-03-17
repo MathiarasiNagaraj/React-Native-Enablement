@@ -108,43 +108,35 @@ export const HomeScreen = () => {
       }}>
       <Header />
 
-      <ScrollView
-        style={styles.container}
-        showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={false}>
-        <View style={styles.fullContainer}>
-          <SearchBar />
-          <View>
-            <View>
-              <View style={styles.wrapper}>
-                <Text style={styles.title}>{TITLE.MY_UPCOMING_MEETING}</Text>
-                <Text
-                  style={styles.underLineText}
-                  onPress={onViewAllMeetingHandler}>
-                  {VIEW_ALL}
-                </Text>
-              </View>
-              {meetings.length > 0 ? (
-                <MyMeetingsContainer style="wrapper" isHorizontal={true} />
-              ) : (
-                <View style={styles.fallback}>
-                  <Text style={styles.fallBackText}>
-                    {NO_UPCOMMING_MEETING}
-                  </Text>
-                </View>
-              )}
-            </View>
-            <View style={styles.wrapper}>
-              <Text style={styles.title}>{TITLE.MEETING_ROOMS}</Text>
-              <Text style={styles.underLineText} onPress={onViewAllRoomHandler}>
-                {VIEW_ALL}
-              </Text>
-            </View>
+      <View style={styles.fullContainer}>
+        <SearchBar />
 
-            <MeetingRooms isHorizontal={true} style="wrapper" />
+        <>
+          <View style={styles.wrapper}>
+            <Text style={styles.title}>{TITLE.MY_UPCOMING_MEETING}</Text>
+            <Text
+              style={styles.underLineText}
+              onPress={onViewAllMeetingHandler}>
+              {VIEW_ALL}
+            </Text>
           </View>
+          {meetings.length > 0 ? (
+            <MyMeetingsContainer style="wrapper" isHorizontal={true} />
+          ) : (
+            <View style={styles.fallback}>
+              <Text style={styles.fallBackText}>{NO_UPCOMMING_MEETING}</Text>
+            </View>
+          )}
+        </>
+        <View style={styles.wrapper}>
+          <Text style={styles.title}>{TITLE.MEETING_ROOMS}</Text>
+          <Text style={styles.underLineText} onPress={onViewAllRoomHandler}>
+            {VIEW_ALL}
+          </Text>
         </View>
-      </ScrollView>
+
+        <MeetingRooms isHorizontal={true} style="wrapper" />
+      </View>
 
       <FloatingButton onPress={onFloatingBtnPressHandler} />
     </View>
@@ -153,22 +145,19 @@ export const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   fullContainer: {
-    marginTop: 10,
-  },
-  container: {
-    paddingBottom: 40,
     backgroundColor: '#f7f1f1',
     flex: 1,
-    borderWidth: 2,
+
     borderColor: '#f7f1f1',
-    borderTopEndRadius: 40,
-    borderTopStartRadius: 40,
+    borderTopEndRadius: 60,
+    borderTopStartRadius: 60,
   },
+
   wrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 35,
-    paddingVertical: 20,
+    paddingVertical: 30,
     alignItems: 'center',
   },
   title: {

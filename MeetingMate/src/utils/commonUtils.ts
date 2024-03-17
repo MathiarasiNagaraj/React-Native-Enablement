@@ -14,6 +14,16 @@ export const getTimeInFormat = (date: Date) => {
     date.getMinutes().toString().padStart(2, '0')
   );
 };
+export const getPropertyByIDFromCollection = (
+  collection: [],
+  id: string,
+  property: string,
+) => {
+  const data = collection?.find(doc => doc.id === id);
+  return data
+    ? data[property]
+    : 'https://firebasestorage.googleapis.com/v0/b/meeting-mate-b2f20.appspot.com/o/m6qBxR4wi8xJ3wd9VtKf?alt=media&token=aebd2faa-0f9d-42f3-8a93-11c269d1dc08';
+};
 
 export const getNameById = (collection: [], id: string) => {
   const data = collection?.find(doc => doc.id === id);
