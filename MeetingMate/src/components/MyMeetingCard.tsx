@@ -50,7 +50,6 @@ const MyMeetingCard: React.FC<MyMeetingCardProps> = ({
 
   const now = new Date();
   const isChangeable = now <= data.end;
-
   const members = data?.membersIdList?.slice(0, 3).map((memberId, index) => (
     <View key={memberId} style={styles.member}>
       <Image
@@ -103,7 +102,7 @@ const MyMeetingCard: React.FC<MyMeetingCardProps> = ({
       <IconText
         containerStyle={'rowContainer'}
         textStyle={'text'}
-        text={data.roomName}
+        text={data?.roomName}
         iconName={'map-marker'}
         iconColor={COLORS.primaryDark}
         iconSize={24}

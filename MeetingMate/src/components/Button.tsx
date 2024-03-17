@@ -10,8 +10,8 @@ import {COLORS} from '../utils/colors';
  */
 
 interface ButtonDetailsProps {
-  style: string;
-  textStyle: string;
+  style: keyof typeof styles;
+  textStyle: keyof typeof styles;
   name: string;
 }
 interface ButtonProps {
@@ -19,10 +19,9 @@ interface ButtonProps {
   onPress: () => void;
 }
 
-const Button: React.FC<ButtonProps> = ({ buttonDetails, onPress }) => {
-  
+const Button: React.FC<ButtonProps> = ({buttonDetails, onPress}) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles[buttonDetails.style]}>
+    <TouchableOpacity onPress={onPress} style={styles[buttonDetails.style] }>
       <Text style={styles[buttonDetails.textStyle]}>{buttonDetails.name}</Text>
     </TouchableOpacity>
   );
@@ -40,7 +39,7 @@ const styles = StyleSheet.create({
 
   primaryBtn: {
     width: '100%',
-   padding:20,
+    padding: 20,
     backgroundColor: COLORS.primaryDark,
     justifyContent: 'center',
     alignItems: 'center',
@@ -64,7 +63,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 10,
     alignItems: 'center',
-    elevation:5,
+    elevation: 5,
   },
   tertiaryBtn: {
     backgroundColor: COLORS.primaryLight,

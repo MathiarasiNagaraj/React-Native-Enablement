@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: COLORS.white,
     padding: 5,
-    paddingLeft: 10,
+
     borderRadius: 5,
     width: 100,
     fontWeight: '700',

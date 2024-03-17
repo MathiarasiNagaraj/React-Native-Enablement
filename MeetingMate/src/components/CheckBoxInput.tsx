@@ -29,7 +29,6 @@ const CheckBoxInput: React.FC<CheckBoxInputProps> = ({
   name,
   value,
 }) => {
-  
   const [toggleCheckBox, setToggleCheckBox] = useState(value);
 
   return (
@@ -60,7 +59,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
-  
   },
   placeholder: {
     fontSize: 17,

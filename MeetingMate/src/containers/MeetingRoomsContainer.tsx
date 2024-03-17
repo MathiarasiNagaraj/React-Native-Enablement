@@ -27,6 +27,8 @@ export const MeetingRooms: React.FC<MeetingRoomsProps> = ({
   const [rooms, setRooms] = useRecoilState<Rooms[]>(Room);
   const [meetings, setMeetings] = useRecoilState<Meetings[]>(Meeting);
 
+
+
   //function for updating room availablity status
   const updateRoomStatus = () => {
     meetings.length > 0 &&

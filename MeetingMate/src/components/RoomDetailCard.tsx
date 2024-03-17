@@ -9,6 +9,7 @@ import {BUTTONS, SCREEN_NAMES} from '../constants/appConstant';
 import {AVAILABLITY} from '../messages/appMessage';
 import {StackNavigationProp} from '@react-navigation/stack';
 import IconText from './IconText';
+import Tag from './Tag';
 interface RoomDetailsProps {
   details: Rooms;
   style: 'wrapper' | 'cardFullContainer';
@@ -38,27 +39,14 @@ export const RoomDetails: React.FC<RoomDetailsProps> = ({ details, style }) => {
         iconColor={COLORS.primaryDark}
         iconSize={24}
       />
-      
-
-        <View style={[styles.statusBox]}>
-          <View
-            style={[
-              styles.round,
-              {
-                backgroundColor: details.availability
-                  ? COLORS.green
-                  : COLORS.red,
-              },
-            ]}
+        <Tag
+            text={
+              details.availability ? AVAILABLITY.AVAILABLE : AVAILABLITY.BUSY
+            }
+            textStyle={details.availability ? 'greenText' : 'redText'}
+            indicatorStyle={details.availability ? 'greenRound' : 'redRound'}
           />
-          <Text
-            style={[
-              styles.cardBoldText,
-              {color: details.availability ? COLORS.green : COLORS.red},
-            ]}>
-            {details.availability ? AVAILABLITY.AVAILABLE : AVAILABLITY.BUSY}
-          </Text>
-        </View>
+
 
         <Button
           buttonDetails={BUTTONS.moreInfo}
@@ -73,10 +61,10 @@ const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: COLORS.white,
     width: 300,
-    height: 280,
+    height: '98%',
     borderRadius: 10,
     elevation: 10,
-    marginBottom: 20,
+    marginBottom: 40,
   },
   cardFullContainer: {
     elevation: 10,
@@ -84,7 +72,7 @@ const styles = StyleSheet.create({
     width: '90%',
     alignSelf: 'center',
     borderRadius: 10,
-    height: 360,
+    height: 280,
   },
   cardTitle: {
     width: '95%',
@@ -100,7 +88,7 @@ const styles = StyleSheet.create({
 },
   cardImg: {
     width: '100%',
-    height: '55%',
+    height: '53%',
     alignSelf: 'center',
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,

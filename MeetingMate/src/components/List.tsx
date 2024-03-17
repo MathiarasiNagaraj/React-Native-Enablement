@@ -3,7 +3,7 @@ import React from 'react';
 import {COLORS} from '../utils/colors';
 
 export default function List({data}) {
-  console.log(data);
+
   const memberList = data.map(member => (
     <View style={styles.row} key={member.name}>
       <Image source={{uri: member.imgUrl}} style={styles.img} />

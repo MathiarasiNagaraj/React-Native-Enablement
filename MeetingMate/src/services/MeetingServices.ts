@@ -1,7 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
-import { COLLECTIONS } from '../constants/appConstant';
+import {COLLECTIONS} from '../constants/appConstant';
 import {Meetings, Rooms, User} from '../interfaces/commonInterface';
-
 
 /**
  * @description Function for adding new meeting
@@ -16,7 +15,7 @@ export const addNewMeeting = async (collection: string, data: Meetings) => {
       .set(data)
       .catch(err => console.log(err));
   } catch (error) {
-   throw(error);
+    throw error;
   }
 };
 
@@ -25,14 +24,14 @@ export const addNewMeeting = async (collection: string, data: Meetings) => {
  * @param id room Id
  * @param status availablity status
  */
-export const updateRoomStatus = async (id: string, status:boolean) => {
+export const updateRoomStatus = async (id: string, status: boolean) => {
   try {
     await firestore()
       .collection(COLLECTIONS.Rooms)
       .doc(id)
       .set({availablity: status});
   } catch (error) {
-throw(error)
+    throw error;
   }
 };
 /**
@@ -44,18 +43,16 @@ export const readUpcomingMeetingsByOrganizerId = async (
   userId: string,
 ): Promise<Meetings[]> => {
   try {
-
     const organizerSnapshot = await firestore()
-    .collection(COLLECTIONS.Meetings)
-    .where('organizerId', '==', userId)
-    .get();
-
+      .collection(COLLECTIONS.Meetings)
+      .where('organizerId', '==', userId)
+      .get();
 
     const documents: Meetings[] = [];
-    const today = new Date().getDate();
+    const now = new Date();
     organizerSnapshot.forEach(doc => {
       const data = doc.data();
-if( today==data.start.toDate().getDate())
+      if (data.end.toDate() >= now)
         documents.push({
           id: doc.id,
           start: data.start.toDate(),
@@ -64,15 +61,13 @@ if( today==data.start.toDate().getDate())
           organizerId: data.organizerId,
           title: data.title,
           membersIdList: data.membersIdList,
-          showMeetingTitle: data.showMeetingTitle
+          showMeetingTitle: data.showMeetingTitle,
         });
-    
     });
 
     return documents;
   } catch (error) {
-
-    throw(error)
+    throw error;
   }
 };
 /**
@@ -82,7 +77,7 @@ if( today==data.start.toDate().getDate())
 export const readAllMeetings = async (): Promise<Meetings[]> => {
   try {
     const snapshot = await firestore().collection(COLLECTIONS.Meetings).get();
-    const documents : Meetings[]=[];
+    const documents: Meetings[] = [];
     const now = new Date();
     snapshot.forEach(doc => {
       documents.push({
@@ -93,12 +88,12 @@ export const readAllMeetings = async (): Promise<Meetings[]> => {
         organizerId: doc.data().organizerId,
         title: doc.data().title,
         membersIdList: doc.data().membersIdList,
-        showMeetingTitle: doc.data().membersIdList
+        showMeetingTitle: doc.data().membersIdList,
       });
     });
     return documents;
   } catch (error) {
-    throw(error)
+    throw error;
   }
 };
 /**
@@ -106,7 +101,41 @@ export const readAllMeetings = async (): Promise<Meetings[]> => {
  * @param branch branch name
  * @returns list of rooms for particular branch
  */
-export const readAllRoomsByBranch = async (branch: string): Promise<Rooms[]> => {
+
+
+export const readAllRooms = async ():
+  Promise<Rooms[]> => {
+    try {
+      const snapshot = await firestore()
+        .collection(COLLECTIONS.Rooms)
+        .get();
+  
+      const documents: Rooms[] = [];
+      snapshot.forEach(doc => {
+        return documents.push({
+          id: doc.id,
+          name: doc.data().name,
+          maxLimit: doc.data().maxLimit,
+          monitorAvailability: doc.data().monitorAvailability,
+          boardAvailability: doc.data().boardAvailability,
+          branch: doc.data().branch,
+          location: doc.data().location,
+          availability: doc.data().availability,
+          roomImg: doc.data().roomImg,
+          wifiName: doc.data().wifiName,
+        });
+      });
+  
+      return documents;
+    } catch (error) {
+      throw error;
+    }
+  };
+    
+
+export const readAllRoomsByBranch = async (
+  branch: string,
+): Promise<Rooms[]> => {
   try {
     const snapshot = await firestore()
       .collection(COLLECTIONS.Rooms)
@@ -115,7 +144,6 @@ export const readAllRoomsByBranch = async (branch: string): Promise<Rooms[]> => 
 
     const documents: Rooms[] = [];
     snapshot.forEach(doc => {
-
       return documents.push({
         id: doc.id,
         name: doc.data().name,
@@ -126,13 +154,13 @@ export const readAllRoomsByBranch = async (branch: string): Promise<Rooms[]> => 
         location: doc.data().location,
         availability: doc.data().availability,
         roomImg: doc.data().roomImg,
-        wifiName:doc.data().wifiName
+        wifiName: doc.data().wifiName,
       });
     });
 
     return documents;
   } catch (error) {
-    throw(error)
+    throw error;
   }
 };
 
@@ -145,9 +173,11 @@ export const readAllPreviousMeetingByUser = async (userId: string) => {
     const currentDate = new Date();
     const documents: Meetings[] = [];
     snapshot.forEach(doc => {
-   
       const data = doc.data();
-      if (data.end < currentDate && data.end.toDate().getDate()===currentDate.getDate()) {
+      if (
+        data.end < currentDate &&
+        data.end.toDate().getDate() === currentDate.getDate()
+      ) {
         return documents.push({
           id: doc.id,
           start: data.start.toDate(),
@@ -156,14 +186,14 @@ export const readAllPreviousMeetingByUser = async (userId: string) => {
           organizerId: data.organizerId,
           title: data.title,
           membersIdList: data.membersIdList,
-          showMeetingTitle: data.showMeetingTitle
+          showMeetingTitle: data.showMeetingTitle,
         });
       }
     });
 
     return documents;
   } catch (error) {
-    throw(error)
+    throw error;
   }
 };
 
@@ -183,7 +213,7 @@ export const readAllUsers = async (): Promise<User[]> => {
 
     return documents;
   } catch (error) {
-   throw(error)
+    throw error;
   }
 };
 
@@ -192,7 +222,9 @@ export const readAllUsers = async (): Promise<User[]> => {
  * @param roomId room id
  * @returns meetings for particular room id for current day
  */
-export const readMeetingbyRoomId = async (roomId: string):Promise<Meetings[]> => {
+export const readMeetingbyRoomId = async (
+  roomId: string,
+): Promise<Meetings[]> => {
   try {
     const querySnapshot = await firestore()
       .collection(COLLECTIONS.Meetings)
@@ -219,7 +251,7 @@ export const readMeetingbyRoomId = async (roomId: string):Promise<Meetings[]> =>
 
     return documents;
   } catch (error) {
-    throw(error)
+    throw error;
   }
 };
 /**
@@ -237,7 +269,7 @@ export const editDataById = async (
     const snapshot = firestore().collection(collection).doc(id);
     await snapshot.update(updatedData);
   } catch (error) {
-    throw( error);
+    throw error;
   }
 };
 /**
@@ -250,9 +282,6 @@ export const deleteDataById = async (collection: string, id: string) => {
     const snapshot = firestore().collection(collection).doc(id);
     await snapshot.delete();
   } catch (error) {
-    throw(error);
+    throw error;
   }
 };
-
-
-

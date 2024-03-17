@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import {COLORS} from '../utils/colors';
-import { Keyboard } from 'react-native';
+import {Keyboard} from 'react-native';
 
 interface Type {
   name: string;
@@ -13,7 +13,7 @@ interface DateInputProps {
   placeholder: string;
   onChange: ({name, value}: Type) => void;
   value: string;
-  style: 'whiteTimeBox' | 'darkTimeBox';
+  style: keyof typeof styles;
 }
 /**
  * @description DateInput component for Date
@@ -31,15 +31,14 @@ const DateInput: React.FC<DateInputProps> = ({
   value,
   style,
 }) => {
-  
   const inputValue = new Date(value);
   const hourFormat = inputValue.getHours() + ':' + inputValue.getMinutes();
   const [inputTime, setInputTime] = useState(hourFormat);
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
   const onFocusHandler = () => {
-    setOpen(true)
-}
+    setOpen(true);
+  };
   return (
     <View>
       <TextInput
@@ -58,13 +57,10 @@ const DateInput: React.FC<DateInputProps> = ({
         date={date}
         onConfirm={selectedDate => {
           setOpen(false);
-
           const hours = selectedDate.getHours();
           const minutes = selectedDate.getMinutes();
-
           const formattedHours = String(hours).padStart(2, '0');
           const formattedMinutes = String(minutes).padStart(2, '0');
-
           const formattedTime = `${formattedHours}:${formattedMinutes}`;
 
           setInputTime(formattedTime);

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Alert, FlatList, Share, StyleSheet, View} from 'react-native';
 import MyMeetingCard from '../components/MyMeetingCard';
 import {COLORS} from '../utils/colors';
@@ -9,6 +9,7 @@ import ConfirmBox from '../components/ConfirmBox';
 import {
   deleteDataById,
   editDataById,
+  readAllRooms,
 } from '../services/MeetingServices';
 import {getNameById, getPropertyByIDFromCollection} from '../utils/commonUtils';
 import {CONFIRM_DELETE, TOAST_MESSAGES} from '../messages/appMessage';
@@ -37,8 +38,16 @@ export const MyMeetingsContainer: React.FC<MyMeetingsContainerProps> = ({
   const [component, setComponent] = useState<React.ReactNode>();
 
   const [meetings, setMeetings] = useRecoilState<Meetings[]>(Meeting);
-  const [rooms, setRooms] = useRecoilState<Rooms[]>(Room);
+  const [rooms, setRooms] = useState<Rooms[]>();
   const [members, setMembers] = useRecoilState<User[]>(Members);
+
+  const  readAllRoom = async() => {
+    const rooms = await readAllRooms();
+    setRooms(rooms)
+  }
+  useEffect(() => {
+  readAllRoom()
+},[])
   const onEditHandler = async (data: MeetingEditForm) => {
     const response = await validateEditRoomBookingForm(data);
     if (!response.valid) {
@@ -84,6 +93,7 @@ export const MyMeetingsContainer: React.FC<MyMeetingsContainerProps> = ({
     // getRooms();
   };
   const onShareHandler = async (data: Meetings) => {
+
     const roomName = await getNameById(rooms, data.roomId);
 
     try {
@@ -158,7 +168,6 @@ setIsVisible(true)
     setIsVisible(true);
     setComponent(confirmComponent);
   };
-
   const updatedData = meetings?.map(meeting => {
     return {
       ...meeting,

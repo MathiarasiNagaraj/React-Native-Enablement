@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Image,
   ImageBackground,
@@ -10,28 +10,25 @@ import {
 import Button from '../components/Button';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ScreenHeader from '../components/ScreenHeader';
-import {ASYNC_STORE_KEY, BUTTONS, SCREEN_NAMES} from '../constants/appConstant';
-import {LinearGradientContainer} from '../containers/LinearGradientContainer';
-import {ACCOUNT, HIDE_PASSWORD} from '../messages/appMessage';
+import { ASYNC_STORE_KEY, BUTTONS, SCREEN_NAMES } from '../constants/appConstant';
+import { LinearGradientContainer } from '../containers/LinearGradientContainer';
 import {
   getLocalDataByKey,
   removeLocalDataByKey,
   storeLocalData,
 } from '../services/LocalStorageServices';
-import {COLORS} from '../utils/colors';
-import {useNavigation} from '@react-navigation/native';
-import {useToast} from 'react-native-toast-notifications';
-import {Form} from '../containers/FormContainer';
-import {PROFILE_EDIT_FORM} from '../form/formConfig';
-import {editDataById} from '../services/MeetingServices';
-import {COLLECTIONS} from '../constants/appConstant';
+import { COLORS } from '../utils/colors';
+import { useNavigation } from '@react-navigation/native';
+import { Form } from '../containers/FormContainer';
+import { PROFILE_EDIT_FORM } from '../form/formConfig';
+import { editDataById, readAllRooms } from '../services/MeetingServices';
+import { COLLECTIONS } from '../constants/appConstant';
 import ImagePicker from 'react-native-image-crop-picker';
-import {useRecoilState} from 'recoil';
+import { useRecoilState } from 'recoil';
 import storage from '@react-native-firebase/storage';
-import {firebase} from '@react-native-firebase/storage';
-import {User} from '../store/atom/userAtom';
-import {AccountEditForm} from '../interfaces/formInterface';
-import {StackNavigationProp} from '@react-navigation/stack';
+import { User } from '../store/atom/userAtom';
+import { AccountEditForm } from '../interfaces/formInterface';
+import { StackNavigationProp } from '@react-navigation/stack';
 import AccountDetailsContainer from '../containers/AccountDetailsContainer';
 
 export const MyAccountScreen = () => {
@@ -49,6 +46,7 @@ export const MyAccountScreen = () => {
     };
     getasyncData();
   }, []);
+
   const onEditHandler = () => {
     setIsEditMode(true);
   };

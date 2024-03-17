@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import FloatingButton from '../components/FloatingButton';
 import {Header} from '../components/Header';
 import {SearchBar} from '../components/SearchBar';
@@ -50,12 +50,12 @@ export const HomeScreen = () => {
     return data;
   };
   const getRoomData = async () => {
-    const data = await readAllRoomsByBranch(user.location);
+    const localdata = await getLocalDataByKey(ASYNC_STORE_KEY.USER);
+    const data = await readAllRoomsByBranch(localdata.location);
     setRooms(data);
   };
   const getMeetingData = async () => {
     const data = await readUpcomingMeetingsByOrganizerId(currentUser?.id);
-
     setMeetings(data);
   };
   const getAllUserDetails = async () => {
@@ -80,15 +80,21 @@ export const HomeScreen = () => {
     setCurrentUser(userLocalData);
   };
 
-  useEffect(() => {
-    updateLocalData();
-  }, []);
+
   useEffect(() => {
     if (currentUser !== undefined) {
       initData();
+      
     }
-  }, [currentUser]);
+  }, []);
+  const reinitiate = async () => {
+    await updateLocalData();
+    await initData();
+  }
+  useEffect(() => {
+    reinitiate()
 
+  }, [user]);
   const onFloatingBtnPressHandler = () => {
     navigation.navigate(SCREEN_NAMES.ROOM_BOOKING, {});
   };
@@ -157,7 +163,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 35,
-    paddingVertical: 30,
+    paddingVertical: '4%',
     alignItems: 'center',
   },
   title: {
@@ -171,7 +177,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   fallback: {
-    height: 200,
+    height: '20%',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: COLORS.transparent,
