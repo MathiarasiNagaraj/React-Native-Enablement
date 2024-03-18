@@ -10,7 +10,7 @@ export const LOGIN_FORM = {
       placeholder: 'Enter your email Id',
       type: 'email-address',
       style: 'whiteBox',
-      width: 'full',
+      
     },
     {
       name: 'password',
@@ -18,7 +18,7 @@ export const LOGIN_FORM = {
       type: 'default',
       style: 'whiteBox',
       isPassword: true,
-      width: 'full',
+      
     },
   ],
   buttons: BUTTONS.loginBtn,
@@ -44,7 +44,7 @@ export const MEETING_ROOM_EDIT_FORM = (
       type: 'dropDown',
       style: 'dropdown',
       options: 'rooms',
-      width: 'full',
+      
       value: roomId,
     },
     {
@@ -54,7 +54,6 @@ export const MEETING_ROOM_EDIT_FORM = (
       style: 'dropdown',
       isMultiSelect: true,
       options: 'users',
-      width: 'full',
       value: membersIdList,
     },
 
@@ -63,7 +62,7 @@ export const MEETING_ROOM_EDIT_FORM = (
       placeholder: 'Enter Meeting Title',
       type: 'default',
       style: 'darkBox',
-      width: 'full',
+      
       value: title,
     },
     {
@@ -100,7 +99,7 @@ export const PROFILE_EDIT_FORM = (
       placeholder: 'Enter your email Id',
       type: 'email-address',
       style: 'whiteBox',
-      width: 'full',
+      
       value: email,
     },
     {
@@ -109,7 +108,7 @@ export const PROFILE_EDIT_FORM = (
       type: 'default',
       style: 'whiteBox',
       isPassword: true,
-      width: 'full',
+      
       value: password,
     },
     {
@@ -118,7 +117,7 @@ export const PROFILE_EDIT_FORM = (
       placeholder: 'Select Location',
       type: 'dropDown',
       style: 'dropDownUnderLine',
-      width: 'full',
+      
       value: location,
       isMultiSelect: false,
       options: 'location',
@@ -140,7 +139,7 @@ export const ROOM_BOOKING_FORM = (roomId: string, organizerId: string) => ({
       style: 'dropdown',
       isMultiSelect: false,
       options: 'rooms',
-      width: 'full',
+      
       value: roomId,
     },
     ,
@@ -150,14 +149,14 @@ export const ROOM_BOOKING_FORM = (roomId: string, organizerId: string) => ({
       placeholder: 'Enter Meeting Name',
       type: 'default',
       style: 'whiteBox',
-      width: 'full',
+      
     },
     {
       name: 'showMeetingTitle',
       placeholder: 'Show Meeting Name',
       type: 'checkBox',
       style: 'checkBox',
-      width: 'full',
+      
       value:false
     },
     {
@@ -168,7 +167,7 @@ export const ROOM_BOOKING_FORM = (roomId: string, organizerId: string) => ({
       style: 'dropdown',
       isMultiSelect:false,
       options: 'users',
-      width: 'full',
+      
       value: organizerId,
     },
 
@@ -180,7 +179,7 @@ export const ROOM_BOOKING_FORM = (roomId: string, organizerId: string) => ({
       style: 'dropdown',
       isMultiSelect: true,
       options: 'users',
-      width: 'full',
+      
 
     },
 

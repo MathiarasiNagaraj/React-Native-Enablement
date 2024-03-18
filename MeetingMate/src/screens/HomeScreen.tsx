@@ -52,7 +52,7 @@ export const HomeScreen = () => {
   const getRoomData = async () => {
     const localdata = await getLocalDataByKey(ASYNC_STORE_KEY.USER);
     const data = await readAllRoomsByBranch(localdata.location);
-    console.log(data.length, localdata.location);
+
     setRooms(data);
   };
   const getMeetingData = async () => {

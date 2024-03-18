@@ -43,7 +43,7 @@ export const SearchRoomsScreen = () => {
       <Text style={styles.filterText}>{filter.name}</Text>
     </TouchableOpacity>
   ));
-  console.log(filters);
+
   return (
     <View style={styles.fullWrapper}>
       <ScreenHeader
