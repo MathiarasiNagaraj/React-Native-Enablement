@@ -38,7 +38,8 @@ export const AVAILABLITY = {
     BUSY:'Busy'
 }
 export const AVAILABLE='Room Available Now'
-export const TODAY_MEETING='Today Meetings'
+export const TODAY_MEETING = 'Today Meetings'
+export const UPCOMMING_MEETING='Today Upcomming Meetings :'
 export const CURRENT_DAY_MEETINGS_OF_ROOM=(room:string)=>`Today Meetings of ${room}`
 
 export const MEETING_STATUS= {

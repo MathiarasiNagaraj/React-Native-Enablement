@@ -5,8 +5,9 @@ import {AVAILABLITY, TODAY_MEETING} from '../messages/appMessage';
 import RoomFacilityContainer from './RoomFacilityContainer';
 import {COLORS} from '../utils/colors';
 import Tag from '../components/Tag';
+import RoomDetailsContainer from './RoomDetailsContainer';
 
-export default function MeetingsContainer({room, roomMeetings}) {
+export default function MeetingsContainer({room, roomMeetings,flag}) {
   return (
     <>
       <ScreenHeader style={'transparentWrapper'} iconStyle={'darkIcon'} />
@@ -20,12 +21,7 @@ export default function MeetingsContainer({room, roomMeetings}) {
             indicatorStyle={room.availability ? 'greenRound' : 'redRound'}
           />
         </View>
-        <View>
-          <Text style={styles.roomtitle}>{room.name}</Text>
-          <RoomFacilityContainer details={room} />
-          <Text style={styles.text}>{TODAY_MEETING}</Text>
-          {roomMeetings}
-        </View>
+       <RoomDetailsContainer room={room} roomMeetings={roomMeetings} flag={flag} />
       </View>
     </>
   );

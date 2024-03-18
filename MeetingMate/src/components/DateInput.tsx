@@ -79,8 +79,8 @@ export default DateInput;
 const styles = StyleSheet.create({
   whiteTimeBox: {
     width: 130,
-    justifyContent: 'center',
-    alignItems: 'center',
+    // justifyContent: 'center',
+    // alignItems: 'center',
     textAlign: 'center',
     color: COLORS.primaryDark,
     fontSize: 16,

@@ -1,6 +1,6 @@
 import {useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {useRecoilState} from 'recoil';
 import {MeetingCard} from '../components/MeetingCard';
 import {
@@ -18,6 +18,8 @@ import {Dimensions} from 'react-native';
 import RoomFacilityContainer from '../containers/RoomFacilityContainer';
 import ScreenHeader from '../components/ScreenHeader';
 import MeetingsContainer from '../containers/MeetingsContainer';
+import RoomDetailsContainer from '../containers/RoomDetailsContainer';
+
 export const RoomBookingScreen = () => {
   const route = useRoute();
   const {room} = route.params;
@@ -25,20 +27,23 @@ export const RoomBookingScreen = () => {
   const [meetings, setMeetings] = useState([]);
   const [currentMeeting, setCurrentMeeting] = useState({});
   const {width, height} = Dimensions.get('window');
-  // You can define your own logic to determine whether the device is a tablet or not
-  const isTablet = Math.min(width, height) >= 600; // Example threshold for defining a tablet
+  const isTablet = Math.min(width, height) >= 600;
 
+  //getting organizer name with id
   const updatedMeetings = meetings.map(meeting => {
     meeting.organizer = getNameById(members, meeting.organizerId);
     return meeting;
   });
 
+  //room meetings list
   const roomMeetings = (
     <FlatList
       data={updatedMeetings}
       renderItem={({item}) => <MeetingCard meetingDetails={item} />}
     />
   );
+
+  //fetching meetings for room id
   const getMeetingsByRoomId = async () => {
     const currentTime = new Date();
     const data = await readMeetingbyRoomId(room.id);
@@ -54,10 +59,9 @@ export const RoomBookingScreen = () => {
 
   return (
     <>
-
       {isTablet ? (
         <View style={styles.fullContainer}>
-                <ScreenHeader style={'transparentWrapper'} iconStyle={'icon'} />
+          <ScreenHeader style={'transparentWrapper'} iconStyle={'icon'} />
           <View
             style={[
               styles.sideBox,
@@ -75,22 +79,14 @@ export const RoomBookingScreen = () => {
               </View>
             )}
           </View>
-          <View style={styles.wrapper}>
-            <Text style={styles.title}>{room.name}</Text>
-            <RoomFacilityContainer details={room} />
-            <Text style={styles.text}>{TODAY_MEETING}</Text>
-
-            {updatedMeetings.length > 0 ? (
-              roomMeetings
-            ) : (
-              <View style={styles.fallback}>
-                <Text style={styles.fallBackText}>{NO_UPCOMMING_MEETING}</Text>
-              </View>
-            )}
-          </View>
+          <RoomDetailsContainer
+            flag={updatedMeetings.length > 0}
+            room={room}
+            roomMeetings={roomMeetings}
+          />
         </View>
       ) : (
-        <MeetingsContainer room={room} roomMeetings={roomMeetings} />
+          <MeetingsContainer room={room} roomMeetings={roomMeetings} flag={ updatedMeetings.length > 0} />
       )}
     </>
   );
@@ -134,7 +130,6 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     flex: 1,
-    // justifyContent: 'center',
     padding: 20,
     margin: 20,
   },

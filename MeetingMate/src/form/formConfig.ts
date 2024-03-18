@@ -67,7 +67,7 @@ export const MEETING_ROOM_EDIT_FORM = (
       placeholder: 'End Time',
       type: 'time',
       style: 'whiteTimeBox',
-      width: 'half',
+    
       value: start,
     },
     {
@@ -75,7 +75,7 @@ export const MEETING_ROOM_EDIT_FORM = (
       placeholder: 'Start Time',
       type: 'time',
       style: 'whiteTimeBox',
-      width: 'half',
+    
       value: end,
     },
   ],
@@ -126,7 +126,7 @@ export const PROFILE_EDIT_FORM = (
 // Room Booking Form object
 export const ROOM_BOOKING_FORM = (roomId: string, organizerId: string) => ({
   style: 'bookingFormStyle',
-  isHavingShortFields: true,
+  // isHavingShortFields: true,
   fields: [
     {
       label: 'Meeting Room',
@@ -137,6 +137,7 @@ export const ROOM_BOOKING_FORM = (roomId: string, organizerId: string) => ({
       isMultiSelect: false,
       options: 'rooms',
       value: roomId,
+    
     },
     ,
     {
@@ -181,7 +182,7 @@ export const ROOM_BOOKING_FORM = (roomId: string, organizerId: string) => ({
       placeholder: 'Start Time',
       type: 'time',
       style: 'whiteTimeBox',
-      width: 'half',
+    
     },
     {
       label: 'End Time',
@@ -189,7 +190,7 @@ export const ROOM_BOOKING_FORM = (roomId: string, organizerId: string) => ({
       placeholder: 'End Time',
       type: 'time',
       style: 'whiteTimeBox',
-      width: 'half',
+    
     },
   ],
   buttons: BUTTONS.bookRoomFormBtn,

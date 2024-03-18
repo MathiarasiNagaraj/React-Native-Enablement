@@ -1,10 +1,5 @@
 import React, {useState} from 'react';
-import {
-  KeyboardAvoidingView,
-  Platform,
-  StyleSheet,
-  View,
-} from 'react-native';
+import {KeyboardAvoidingView, Platform, StyleSheet, View} from 'react-native';
 import Button from '../components/Button';
 import {Input} from '../components/Input';
 import {COLORS} from '../utils/colors';
@@ -67,7 +62,6 @@ export const Form: React.FC<FormProps> = ({formDetails, onSubmit}) => {
       onSubmit({...formData, id: formDetails.meetingId});
     } else {
       onSubmit(formData);
-      
     }
   };
 
@@ -93,20 +87,7 @@ export const Form: React.FC<FormProps> = ({formDetails, onSubmit}) => {
 
   const fields = formDetails.fields.map(field => {
     switch (field.type) {
-      case 'email-address':
-      case 'default':
-        return (
-          <Input
-            style={field.style}
-            placeholder={field.placeholder}
-            isPassword={field.isPassword}
-            key={field.name}
-            name={field.name}
-            value={field.value}
-            onChange={onChangeHandler}
-            type={field.type}
-          />
-        );
+   
 
       case 'dropDown':
         return (
@@ -131,8 +112,30 @@ export const Form: React.FC<FormProps> = ({formDetails, onSubmit}) => {
             value={field.value}
           />
         );
+      case 'time':
+        return (
+          <DateInput
+            style={field.style}
+            key={field.name}
+            name={field.name}
+            placeholder={field.placeholder}
+            onChange={onChangeHandler}
+            value={field.value}
+          />
+        );
       default:
-        return null; // Or render a default component if type is unknown
+        return (
+          <Input
+            style={field.style}
+            placeholder={field.placeholder}
+            isPassword={field.isPassword}
+            key={field.name}
+            name={field.name}
+            value={field.value}
+            onChange={onChangeHandler}
+            type={field.type}
+          />
+        );
     }
   });
 
@@ -142,7 +145,6 @@ export const Form: React.FC<FormProps> = ({formDetails, onSubmit}) => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <View style={styles[formDetails.style]}>
         {fields}
-
         <View style={styles.wrapper}>{shortfields}</View>
         <Button buttonDetails={formDetails.buttons} onPress={onSubmitHandler} />
       </View>

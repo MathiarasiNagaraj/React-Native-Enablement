@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, FlatList, Share, StyleSheet, View} from 'react-native';
+import {FlatList, Share, StyleSheet, View} from 'react-native';
 import MyMeetingCard from '../components/MyMeetingCard';
 import {COLORS} from '../utils/colors';
 import ModalComponent from '../components/Modal';
@@ -17,7 +17,6 @@ import {BUTTONS, COLLECTIONS, MEETING_INVITATION_MESSAGE} from '../constants/app
 import {useToast} from 'react-native-toast-notifications';
 import {commonStyle} from '../styles/commonStyle';
 import {useRecoilState} from 'recoil';
-import {Room} from '../store/atom/roomAtom';
 import {Meeting} from '../store/atom/meetingAtom';
 import {Meetings, Rooms, User} from '../interfaces/commonInterface';
 import {MeetingEditForm} from '../interfaces/formInterface';

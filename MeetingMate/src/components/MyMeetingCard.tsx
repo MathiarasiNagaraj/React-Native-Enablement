@@ -116,28 +116,28 @@ const MyMeetingCard: React.FC<MyMeetingCardProps> = ({
         iconColor={COLORS.primaryDark}
         iconSize={24}
       />
-    
+
       <View style={styles.row}>
         <MaterialCommunityIcons
-          name='account-group'
+          name="account-group"
           size={23}
-          style={{paddingLeft:2}}
+          style={{paddingLeft: 2}}
           color={COLORS.primaryDark}
         />
-         <View style={styles.memberwrapper}>
-        {members}
-        {data?.membersIdList.length - 3 > 1 &&
-          <Pressable
-            style={styles.memberText}
-            onPress={() => onMemberPressHandler(data)}>
-            <Text style={{ color: COLORS.black }}>
-              {' '}
-              {'+' + (data?.membersIdList.length - 3)}
-            </Text>
-          </Pressable>}
+        <View style={styles.memberwrapper}>
+          {members}
+          {data?.membersIdList.length - 3 > 1 && (
+            <Pressable
+              style={styles.memberText}
+              onPress={() => onMemberPressHandler(data)}>
+              <Text style={{color: COLORS.black}}>
+                {' '}
+                {'+' + (data?.membersIdList.length - 3)}
+              </Text>
+            </Pressable>
+          )}
+        </View>
       </View>
-      </View>
-     
     </View>
   );
 };
@@ -147,10 +147,9 @@ export default MyMeetingCard;
 const styles = StyleSheet.create({
   wrapper: {
     width: 300,
-
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-height:170,
+    height: 170,
     backgroundColor: COLORS.white,
     borderRadius: 10,
     padding: 15,
@@ -226,7 +225,7 @@ height:170,
     height: 28,
     width: 28,
     borderWidth: 2,
-    borderColor:COLORS.primaryDark,
+    borderColor: COLORS.primaryDark,
     borderRadius: 100,
     // marginLeft: -10,
   },
