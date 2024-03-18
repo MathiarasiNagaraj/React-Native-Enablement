@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {LinearGradientContainer} from '../containers/LinearGradientContainer';
 import {COLORS} from '../utils/colors';
 import {useNavigation} from '@react-navigation/native';
 import {RoomDetails} from '../components/RoomDetailCard';

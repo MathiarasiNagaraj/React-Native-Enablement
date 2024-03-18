@@ -109,14 +109,14 @@ const styles = StyleSheet.create({
   },
   fallBackText: {
     fontSize: 20,
-    color: COLORS.white,
+    color: COLORS.primaryDark,
     fontWeight: '600',
   },
   fallback: {
     height: '20%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: COLORS.transparent,
+    backgroundColor: COLORS.white,
     width: '90%',
     alignSelf: 'center',
   },

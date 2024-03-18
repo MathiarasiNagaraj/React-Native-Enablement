@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 import {useRecoilState} from 'recoil';
 import RoomListItem from '../components/RoomListItem';
@@ -8,7 +8,7 @@ import ScreenHeader from '../components/ScreenHeader';
 import {SCREEN_NAMES} from '../constants/appConstant';
 import {LinearGradientContainer} from '../containers/LinearGradientContainer';
 import {Meetings, Rooms} from '../interfaces/commonInterface';
-import { Meeting } from '../store/atom/meetingAtom';
+import {Meeting} from '../store/atom/meetingAtom';
 import {Room} from '../store/atom/roomAtom';
 
 export const MeetingRoomListScreen = () => {
@@ -22,7 +22,6 @@ export const MeetingRoomListScreen = () => {
 
   //function for updating room availablity status
   const updateRoomStatus = () => {
-
     meetings.length > 0 &&
       meetings?.forEach(async (meeting: Meetings) => {
         const startTime = new Date(meeting?.start);
@@ -48,7 +47,6 @@ export const MeetingRoomListScreen = () => {
               );
             }
           } else if (room.availability !== true) {
-  
             const updatedRoom = {...room, availability: true};
             setRooms((prevRooms: Rooms[]) =>
               prevRooms.map(prevRoom =>
@@ -80,9 +78,12 @@ export const MeetingRoomListScreen = () => {
     />
   );
 
-  return <LinearGradientContainer>
-    <ScreenHeader style='transparentWrapper' iconStyle='darkIcon'/>
-    {roomList}</LinearGradientContainer>;
+  return (
+    <LinearGradientContainer>
+      <ScreenHeader style="transparentWrapper" iconStyle="darkIcon" />
+      {roomList}
+    </LinearGradientContainer>
+  );
 };
 const styles = StyleSheet.create({
   container: {

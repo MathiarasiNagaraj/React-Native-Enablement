@@ -24,6 +24,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {scheduleNotification} from '../utils/pushNotification';
 import {getLocalDataByKey} from '../services/LocalStorageServices';
 import {Loader} from '../components/Loader';
+import ContainerHeader from '../components/ContainerHeader';
 
 /**
  * @description Home Screen  component
@@ -118,14 +119,11 @@ export const HomeScreen = () => {
         <SearchBar />
 
         <>
-          <View style={styles.wrapper}>
-            <Text style={styles.title}>{TITLE.MY_UPCOMING_MEETING}</Text>
-            <Text
-              style={styles.underLineText}
-              onPress={onViewAllMeetingHandler}>
-              {VIEW_ALL}
-            </Text>
-          </View>
+          <ContainerHeader
+            title={TITLE.MY_UPCOMING_MEETING}
+            onViewAllHandler={onViewAllMeetingHandler}
+          />
+
           {meetings.length > 0 ? (
             <MyMeetingsContainer style="wrapper" isHorizontal={true} />
           ) : (
@@ -134,12 +132,11 @@ export const HomeScreen = () => {
             </View>
           )}
         </>
-        <View style={styles.wrapper}>
-          <Text style={styles.title}>{TITLE.MEETING_ROOMS}</Text>
-          <Text style={styles.underLineText} onPress={onViewAllRoomHandler}>
-            {VIEW_ALL}
-          </Text>
-        </View>
+
+        <ContainerHeader
+          title={TITLE.MEETING_ROOMS}
+          onViewAllHandler={onViewAllRoomHandler}
+        />
 
         <MeetingRooms isHorizontal={true} style="wrapper" />
       </View>
@@ -151,9 +148,9 @@ export const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   fullContainer: {
-    backgroundColor: '#f7f1f1',
+    backgroundColor: COLORS.primaryLinear,
     flex: 1,
-    borderColor: '#f7f1f1',
+    borderColor: COLORS.primaryLinear,
     borderTopEndRadius: 60,
     borderTopStartRadius: 60,
   },
@@ -172,14 +169,14 @@ const styles = StyleSheet.create({
   },
   fallBackText: {
     fontSize: 20,
-    color: COLORS.white,
+    color: COLORS.primaryDark,
     fontWeight: '600',
   },
   fallback: {
     height: '20%',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: COLORS.transparent,
+    backgroundColor: COLORS.white,
     width: '90%',
     alignSelf: 'center',
   },

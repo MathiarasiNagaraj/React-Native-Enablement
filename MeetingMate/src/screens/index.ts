@@ -8,7 +8,7 @@ import {MyAccountScreen} from "./MyAccountScreen";
 import {MyBookingScreen} from "./MyBookingScreen";
 import { SearchRoomsScreen } from "./SearchRoomsScreen";
 import { MeetingRoomListScreen } from "./MeetingRoomListScreen";
-import { RoomBookingScreen } from "./RoomBookingScreen";
+import { RoomBookingScreen } from "./RoomAvailabilityScreen";
 
  export const COMPONENTS = {
      LoginScreen,
