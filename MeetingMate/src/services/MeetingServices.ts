@@ -248,10 +248,10 @@ export const readMeetingbyRoomId = async (
       .where('roomId', '==', roomId)
       .get();
     const documents: Meetings[] = [];
-    const today = new Date().getDate();
+    const today = new Date()
     querySnapshot.forEach(doc => {
       const data = doc.data();
-      if (today == data.start.toDate().getDate()) {
+      if (data.end.toDate() >= today){
         documents.push({
           id: doc.id,
           ...doc.data(),
