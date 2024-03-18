@@ -32,7 +32,6 @@ export const MEETING_ROOM_EDIT_FORM = (
   membersIdList: string[],
 ) => ({
   style: 'bookingFormEditStyle',
-  isHavingShortFields: true,
   meetingId: meetingId,
   fields: [
     {
@@ -67,7 +66,6 @@ export const MEETING_ROOM_EDIT_FORM = (
       placeholder: 'End Time',
       type: 'time',
       style: 'whiteTimeBox',
-    
       value: start,
     },
     {
@@ -75,7 +73,6 @@ export const MEETING_ROOM_EDIT_FORM = (
       placeholder: 'Start Time',
       type: 'time',
       style: 'whiteTimeBox',
-    
       value: end,
     },
   ],
@@ -126,7 +123,6 @@ export const PROFILE_EDIT_FORM = (
 // Room Booking Form object
 export const ROOM_BOOKING_FORM = (roomId: string, organizerId: string) => ({
   style: 'bookingFormStyle',
-  // isHavingShortFields: true,
   fields: [
     {
       label: 'Meeting Room',

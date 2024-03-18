@@ -1,8 +1,7 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import React from 'react';
 import ScreenHeader from '../components/ScreenHeader';
-import {AVAILABLITY, TODAY_MEETING} from '../messages/appMessage';
-import RoomFacilityContainer from './RoomFacilityContainer';
+import {AVAILABLITY} from '../messages/appMessage';
 import {COLORS} from '../utils/colors';
 import Tag from '../components/Tag';
 import RoomDetailsContainer from './RoomDetailsContainer';
@@ -14,7 +13,6 @@ export default function MeetingsContainer({room, roomMeetings,flag}) {
       <View style={styles.container}>
         <View style={styles.imgWrapper}>
           <Image source={{uri: room.roomImg}} style={styles.img} />
-
           <Tag
             text={room.availability ? AVAILABLITY.AVAILABLE : AVAILABLITY.BUSY}
             textStyle={room.availability ? 'greenText' : 'redText'}

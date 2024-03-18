@@ -83,7 +83,6 @@ export const MeetingRoomDetailScreen = () => {
           </View>
         )}
       </ScrollView>
-
       <Button buttonDetails={BUTTONS.bookRoomBtn} onPress={onBookHandler} />
     </LinearGradientContainer>
   );

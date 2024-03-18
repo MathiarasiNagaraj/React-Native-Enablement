@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
   Image,
-  KeyboardAvoidingView,
-  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -39,7 +37,6 @@ export const LoginScreen = () => {
   const navigate = useNavigation<StackNavigationProp<any>>();
   const toast = useToast();
   const setUser = useSetRecoilState(User);
-  const [imgUrl, setImgUrl] = useState();
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [location, setLocation] = useState<String>();
   const [rooms, setRooms] = useRecoilState<Rooms[]>(Room);
