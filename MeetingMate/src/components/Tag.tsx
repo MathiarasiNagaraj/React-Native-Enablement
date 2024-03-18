@@ -15,13 +15,15 @@ const styles = StyleSheet.create({
     height: 10,
     width: 10,
     borderRadius: 20,
+marginHorizontal:7,
     backgroundColor: COLORS.green,
   },
   redRound: {
     height: 10,
     width: 10,
     borderRadius: 20,
-    backgroundColor: COLORS.green,
+    marginHorizontal:7,
+    backgroundColor: COLORS.red,
   },
   cardBox: {
     position: 'absolute',

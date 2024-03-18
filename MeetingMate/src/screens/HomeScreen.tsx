@@ -52,10 +52,13 @@ export const HomeScreen = () => {
   const getRoomData = async () => {
     const localdata = await getLocalDataByKey(ASYNC_STORE_KEY.USER);
     const data = await readAllRoomsByBranch(localdata.location);
+    console.log(data.length, localdata.location);
     setRooms(data);
   };
   const getMeetingData = async () => {
-    const data = await readUpcomingMeetingsByOrganizerId(currentUser?.id);
+    const localdata = await getLocalDataByKey(ASYNC_STORE_KEY.USER);
+    const data = await readUpcomingMeetingsByOrganizerId(localdata?.id);
+
     setMeetings(data);
   };
   const getAllUserDetails = async () => {
@@ -80,20 +83,17 @@ export const HomeScreen = () => {
     setCurrentUser(userLocalData);
   };
 
-
   useEffect(() => {
     if (currentUser !== undefined) {
       initData();
-      
     }
   }, []);
   const reinitiate = async () => {
     await updateLocalData();
     await initData();
-  }
+  };
   useEffect(() => {
-    reinitiate()
-
+    reinitiate();
   }, [user]);
   const onFloatingBtnPressHandler = () => {
     navigation.navigate(SCREEN_NAMES.ROOM_BOOKING, {});
@@ -153,7 +153,6 @@ const styles = StyleSheet.create({
   fullContainer: {
     backgroundColor: '#f7f1f1',
     flex: 1,
-
     borderColor: '#f7f1f1',
     borderTopEndRadius: 60,
     borderTopStartRadius: 60,
@@ -163,7 +162,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 35,
-    paddingVertical: '4%',
+    paddingVertical: '5%',
     alignItems: 'center',
   },
   title: {

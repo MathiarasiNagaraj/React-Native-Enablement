@@ -43,15 +43,17 @@ export const SearchRoomsScreen = () => {
       <Text style={styles.filterText}>{filter.name}</Text>
     </TouchableOpacity>
   ));
+  console.log(filters);
   return (
-    <LinearGradientContainer>
-      <ScreenHeader title={SCREEN_NAMES.SEARCH}
-          style={'wrapper'}
-          iconStyle={'icon'}    
+    <View style={styles.fullWrapper}>
+      <ScreenHeader
+        title={SCREEN_NAMES.SEARCH}
+        style={'wrapper'}
+        iconStyle={'icon'}
       />
       <ScrollView
         horizontal={true}
-        style={styles.optionContainer}
+        contentContainerStyle={styles.optionContainer}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}>
         {filters}
@@ -72,11 +74,14 @@ export const SearchRoomsScreen = () => {
         )}
         keyExtractor={item => item.name}
       />
-    </LinearGradientContainer>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  fullWrapper: {
+    flex: 1,
+  },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -98,19 +103,19 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: 20,
-    justifyContent: 'flex-start',
   },
   filter: {
     backgroundColor: COLORS.primaryDark,
     padding: 10,
+
+    justifyContent: 'center',
+    alignItems: 'center',
     marginHorizontal: 10,
     borderRadius: 10,
-    maxHeight: 35,
-    margin: 100,
   },
   optionContainer: {
-    flexGrow: 0,
     height: 50,
+    marginVertical: 7,
   },
   filterText: {
     fontSize: 15,
@@ -118,7 +123,6 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontWeight: '500',
     justifyContent: 'center',
-    height: 30,
   },
   wrapper: {
     flexDirection: 'row',

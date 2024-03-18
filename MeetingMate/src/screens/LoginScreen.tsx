@@ -26,13 +26,14 @@ import {validateLoginForm} from '../utils/validations.utils';
 import {LoginForm} from '../interfaces/formInterface';
 import {firebase} from '@react-native-firebase/storage';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {Rooms} from '../interfaces/commonInterface';
-import {readAllRoomsByBranch, readAllUsers} from '../services/MeetingServices';
+import {Meetings, Rooms} from '../interfaces/commonInterface';
+import {readAllRoomsByBranch, readAllUpcomingMeetings, readAllUsers} from '../services/MeetingServices';
 import {Room} from '../store/atom/roomAtom';
 import SplashScreen from 'react-native-splash-screen';
 import {COLORS} from '../utils/colors';
 import {Members} from '../store/atom/membersAtom';
 import {getCurrentCityName} from '../utils/geoLocation';
+import { Meeting } from '../store/atom/meetingAtom';
 
 export const LoginScreen = () => {
   const navigate = useNavigation<StackNavigationProp<any>>();
@@ -43,7 +44,7 @@ export const LoginScreen = () => {
   const [location, setLocation] = useState<String>();
   const [rooms, setRooms] = useRecoilState<Rooms[]>(Room);
   const [members, setMembers] = useRecoilState(Members);
-
+  const [meetings, setMeetings] = useRecoilState<Meetings[]>(Meeting);
   const getLocalData = async () => {
     const data = await getLocalDataByKey(ASYNC_STORE_KEY.USER);
     return data;
@@ -77,7 +78,12 @@ export const LoginScreen = () => {
     const data = await readAllRoomsByBranch(location);
     setRooms(data);
   };
+  const getMeetingData = async () => {
+    const localdata = await getLocalDataByKey(ASYNC_STORE_KEY.USER);
+    const data = await  readAllUpcomingMeetings() ;
 
+    setMeetings(data);
+  };
   const getAllUserDetails = async () => {
     const data = await readAllUsers();
     setMembers(data);
@@ -85,6 +91,7 @@ export const LoginScreen = () => {
 
   const initData = async () => {
     getAllUserDetails();
+    getMeetingData()
   };
 
   const onViewRoomsClickHandler = async () => {

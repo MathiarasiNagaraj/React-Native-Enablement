@@ -50,6 +50,7 @@ const MyMeetingCard: React.FC<MyMeetingCardProps> = ({
 
   const now = new Date();
   const isChangeable = now <= data.end;
+
   const members = data?.membersIdList?.slice(0, 3).map((memberId, index) => (
     <View key={memberId} style={styles.member}>
       <Image
@@ -146,9 +147,10 @@ export default MyMeetingCard;
 const styles = StyleSheet.create({
   wrapper: {
     width: 300,
-    maxHeight: 'auto',
-    alignSelf: 'center',
-    alignContent: 'center',
+
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+height:170,
     backgroundColor: COLORS.white,
     borderRadius: 10,
     padding: 15,

@@ -17,18 +17,31 @@ interface MeetingCardProps {
 export const MeetingCard: React.FC<MeetingCardProps> = ({meetingDetails}) => {
   return (
     <View style={styles.wrapper}>
-      {meetingDetails.showMeetingTitle && (
+      {meetingDetails.showMeetingTitle ? 
+        <>
         <Text style={styles.title}>{meetingDetails.title}</Text>
-      )}
-
-      <IconText
+        <IconText
         containerStyle={'rowContainer'}
         textStyle={'text'}
         text={meetingDetails.organizer}
         iconName={'account'}
         iconColor={COLORS.primaryDark}
-        iconSize={24}
-      />
+            iconSize={24}
+            
+          />
+          </>
+        :      <IconText
+        containerStyle={'rowContainer'}
+        textStyle={'text'}
+        text={ ORGANIZED_BY(meetingDetails.organizer)}
+        iconName={'account'}
+        iconColor={COLORS.primaryDark}
+            iconSize={24}
+            
+          />
+      }
+
+    
     <IconText
         containerStyle={'rowContainer'}
         textStyle={'text'}

@@ -3,7 +3,12 @@ import React, {useEffect, useState} from 'react';
 import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
 import {useRecoilState} from 'recoil';
 import {MeetingCard} from '../components/MeetingCard';
-import {AVAILABLE, ORGANIZED_BY, TODAY_MEETING} from '../messages/appMessage';
+import {
+  AVAILABLE,
+  NO_UPCOMMING_MEETING,
+  ORGANIZED_BY,
+  TODAY_MEETING,
+} from '../messages/appMessage';
 import {readMeetingbyRoomId} from '../services/MeetingServices';
 import {Members} from '../store/atom/membersAtom';
 import {COLORS} from '../utils/colors';
@@ -19,7 +24,10 @@ export const RoomBookingScreen = () => {
   const [members, setMembers] = useRecoilState(Members);
   const [meetings, setMeetings] = useState([]);
   const [currentMeeting, setCurrentMeeting] = useState({});
-  const windowWidth = Dimensions.get('window').width;
+  const {width, height} = Dimensions.get('window');
+  // You can define your own logic to determine whether the device is a tablet or not
+  const isTablet = Math.min(width, height) >= 600; // Example threshold for defining a tablet
+
   const updatedMeetings = meetings.map(meeting => {
     meeting.organizer = getNameById(members, meeting.organizerId);
     return meeting;
@@ -43,46 +51,51 @@ export const RoomBookingScreen = () => {
   useEffect(() => {
     getMeetingsByRoomId();
   }, []);
+
   return (
     <>
-      {(windowWidth >= 768 && windowWidth <1024)? (
-    <View style={styles.fullContainer}>
-    <ScreenHeader style={'transparentWrapper'} iconStyle={'icon'} />
-    <View
-      style={[
-        styles.sideBox,
-        {backgroundColor: room.availability ? COLORS.green : COLORS.red},
-      ]}>
-      <QRCode size={200} value={room.id} />
-      {room.availability ? (
-        <Text style={styles.availableText}>{AVAILABLE}</Text>
-      ) : (
-        <View style={styles['meetingWrapper']}>
-          <Text style={styles.meetingTitle}>{currentMeeting.title}</Text>
-          <Text style={styles.meetingText}>
-            {ORGANIZED_BY(currentMeeting.organizer)}
-          </Text>
+
+      {isTablet ? (
+        <View style={styles.fullContainer}>
+                <ScreenHeader style={'transparentWrapper'} iconStyle={'icon'} />
+          <View
+            style={[
+              styles.sideBox,
+              {backgroundColor: room.availability ? COLORS.green : COLORS.red},
+            ]}>
+            <QRCode size={200} value={room.id} />
+            {room.availability ? (
+              <Text style={styles.availableText}>{AVAILABLE}</Text>
+            ) : (
+              <View style={styles['meetingWrapper']}>
+                <Text style={styles.meetingTitle}>{currentMeeting.title}</Text>
+                <Text style={styles.meetingText}>
+                  {ORGANIZED_BY(currentMeeting.organizer)}
+                </Text>
+              </View>
+            )}
+          </View>
+          <View style={styles.wrapper}>
+            <Text style={styles.title}>{room.name}</Text>
+            <RoomFacilityContainer details={room} />
+            <Text style={styles.text}>{TODAY_MEETING}</Text>
+
+            {updatedMeetings.length > 0 ? (
+              roomMeetings
+            ) : (
+              <View style={styles.fallback}>
+                <Text style={styles.fallBackText}>{NO_UPCOMMING_MEETING}</Text>
+              </View>
+            )}
+          </View>
         </View>
-      )}
-    </View>
-    <View style={styles.wrapper}>
-      <Text style={styles.title}>{room.name}</Text>
-      <RoomFacilityContainer details={room} />
-      <Text style={styles.text}>{TODAY_MEETING}</Text>
-      {roomMeetings}
-    </View>
-  </View>
-        
-         
-     
       ) : (
-        <MeetingsContainer room={room} roomMeetings={ roomMeetings} />
+        <MeetingsContainer room={room} roomMeetings={roomMeetings} />
       )}
     </>
   );
 };
 const styles = StyleSheet.create({
- 
   fullContainer: {
     flex: 1,
   },
@@ -93,6 +106,19 @@ const styles = StyleSheet.create({
     width: '50%',
     margin: 20,
     textAlign: 'center',
+  },
+  fallBackText: {
+    fontSize: 20,
+    color: COLORS.white,
+    fontWeight: '600',
+  },
+  fallback: {
+    height: '20%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.transparent,
+    width: '90%',
+    alignSelf: 'center',
   },
   box: {
     width: '100%',
@@ -108,10 +134,9 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     flex: 1,
-    justifyContent: 'center',
+    // justifyContent: 'center',
     padding: 20,
     margin: 20,
-  
   },
   innerWrapper: {},
   meetingWrapper: {
@@ -132,7 +157,7 @@ const styles = StyleSheet.create({
     margin: 10,
     fontWeight: '600',
   },
- 
+
   meetingTitle: {
     color: COLORS.white,
     fontSize: 31,
@@ -145,7 +170,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: COLORS.primaryDark,
-    fontSize: 17,
-    margin: 10,
+    fontSize: 20,
+    fontWeight: '600',
+    marginVertical: 20,
   },
 });

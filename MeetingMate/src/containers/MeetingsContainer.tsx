@@ -1,16 +1,25 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import ScreenHeader from '../components/ScreenHeader';
-import {TODAY_MEETING} from '../messages/appMessage';
+import {AVAILABLITY, TODAY_MEETING} from '../messages/appMessage';
 import RoomFacilityContainer from './RoomFacilityContainer';
 import {COLORS} from '../utils/colors';
+import Tag from '../components/Tag';
 
 export default function MeetingsContainer({room, roomMeetings}) {
   return (
     <>
       <ScreenHeader style={'transparentWrapper'} iconStyle={'darkIcon'} />
       <View style={styles.container}>
-        <Image source={{uri: room.roomImg}} style={styles.img} />
+        <View style={styles.imgWrapper}>
+          <Image source={{uri: room.roomImg}} style={styles.img} />
+
+          <Tag
+            text={room.availability ? AVAILABLITY.AVAILABLE : AVAILABLITY.BUSY}
+            textStyle={room.availability ? 'greenText' : 'redText'}
+            indicatorStyle={room.availability ? 'greenRound' : 'redRound'}
+          />
+        </View>
         <View>
           <Text style={styles.roomtitle}>{room.name}</Text>
           <RoomFacilityContainer details={room} />
@@ -41,8 +50,11 @@ const styles = StyleSheet.create({
   },
   img: {
     width: '100%',
-    height: '20%',
+    height: 180,
     alignSelf: 'center',
     borderRadius: 5,
+  },
+  imgWrapper: {
+    position: 'relative',
   },
 });

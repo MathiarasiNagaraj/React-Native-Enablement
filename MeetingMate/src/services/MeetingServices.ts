@@ -24,12 +24,10 @@ export const addNewMeeting = async (collection: string, data: Meetings) => {
  * @param id room Id
  * @param status availablity status
  */
-export const updateRoomStatus = async (id: string, status: boolean) => {
+export const updateMeetingRoomStatus = async (id: string, status: boolean) => {
   try {
-    await firestore()
-      .collection(COLLECTIONS.Rooms)
-      .doc(id)
-      .set({availablity: status});
+    const room = firestore().collection(COLLECTIONS.Rooms).doc(id);
+    await room.update({availability: status});
   } catch (error) {
     throw error;
   }
@@ -74,6 +72,31 @@ export const readUpcomingMeetingsByOrganizerId = async (
  * @description Function for reading all meetings
  * @returns list of all meeting current day
  */
+export const readAllUpcomingMeetings = async (): Promise<Meetings[]> => {
+  try {
+    const snapshot = await firestore().collection(COLLECTIONS.Meetings).get();
+    const documents: Meetings[] = [];
+    const now = new Date();
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      if (data.end.toDate() >= now)
+      documents.push({
+        id: doc.id,
+        start: doc.data().start.toDate(),
+        end: doc.data().end.toDate(),
+        roomId: doc.data().roomId,
+        organizerId: doc.data().organizerId,
+        title: doc.data().title,
+        membersIdList: doc.data().membersIdList,
+        showMeetingTitle: doc.data().membersIdList,
+      });
+    });
+    return documents;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export const readAllMeetings = async (): Promise<Meetings[]> => {
   try {
     const snapshot = await firestore().collection(COLLECTIONS.Meetings).get();
@@ -102,36 +125,31 @@ export const readAllMeetings = async (): Promise<Meetings[]> => {
  * @returns list of rooms for particular branch
  */
 
+export const readAllRooms = async (): Promise<Rooms[]> => {
+  try {
+    const snapshot = await firestore().collection(COLLECTIONS.Rooms).get();
 
-export const readAllRooms = async ():
-  Promise<Rooms[]> => {
-    try {
-      const snapshot = await firestore()
-        .collection(COLLECTIONS.Rooms)
-        .get();
-  
-      const documents: Rooms[] = [];
-      snapshot.forEach(doc => {
-        return documents.push({
-          id: doc.id,
-          name: doc.data().name,
-          maxLimit: doc.data().maxLimit,
-          monitorAvailability: doc.data().monitorAvailability,
-          boardAvailability: doc.data().boardAvailability,
-          branch: doc.data().branch,
-          location: doc.data().location,
-          availability: doc.data().availability,
-          roomImg: doc.data().roomImg,
-          wifiName: doc.data().wifiName,
-        });
+    const documents: Rooms[] = [];
+    snapshot.forEach(doc => {
+      return documents.push({
+        id: doc.id,
+        name: doc.data().name,
+        maxLimit: doc.data().maxLimit,
+        monitorAvailability: doc.data().monitorAvailability,
+        boardAvailability: doc.data().boardAvailability,
+        branch: doc.data().branch,
+        location: doc.data().location,
+        availability: doc.data().availability,
+        roomImg: doc.data().roomImg,
+        wifiName: doc.data().wifiName,
       });
-  
-      return documents;
-    } catch (error) {
-      throw error;
-    }
-  };
-    
+    });
+
+    return documents;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const readAllRoomsByBranch = async (
   branch: string,
@@ -170,15 +188,15 @@ export const readAllPreviousMeetingByUser = async (userId: string) => {
       .collection(COLLECTIONS.Meetings)
       .where('organizerId', '==', userId)
       .get();
-    const currentDate = new Date();
+    const now = new Date();
     const documents: Meetings[] = [];
     snapshot.forEach(doc => {
       const data = doc.data();
       if (
-        data.end < currentDate &&
-        data.end.toDate().getDate() === currentDate.getDate()
-      ) {
-        return documents.push({
+        data.end.toDate() < now &&
+        data.end.toDate().getDate() == now.getDate()
+      )
+        documents.push({
           id: doc.id,
           start: data.start.toDate(),
           end: data.end.toDate(),
@@ -188,7 +206,6 @@ export const readAllPreviousMeetingByUser = async (userId: string) => {
           membersIdList: data.membersIdList,
           showMeetingTitle: data.showMeetingTitle,
         });
-      }
     });
 
     return documents;

@@ -67,6 +67,7 @@ export const Form: React.FC<FormProps> = ({formDetails, onSubmit}) => {
       onSubmit({...formData, id: formDetails.meetingId});
     } else {
       onSubmit(formData);
+      
     }
   };
 

@@ -158,6 +158,7 @@ export const ROOM_BOOKING_FORM = (roomId: string, organizerId: string) => ({
       type: 'checkBox',
       style: 'checkBox',
       width: 'full',
+      value:false
     },
     {
       label: 'Meeting Organizer',

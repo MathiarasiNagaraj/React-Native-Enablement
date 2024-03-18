@@ -27,8 +27,18 @@ export const RoomDetails: React.FC<RoomDetailsProps> = ({ details, style }) => {
   return (
    
     <View style={styles[style]}>
-       <Pressable onPress={()=>onViewScheduleHandler()}>
-      <Image source={{uri: details.roomImg}} style={styles.cardImg} />
+      <Pressable onPress={() => onViewScheduleHandler()}>
+        <View style={styles.imgContainer}>
+          <Image source={{ uri: details.roomImg }} style={styles.cardImg} />
+          <Tag
+            text={
+              details.availability ? AVAILABLITY.AVAILABLE : AVAILABLITY.BUSY
+            }
+            textStyle={details.availability ? 'greenText' : 'redText'}
+            indicatorStyle={details.availability ? 'greenRound' : 'redRound'}
+          />
+
+          </View>
       <View style={styles.cardContentWrapper}>
         <Text style={styles.cardTitle}>{details.name}</Text>
         <IconText
@@ -39,14 +49,7 @@ export const RoomDetails: React.FC<RoomDetailsProps> = ({ details, style }) => {
         iconColor={COLORS.primaryDark}
         iconSize={24}
       />
-        <Tag
-            text={
-              details.availability ? AVAILABLITY.AVAILABLE : AVAILABLITY.BUSY
-            }
-            textStyle={details.availability ? 'greenText' : 'redText'}
-            indicatorStyle={details.availability ? 'greenRound' : 'redRound'}
-          />
-
+      
 
         <Button
           buttonDetails={BUTTONS.moreInfo}
@@ -61,7 +64,7 @@ const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: COLORS.white,
     width: 300,
-    height: '98%',
+    height:300,
     borderRadius: 10,
     elevation: 10,
     marginBottom: 40,
@@ -71,12 +74,13 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     width: '90%',
     alignSelf: 'center',
+    justifyContent:'flex-start',
     borderRadius: 10,
-    height: 280,
+    height: 310,
   },
   cardTitle: {
     width: '95%',
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '700',
     color: COLORS.primaryDark,
     paddingRight: 20,
@@ -88,7 +92,7 @@ const styles = StyleSheet.create({
 },
   cardImg: {
     width: '100%',
-    height: '53%',
+    height:170,
     alignSelf: 'center',
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,
@@ -101,7 +105,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
   },
-
+  imgContainer: {
+    position:'relative'
+  },
   statusBox: {
     position: 'absolute',
     top: -40,

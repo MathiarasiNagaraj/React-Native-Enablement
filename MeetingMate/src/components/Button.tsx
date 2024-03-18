@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     shadowRadius: 20,
     shadowOpacity: 3,
     alignSelf: 'center',
+
   },
   secondaryBtn: {
     backgroundColor: COLORS.primaryDark,
@@ -64,6 +65,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     elevation: 5,
+    marginVertical:8
   },
   tertiaryBtn: {
     backgroundColor: COLORS.primaryLight,

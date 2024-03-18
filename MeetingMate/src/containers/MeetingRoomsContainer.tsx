@@ -1,12 +1,14 @@
 import React, {useEffect} from 'react';
-import {FlatList, View} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 import {useRecoilState} from 'recoil';
 import {RoomDetails} from '../components/RoomDetailCard';
 import {INTERVAL} from '../constants/appConstant';
 import {useTimeInterval} from '../hooks/useTimeInterval';
 import {Meetings, Rooms} from '../interfaces/commonInterface';
+import { updateMeetingRoomStatus } from '../services/MeetingServices';
 import {Meeting} from '../store/atom/meetingAtom';
 import {Room} from '../store/atom/roomAtom';
+import {COLORS} from '../utils/colors';
 
 interface MeetingRoomsProps {
   isHorizontal: boolean;
@@ -23,16 +25,14 @@ export const MeetingRooms: React.FC<MeetingRoomsProps> = ({
   isHorizontal,
   style,
 }) => {
-  
   const [rooms, setRooms] = useRecoilState<Rooms[]>(Room);
   const [meetings, setMeetings] = useRecoilState<Meetings[]>(Meeting);
 
-
-
   //function for updating room availablity status
   const updateRoomStatus = () => {
+
     meetings.length > 0 &&
-      meetings?.forEach((meeting: Meetings) => {
+      meetings?.forEach(async (meeting: Meetings) => {
         const startTime = new Date(meeting?.start);
         const endTime = new Date(meeting?.end);
         const currentTime = new Date();
@@ -56,6 +56,7 @@ export const MeetingRooms: React.FC<MeetingRoomsProps> = ({
               );
             }
           } else if (room.availability !== true) {
+  
             const updatedRoom = {...room, availability: true};
             setRooms((prevRooms: Rooms[]) =>
               prevRooms.map(prevRoom =>
@@ -79,12 +80,12 @@ export const MeetingRooms: React.FC<MeetingRoomsProps> = ({
       horizontal={isHorizontal}
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={
-        
+      contentContainerStyle={[
+        styles.container,
         isHorizontal
-          ? {paddingHorizontal: 30, marginBottom: 20,height:'100%'}
-          : {paddingVertical: 20, marginBottom: 40}
-      }
+          ? {paddingHorizontal: 30, marginBottom: 20}
+          : {paddingVertical: 20, marginBottom: 0},
+      ]}
       ItemSeparatorComponent={() => (
         <View style={isHorizontal ? {width: 15} : {height: 15}} />
       )}
@@ -96,3 +97,8 @@ export const MeetingRooms: React.FC<MeetingRoomsProps> = ({
     />
   );
 };
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
