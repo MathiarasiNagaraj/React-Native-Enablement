@@ -11,7 +11,7 @@ import {COLORS} from '../utils/colors';
 
 interface ButtonDetailsProps {
   style: keyof typeof styles;
-  textStyle: keyof typeof styles;
+  textStyle: keyof typeof textStyles;
   name: string;
 }
 interface ButtonProps {
@@ -21,30 +21,39 @@ interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({buttonDetails, onPress}) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles[buttonDetails.style] }>
-      <Text style={styles[buttonDetails.textStyle]}>{buttonDetails.name}</Text>
+    <TouchableOpacity onPress={onPress} style={styles[`${buttonDetails.style}`]}>
+      <Text style={textStyles[buttonDetails.textStyle]}>
+        {buttonDetails.name}
+      </Text>
     </TouchableOpacity>
   );
 };
 
 export default Button;
 
-const styles = StyleSheet.create({
+const textStyles = StyleSheet.create({
+  whiteText: {
+    fontSize: 15,
+    textAlign: 'center',
+    fontWeight: '500',
+    color: COLORS.white,
+  },
   whiteBoldText: {
     fontSize: 18,
     fontWeight: '600',
     color: COLORS.white,
     textAlign: 'center',
   },
-
-  primaryBtn: {
+});
+const styles = StyleSheet.create({
+  primaryButton: {
     width: '100%',
     padding: 20,
     backgroundColor: COLORS.primaryDark,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  roundedPrimaryBtn: {
+  roundedPrimaryButton: {
     width: '100%',
     elevation: 5,
     height: 50,
@@ -55,9 +64,8 @@ const styles = StyleSheet.create({
     shadowRadius: 20,
     shadowOpacity: 3,
     alignSelf: 'center',
-
   },
-  secondaryBtn: {
+  secondaryButton: {
     backgroundColor: COLORS.primaryDark,
     padding: 8,
     width: '100%',
@@ -65,9 +73,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     elevation: 5,
-    marginVertical:8
+    marginVertical: 8,
   },
-  tertiaryBtn: {
+  tertiaryButton: {
     backgroundColor: COLORS.primaryLight,
     padding: 8,
     paddingHorizontal: 13,
@@ -76,13 +84,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
 
-  whiteText: {
-    fontSize: 15,
-    textAlign: 'center',
-    fontWeight: '500',
-    color: COLORS.white,
-  },
-  dangerBtn: {
+  dangerButton: {
     backgroundColor: COLORS.red,
     padding: 10,
     paddingHorizontal: 16,
@@ -90,7 +92,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: 14,
   },
-  cancelBtn: {
+  cancelButton: {
     backgroundColor: COLORS.greyShadePrimary,
     padding: 10,
     paddingHorizontal: 16,
@@ -98,14 +100,14 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: 14,
   },
-  updateBtn: {
+  updateButton: {
     padding: 10,
     borderRadius: 10,
     backgroundColor: COLORS.transparent,
     fontWeight: '500',
     fontSize: 14,
   },
-  deleteBtn: {
+  deleteButton: {
     padding: 10,
     borderRadius: 10,
   },

@@ -3,6 +3,9 @@ import React from 'react'
 import { TITLE, VIEW_ALL } from '../messages/appMessage'
 import { COLORS } from '../utils/colors'
 
+
+
+
 export default function ContainerHeader({title,onViewAllHandler}) {
   return (
     <View style={styles.wrapper}>

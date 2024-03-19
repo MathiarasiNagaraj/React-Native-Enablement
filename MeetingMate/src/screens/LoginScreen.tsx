@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   formContainer: {
-    maxWidth: '90%',
+    maxWidth: '100%',
     width: 500,
     alignSelf: 'center',
     alignItems: 'center',

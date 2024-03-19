@@ -5,10 +5,8 @@ import {RoomDetails} from '../components/RoomDetailCard';
 import {INTERVAL} from '../constants/appConstant';
 import {useTimeInterval} from '../hooks/useTimeInterval';
 import {Meetings, Rooms} from '../interfaces/commonInterface';
-import { updateMeetingRoomStatus } from '../services/MeetingServices';
 import {Meeting} from '../store/atom/meetingAtom';
 import {Room} from '../store/atom/roomAtom';
-import {COLORS} from '../utils/colors';
 
 interface MeetingRoomsProps {
   isHorizontal: boolean;
