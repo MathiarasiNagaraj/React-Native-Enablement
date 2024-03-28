@@ -1,6 +1,6 @@
 import {useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useRecoilState} from 'recoil';
 import {MeetingCard} from '../components/MeetingCard';
 import {
@@ -67,7 +67,8 @@ export const RoomBookingScreen = () => {
               styles.sideBox,
               {backgroundColor: room.availability ? COLORS.green : COLORS.red},
             ]}>
-            <QRCode size={200} value={room.id} />
+       
+            {/* <QRCode size={200} value={room.id} /> */}
             {room.availability ? (
               <Text style={styles.availableText}>{AVAILABLE}</Text>
             ) : (
@@ -75,7 +76,10 @@ export const RoomBookingScreen = () => {
                 <Text style={styles.meetingTitle}>{currentMeeting.title}</Text>
                 <Text style={styles.meetingText}>
                   {ORGANIZED_BY(currentMeeting.organizer)}
-                </Text>
+                  </Text>
+                  <TouchableOpacity style={styles.bookbtn}>
+              <Text style={styles.booktext}>Book now</Text>
+            </TouchableOpacity>
               </View>
             )}
           </View>
@@ -86,7 +90,11 @@ export const RoomBookingScreen = () => {
           />
         </View>
       ) : (
-          <MeetingsContainer room={room} roomMeetings={roomMeetings} flag={ updatedMeetings.length > 0} />
+        <MeetingsContainer
+          room={room}
+          roomMeetings={roomMeetings}
+          flag={updatedMeetings.length > 0}
+        />
       )}
     </>
   );
@@ -107,6 +115,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: COLORS.primaryDark,
     fontWeight: '600',
+  },
+  bookbtn: {
+    backgroundColor: COLORS.white,
+    borderRadius: 10,
+    width:100
+  },
+  booktext: {
+    fontSize:20
   },
   fallback: {
     height: '20%',

@@ -121,7 +121,7 @@ export const LoginScreen = () => {
       });
     }
   };
-  const myImage = require('../assets/images/logo.png');
+  const myImage = require('../assets/images/Logo.png');
   return (
     <LinearGradientContainer>
       <View style={commonStyle.container}>

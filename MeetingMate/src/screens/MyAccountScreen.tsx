@@ -79,6 +79,7 @@ export const MyAccountScreen = () => {
       if (image.path) {
         try {
           await storage().ref(user.id).putFile(image.path);
+
           setImgUrl(image.path);
           const modifiedUser = {...user, imgUrl: image.path};
           await storeLocalData(ASYNC_STORE_KEY.USER, modifiedUser);

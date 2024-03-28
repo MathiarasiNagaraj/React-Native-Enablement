@@ -64,67 +64,67 @@ export const GEO_LOCATION = [
 export const BUTTONS = {
   loginBtn: {
     name: 'Login',
-    style: 'roundedPrimaryBtn',
+    style: 'roundedPrimaryButton',
     textStyle: 'whiteBoldText',
   },
   bookRoomFormBtn: {
     name: 'Book Now',
-    style: 'roundedPrimaryBtn',
+    style: 'roundedPrimaryButton',
     textStyle: 'whiteBoldText',
   },
   bookRoomBtn: {
     name: 'Book a Slot',
-    style: 'primaryBtn',
+    style: 'primaryButton',
     textStyle: 'whiteBoldText',
   },
   moreInfo: {
     name: 'More Info',
-    style: 'secondaryBtn',
+    style: 'secondaryButton',
     textStyle: 'whiteBoldText',
   },
   scanNow: {
     name: 'Scan Now',
-    style: 'roundedPrimaryBtn',
+    style: 'roundedPrimaryButton',
     textStyle: 'whiteBoldText',
   },
   roundBtn: {
     name: '+',
-    style: 'roundPrimaryBtn',
+    style: 'roundPrimaryButton',
     textStyle: 'whiteBoldText',
   },
   editBtn: {
     name: 'Edit Booking',
-    style: 'tertiaryBtn',
+    style: 'tertiaryButton',
     textStyle: 'whiteText',
   },
   deleteBtn: {
     name: 'Delete Booking',
-    style: 'dangerBtn',
+    style: 'dangerButton',
     textStyle: 'whiteText',
   },
   cancelBtn: {
     name: 'Cancel Booking',
-    style: 'cancelBtn',
+    style: 'cancelButton',
     textStyle: 'whiteText',
   },
   updateBtn: {
     name: 'Update Meeting',
-    style: 'secondaryBtn',
+    style: 'secondaryButton',
     textStyle: 'whiteText',
   },
   logoutBtn: {
     name: 'Logout',
-    style: 'tertiaryBtn',
+    style: 'tertiaryButton',
     textStyle: 'whiteText',
   },
   editProfileBtn: {
     name: 'Edit Profile',
-    style: 'tertiaryBtn',
+    style: 'tertiaryButton',
     textStyle: 'whiteText',
   },
   updateProfileBtn: {
     name: 'Update Profile',
-    style: 'secondaryBtn',
+    style: 'secondaryButton',
     textStyle: 'whiteText',
   },
 };

@@ -97,6 +97,6 @@ export const MeetingRooms: React.FC<MeetingRoomsProps> = ({
 };
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
   },
 });

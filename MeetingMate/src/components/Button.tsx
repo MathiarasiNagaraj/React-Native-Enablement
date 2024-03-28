@@ -21,7 +21,7 @@ interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({buttonDetails, onPress}) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles[`${buttonDetails.style}`]}>
+    <TouchableOpacity onPress={onPress} style={styles[buttonDetails.style]}>
       <Text style={textStyles[buttonDetails.textStyle]}>
         {buttonDetails.name}
       </Text>

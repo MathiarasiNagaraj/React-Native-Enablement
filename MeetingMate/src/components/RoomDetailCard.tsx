@@ -64,9 +64,9 @@ const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: COLORS.white,
     width: 300,
-    height:300,
+    height:240,
     borderRadius: 10,
-    elevation: 10,
+    elevation: 5,
     marginBottom: 40,
   },
   cardFullContainer: {
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
 },
   cardImg: {
     width: '100%',
-    height:170,
+    height:110,
     alignSelf: 'center',
     borderTopRightRadius: 10,
     borderTopLeftRadius: 10,

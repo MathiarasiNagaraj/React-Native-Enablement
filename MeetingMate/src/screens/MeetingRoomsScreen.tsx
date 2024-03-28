@@ -12,6 +12,7 @@ export const MeetingRoomsScreen = () => {
         style={'wrapper'}
         iconStyle={'icon'}
       />
+      
       <MeetingRooms isHorizontal={false} style={'cardFullContainer'} />
     </LinearGradientContainer>
   );

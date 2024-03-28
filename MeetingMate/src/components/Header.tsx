@@ -40,7 +40,7 @@ export const Header = () => {
     navigation.navigate(SCREEN_NAMES.MY_ACCOUNT, {});
   };
 
-  const myImage = require('../assets/images/logo.png');
+  const myImage = require('../assets/images/Logo.png');
 
   return (
     <View style={styles.wrapper}>
